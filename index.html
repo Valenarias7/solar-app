@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Solar Pro · Chile & Latinoamérica</title>
+<title>Solar Pro · Prefactibilidad Fotovoltaica</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
-:root {
+:root{
   --bg:#060c14;--bg2:#0a1220;--sun:#f5c518;--sun2:#ff8c00;
   --green:#00e5a0;--blue:#38bdf8;--purple:#c084fc;--red:#ff4d6d;
   --card:rgba(255,255,255,0.03);--border:rgba(255,255,255,0.07);
@@ -14,107 +14,127 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;}
-body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(245,197,24,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(245,197,24,0.025) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:0;}
-body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 70% 50% at 50% -5%,rgba(245,197,24,0.07) 0%,transparent 65%);pointer-events:none;z-index:0;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(245,197,24,0.022) 1px,transparent 1px),linear-gradient(90deg,rgba(245,197,24,0.022) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:0;}
+body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 70% 50% at 50% -5%,rgba(245,197,24,0.06) 0%,transparent 65%);pointer-events:none;z-index:0;}
 
-header{position:relative;z-index:10;padding:1.2rem 2rem;border-bottom:1px solid rgba(245,197,24,0.1);display:flex;align-items:center;gap:1rem;background:rgba(6,12,20,0.85);backdrop-filter:blur(16px);}
-.logo{width:40px;height:40px;background:conic-gradient(from 0deg,#f5c518,#ff8c00,#f5c518);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 0 20px rgba(245,197,24,0.3);flex-shrink:0;}
-h1{font-family:'Syne',sans-serif;font-size:clamp(1rem,2.5vw,1.5rem);font-weight:800;color:#fff;letter-spacing:-0.02em;}
+header{position:relative;z-index:10;padding:1rem 1.5rem;border-bottom:1px solid rgba(245,197,24,0.1);display:flex;align-items:center;gap:1rem;background:rgba(6,12,20,0.88);backdrop-filter:blur(16px);}
+.logo{width:38px;height:38px;background:conic-gradient(from 0deg,#f5c518,#ff8c00,#f5c518);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;box-shadow:0 0 18px rgba(245,197,24,0.3);flex-shrink:0;}
+h1{font-family:'Syne',sans-serif;font-size:clamp(1rem,2.2vw,1.4rem);font-weight:800;color:#fff;letter-spacing:-0.02em;}
 h1 span{color:var(--sun);}
-.subtitle{font-size:0.65rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;}
-.ai-badge{margin-left:auto;background:rgba(0,229,160,0.08);border:1px solid rgba(0,229,160,0.2);color:var(--green);padding:0.25rem 0.7rem;border-radius:20px;font-size:0.65rem;letter-spacing:0.08em;white-space:nowrap;}
+.subtitle{font-size:0.62rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;}
+.ai-badge{margin-left:auto;background:rgba(0,229,160,0.08);border:1px solid rgba(0,229,160,0.2);color:var(--green);padding:0.22rem 0.65rem;border-radius:20px;font-size:0.62rem;letter-spacing:0.08em;white-space:nowrap;}
 
-nav{position:relative;z-index:10;display:flex;overflow-x:auto;border-bottom:1px solid rgba(255,255,255,0.05);background:rgba(0,0,0,0.25);padding:0 1.5rem;}
-.tab-btn{padding:0.8rem 1.1rem;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.78rem;letter-spacing:0.04em;transition:all 0.2s;white-space:nowrap;}
+nav{position:relative;z-index:10;display:flex;overflow-x:auto;border-bottom:1px solid rgba(255,255,255,0.05);background:rgba(0,0,0,0.2);padding:0 1.5rem;}
+nav::-webkit-scrollbar{height:2px;}nav::-webkit-scrollbar-thumb{background:rgba(245,197,24,0.2);}
+.tab-btn{padding:0.75rem 1rem;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.76rem;letter-spacing:0.04em;transition:all 0.2s;white-space:nowrap;}
 .tab-btn.active{color:var(--sun);border-bottom-color:var(--sun);}
 
-main{position:relative;z-index:5;max-width:1000px;margin:0 auto;padding:1.5rem 2rem;}
+main{position:relative;z-index:5;max-width:1020px;margin:0 auto;padding:1.5rem;}
 
-/* Cards */
-.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.1rem;}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
-.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:0.9rem;}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem;}
 
-label{display:block;font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.45rem;}
-input,select{width:100%;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.09);border-radius:6px;padding:0.6rem 0.8rem;color:var(--text);font-size:0.85rem;font-family:inherit;outline:none;transition:border-color 0.2s;}
-input:focus,select:focus{border-color:rgba(245,197,24,0.35);}
-.hint{display:block;font-size:0.65rem;color:#2a3d50;margin-top:0.3rem;}
+label{display:block;font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.4rem;}
+input,select{width:100%;background:rgba(0,0,0,0.38);border:1px solid rgba(255,255,255,0.09);border-radius:6px;padding:0.55rem 0.75rem;color:var(--text);font-size:0.83rem;font-family:inherit;outline:none;transition:border-color 0.2s;}
+input:focus,select:focus{border-color:rgba(245,197,24,0.32);}
+.hint{display:block;font-size:0.62rem;color:#2a3d50;margin-top:0.28rem;}
 
-.sec-title{font-family:'Syne',sans-serif;font-size:0.65rem;font-weight:700;color:var(--sun);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:0.9rem;display:flex;align-items:center;gap:0.5rem;}
+.sec-title{font-family:'Syne',sans-serif;font-size:0.62rem;font-weight:700;color:var(--sun);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:0.85rem;display:flex;align-items:center;gap:0.5rem;}
 .sec-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(245,197,24,0.15),transparent);}
 
-.btn-primary{width:100%;padding:1rem;background:linear-gradient(135deg,var(--sun),var(--sun2));border:none;border-radius:8px;color:#060c14;font-family:'Syne',sans-serif;font-size:0.88rem;font-weight:800;letter-spacing:0.07em;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 24px rgba(245,197,24,0.22);transition:all 0.2s;}
-.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 30px rgba(245,197,24,0.32);}
-.btn-primary:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
+.btn-primary{width:100%;padding:0.95rem;background:linear-gradient(135deg,var(--sun),var(--sun2));border:none;border-radius:8px;color:#060c14;font-family:'Syne',sans-serif;font-size:0.85rem;font-weight:800;letter-spacing:0.07em;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 22px rgba(245,197,24,0.2);transition:all 0.2s;}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 28px rgba(245,197,24,0.3);}
+.btn-primary:disabled{opacity:0.38;cursor:not-allowed;transform:none;}
+.btn-sm{padding:0.38rem 0.85rem;border-radius:6px;cursor:pointer;font-size:0.72rem;font-family:inherit;border:none;transition:all 0.18s;}
+.btn-outline{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:var(--text);}
+.btn-outline:hover{background:rgba(255,255,255,0.07);}
+.btn-active{background:rgba(245,197,24,0.14);border:1px solid rgba(245,197,24,0.38);color:var(--sun);}
+.btn-danger{background:rgba(255,77,109,0.1);border:1px solid rgba(255,77,109,0.28);color:#ff8fa3;}
+.btn-success{background:rgba(0,229,160,0.1);border:1px solid rgba(0,229,160,0.28);color:var(--green);}
 
-.tipo-btn{flex:1;padding:0.75rem;border-radius:8px;cursor:pointer;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.02);color:var(--muted);font-family:inherit;font-size:0.82rem;transition:all 0.22s;}
+.tipo-btn{flex:1;padding:0.7rem;border-radius:8px;cursor:pointer;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.02);color:var(--muted);font-family:inherit;font-size:0.8rem;transition:all 0.22s;}
 .tipo-btn.active{background:rgba(245,197,24,0.1);border-color:rgba(245,197,24,0.35);color:var(--sun);}
 
-/* Metric cards */
-.metric{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:0.9rem;text-align:center;}
-.metric .lbl{font-size:0.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.35rem;}
-.metric .val{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;}
-.metric .sub{font-size:0.62rem;color:#2a3d50;margin-top:0.2rem;}
+/* MAP */
+#map-wrap{position:relative;width:100%;height:460px;border-radius:10px;overflow:hidden;border:1px solid var(--border);margin-bottom:0.7rem;}
+#map{width:100%;height:100%;}
+.map-toolbar{position:absolute;top:10px;left:10px;right:10px;z-index:100;display:flex;gap:0.4rem;flex-wrap:wrap;pointer-events:none;}
+.map-toolbar>*{pointer-events:all;}
+.map-chip{background:rgba(6,12,20,0.9);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:0.28rem 0.65rem;font-size:0.68rem;color:var(--text);backdrop-filter:blur(8px);}
+.map-chip.active{border-color:rgba(245,197,24,0.45);color:var(--sun);}
 
-/* Bar chart */
-.bar-chart{display:flex;align-items:flex-end;gap:4px;height:80px;margin-top:0.5rem;}
-.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;}
-.bar-fill{width:100%;border-radius:3px 3px 0 0;transition:height 0.8s ease;min-height:2px;}
-.bar-label{font-size:0.52rem;color:var(--muted);}
-.bar-val{font-size:0.52rem;color:var(--text);}
+/* ANGLE DISPLAY */
+.angle-box{background:rgba(245,197,24,0.06);border:1px solid rgba(245,197,24,0.18);border-radius:8px;padding:0.75rem 1rem;display:flex;align-items:center;gap:1rem;margin-top:0.7rem;}
+.angle-big{font-family:'Syne',sans-serif;font-size:2rem;color:var(--sun);min-width:60px;}
 
-/* Panel layout canvas */
-#layout-canvas{border:1px solid var(--border);border-radius:8px;width:100%;display:block;}
+/* SEARCH */
+.search-row{display:flex;gap:0.5rem;margin-bottom:0.65rem;position:relative;}
+.search-row input{flex:1;}
+#autocomplete-dropdown{position:absolute;top:100%;left:0;width:calc(100% - 80px);background:#0a1220;border:1px solid rgba(255,255,255,0.1);border-radius:6px;z-index:200;max-height:180px;overflow-y:auto;box-shadow:0 8px 24px rgba(0,0,0,0.5);display:none;}
+.ac-item{padding:0.55rem 0.85rem;cursor:pointer;font-size:0.78rem;color:var(--text);border-bottom:1px solid rgba(255,255,255,0.04);}
+.ac-item:hover{background:rgba(245,197,24,0.08);}
 
-/* Panel comparison cards */
-.panel-opt{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;position:relative;transition:all 0.2s;cursor:default;}
-.panel-opt.recommended{border-color:rgba(245,197,24,0.4);background:rgba(245,197,24,0.04);}
-.panel-opt .rec-tag{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--sun);color:#060c14;font-family:'Syne',sans-serif;font-size:0.58rem;font-weight:800;padding:0.15rem 0.6rem;border-radius:10px;letter-spacing:0.08em;white-space:nowrap;}
-
-/* Wind rose */
-.wind-rose{position:relative;width:120px;height:120px;margin:0 auto;}
-.wind-rose svg{width:100%;height:100%;}
-
-/* ROI bar */
-.roi-track{height:6px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;margin:0.4rem 0;}
+/* RESULTS metrics */
+.metric{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:0.85rem;text-align:center;}
+.metric .lbl{font-size:0.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.3rem;}
+.metric .val{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;}
+.metric .sub{font-size:0.6rem;color:#2a3d50;margin-top:0.18rem;}
+.roi-track{height:5px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;margin:0.35rem 0;}
 .roi-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--sun),var(--sun2));transition:width 1s ease;}
 
-/* Upload zones */
-.upload-zone{border:1px dashed rgba(245,197,24,0.2);border-radius:10px;padding:1.5rem;text-align:center;cursor:pointer;transition:all 0.22s;background:rgba(245,197,24,0.015);position:relative;overflow:hidden;}
-.upload-zone:hover,.upload-zone.drag-over{border-color:rgba(245,197,24,0.45);background:rgba(245,197,24,0.04);}
-.upload-zone.loaded{border-color:rgba(0,229,160,0.35);background:rgba(0,229,160,0.03);}
-.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+/* PANEL OPTIONS */
+.panel-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:0.9rem;position:relative;transition:all 0.2s;cursor:pointer;}
+.panel-card.selected{border-color:rgba(245,197,24,0.45);background:rgba(245,197,24,0.04);}
+.panel-card .rec-badge{position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:var(--sun);color:#060c14;font-family:'Syne',sans-serif;font-size:0.55rem;font-weight:800;padding:0.12rem 0.55rem;border-radius:10px;white-space:nowrap;}
+.pr{display:flex;justify-content:space-between;padding:0.22rem 0;border-bottom:1px solid rgba(255,255,255,0.035);font-size:0.7rem;}
+.pr span:first-child{color:var(--muted);}
 
-/* Loading */
-.loading-bar{height:2px;background:linear-gradient(90deg,transparent,var(--sun),transparent);background-size:200% 100%;border-radius:2px;margin-bottom:1rem;display:none;animation:shimmer 1.5s infinite;}
+/* CANVAS layout */
+#layout-section{display:none;}
+#layout-canvas{width:100%;border-radius:8px;border:1px solid var(--border);display:block;}
+
+/* SHADOW heatmap */
+#shadow-section{display:none;}
+#shadow-canvas{width:100%;border-radius:8px;border:1px solid var(--border);display:block;}
+.hour-slider{accent-color:var(--sun);width:100%;}
+.shadow-legend{display:flex;gap:0.5rem;align-items:center;margin-top:0.4rem;font-size:0.65rem;color:var(--muted);}
+.shadow-legend-bar{height:10px;width:120px;border-radius:3px;background:linear-gradient(90deg,rgba(0,229,160,0.7),rgba(245,197,24,0.7),rgba(255,77,109,0.7));}
+
+/* CLIMATE */
+.bar-chart{display:flex;align-items:flex-end;gap:3px;height:75px;}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;}
+.bar-fill{width:100%;border-radius:2px 2px 0 0;transition:height 0.8s ease;min-height:2px;}
+.bar-lbl{font-size:0.46rem;color:var(--muted);}
+
+/* GLOSARIO */
+.glos-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;}
+.glos-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:0.8rem;cursor:pointer;transition:border-color 0.2s;}
+.glos-card:hover,.glos-card.open{border-color:rgba(245,197,24,0.25);}
+
+/* SESIONES */
+.ses-card{background:var(--card);border-radius:8px;padding:0.85rem 1rem;border-left:3px solid;}
+.tag{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:4px;padding:0.1rem 0.45rem;font-size:0.65rem;color:var(--muted);}
+
+/* AI */
+.upload-zone{border:1px dashed rgba(245,197,24,0.18);border-radius:10px;padding:1.4rem;text-align:center;cursor:pointer;transition:all 0.22s;background:rgba(245,197,24,0.015);position:relative;overflow:hidden;}
+.upload-zone:hover,.upload-zone.drag-over{border-color:rgba(245,197,24,0.42);background:rgba(245,197,24,0.04);}
+.upload-zone.loaded{border-color:rgba(0,229,160,0.32);background:rgba(0,229,160,0.03);}
+.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.loading-bar{height:2px;background:linear-gradient(90deg,transparent,var(--sun),transparent);background-size:200% 100%;border-radius:2px;display:none;animation:shimmer 1.5s infinite;}
 @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
 .loading-bar.active{display:block;}
 .dot{animation:blink 1s infinite;}.dot:nth-child(2){animation-delay:.2s;}.dot:nth-child(3){animation-delay:.4s;}
 @keyframes blink{0%,80%,100%{opacity:0}40%{opacity:1}}
-
-/* Analysis result */
-.rec-box{background:linear-gradient(135deg,rgba(0,229,160,0.04),rgba(245,197,24,0.04));border:1px solid rgba(0,229,160,0.18);border-radius:12px;padding:1.3rem;position:relative;overflow:hidden;}
-.compare-grid-table{display:grid;grid-template-columns:160px 1fr 1fr;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:1rem;}
-.cg-hdr{background:rgba(245,197,24,0.05);padding:0.6rem 0.9rem;font-family:'Syne',sans-serif;font-size:0.68rem;font-weight:700;color:var(--sun);letter-spacing:0.06em;border-bottom:1px solid var(--border);}
-.cg-cell{padding:0.55rem 0.9rem;font-size:0.75rem;border-bottom:1px solid rgba(255,255,255,0.03);border-right:1px solid rgba(255,255,255,0.03);}
-.cg-cell.lbl{color:var(--muted);font-size:0.68rem;background:rgba(0,0,0,0.15);}
+.rec-box{background:linear-gradient(135deg,rgba(0,229,160,0.04),rgba(245,197,24,0.04));border:1px solid rgba(0,229,160,0.18);border-radius:12px;padding:1.2rem;}
+.cg-table{display:grid;grid-template-columns:150px 1fr 1fr;border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:1rem;}
+.cg-hdr{background:rgba(245,197,24,0.05);padding:0.55rem 0.8rem;font-family:'Syne',sans-serif;font-size:0.65rem;font-weight:700;color:var(--sun);letter-spacing:0.06em;border-bottom:1px solid var(--border);}
+.cg-cell{padding:0.48rem 0.8rem;font-size:0.72rem;border-bottom:1px solid rgba(255,255,255,0.025);border-right:1px solid rgba(255,255,255,0.025);}
+.cg-cell.lbl{color:var(--muted);font-size:0.65rem;background:rgba(0,0,0,0.15);}
 .cg-cell.win{color:var(--green);font-weight:600;}
-.win-tag{display:inline-block;background:rgba(0,229,160,0.1);border:1px solid rgba(0,229,160,0.2);color:var(--green);padding:0.05rem 0.35rem;border-radius:3px;font-size:0.58rem;margin-left:0.25rem;}
-
-.warn-box{background:rgba(245,197,24,0.05);border:1px solid rgba(245,197,24,0.12);border-radius:8px;padding:0.8rem 1rem;font-size:0.75rem;color:var(--muted);line-height:1.65;margin-top:0.8rem;}
-
-/* Glosario */
-.glos-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;}
-.glos-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:0.85rem;cursor:pointer;transition:border-color 0.2s;}
-.glos-card:hover{border-color:rgba(245,197,24,0.18);}
-.glos-card.open{border-color:rgba(245,197,24,0.28);}
-
-/* Sesiones */
-.ses-card{background:var(--card);border-radius:8px;padding:0.9rem 1rem;border-left:3px solid;}
-.tag{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:4px;padding:0.12rem 0.5rem;font-size:0.68rem;color:var(--muted);}
-
-.scroll-top{display:none;}
+.win-tag{display:inline-block;background:rgba(0,229,160,0.1);border:1px solid rgba(0,229,160,0.2);color:var(--green);padding:0.04rem 0.3rem;border-radius:3px;font-size:0.56rem;margin-left:0.2rem;}
+.warn-box{background:rgba(245,197,24,0.05);border:1px solid rgba(245,197,24,0.12);border-radius:8px;padding:0.75rem 1rem;font-size:0.72rem;color:var(--muted);line-height:1.65;margin-top:0.8rem;}
 </style>
 </head>
 <body>
@@ -123,715 +143,1090 @@ input:focus,select:focus{border-color:rgba(245,197,24,0.35);}
   <div class="logo">☀</div>
   <div>
     <h1>Solar <span>Pro</span></h1>
-    <div class="subtitle">Prefactibilidad · Optimización · Análisis IA</div>
+    <div class="subtitle">Prefactibilidad · Layout · Sombras · Análisis IA</div>
   </div>
   <div class="ai-badge">✦ Claude AI</div>
 </header>
 
 <nav>
-  <button class="tab-btn active" onclick="showTab('calc')">Calculadora</button>
-  <button class="tab-btn" onclick="showTab('paneles')">Paneles Óptimos</button>
-  <button class="tab-btn" onclick="showTab('clima')">Clima Solar</button>
-  <button class="tab-btn" onclick="showTab('analizador')">Analizador IA</button>
-  <button class="tab-btn" onclick="showTab('glosario')">Glosario</button>
-  <button class="tab-btn" onclick="showTab('sesiones')">Sesiones</button>
+  <button class="tab-btn active" onclick="showTab('mapa')">🗺 Mapa & Techo</button>
+  <button class="tab-btn" onclick="showTab('calc')">📐 Calculadora</button>
+  <button class="tab-btn" onclick="showTab('clima')">🌤 Clima Solar</button>
+  <button class="tab-btn" onclick="showTab('analizador')">🤖 Analizador IA</button>
+  <button class="tab-btn" onclick="showTab('glosario')">📖 Glosario</button>
+  <button class="tab-btn" onclick="showTab('sesiones')">📚 Sesiones</button>
 </nav>
 
 <main>
 
-<!-- ═══════════════ CALCULADORA ═══════════════ -->
-<div id="tab-calc">
-  <div style="display:flex;gap:0.8rem;margin-bottom:1.3rem;">
+<!-- ══════════════════════════════════════════════════════
+     TAB: MAPA & TECHO
+══════════════════════════════════════════════════════ -->
+<div id="tab-mapa">
+
+  <!-- Search + controls -->
+  <div class="card" style="margin-bottom:0.8rem;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.7rem;flex-wrap:wrap;gap:0.5rem;">
+      <div>
+        <div style="font-size:0.75rem;color:var(--sun);font-weight:600;margin-bottom:0.1rem;">📍 Ubicación y Techo</div>
+        <div style="font-size:0.65rem;color:var(--muted);">Busca la dirección → cambia a satélite → dibuja el polígono sobre el techo</div>
+      </div>
+      <div style="display:flex;gap:0.4rem;flex-wrap:wrap;">
+        <button class="btn-sm btn-outline" id="btn-draw" onclick="startDraw()">✏️ Dibujar</button>
+        <button class="btn-sm btn-danger" id="btn-clear" style="display:none" onclick="clearPoly()">🗑 Borrar</button>
+        <button class="btn-sm btn-success" id="btn-confirm" style="display:none" onclick="confirmPoly()">✓ Confirmar</button>
+        <button class="btn-sm btn-outline" id="btn-layout" style="display:none" onclick="generateLayout()">⚡ Ver Layout</button>
+        <button class="btn-sm btn-outline" id="btn-shadows" style="display:none" onclick="generateShadows()">🌑 Sombras</button>
+      </div>
+    </div>
+    <div style="position:relative;">
+      <div class="search-row">
+        <input type="text" id="addr-input" placeholder="Ej: Av. Providencia 1234, Santiago" oninput="onAddrInput()"/>
+        <button class="btn-sm btn-outline" onclick="searchAddr()">Buscar</button>
+      </div>
+      <div id="autocomplete-dropdown"></div>
+    </div>
+    <div id="map-wrap">
+      <div id="map"></div>
+      <div class="map-toolbar">
+        <div class="map-chip" id="chip-mode">Vista satelital</div>
+        <div class="map-chip" id="chip-area" style="display:none"></div>
+        <div class="map-chip" id="chip-orient" style="display:none"></div>
+        <div class="map-chip" id="chip-panels" style="display:none"></div>
+      </div>
+    </div>
+
+    <!-- Ángulo detectado -->
+    <div class="angle-box" id="angle-box" style="display:none;">
+      <div>
+        <div style="font-size:0.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.15rem;">Ángulo estimado</div>
+        <div class="angle-big" id="angle-big">—°</div>
+      </div>
+      <div style="flex:1;font-size:0.72rem;color:var(--muted);line-height:1.6;" id="angle-info"></div>
+      <div>
+        <label>Ajustar</label>
+        <input type="number" id="angle-manual" min="0" max="90" style="width:75px;" oninput="onManualAngle()"/>
+        <span class="hint">grados</span>
+      </div>
+    </div>
+
+    <!-- Ciudad + parámetros -->
+    <div class="grid2" style="margin-top:0.75rem;">
+      <div>
+        <label>Ciudad detectada</label>
+        <select id="map-ciudad" onchange="onMapCiudadChange()">
+          <option value="Arica">Arica (7.5 h)</option><option value="Iquique">Iquique (7.2 h)</option>
+          <option value="Antofagasta">Antofagasta (7.0 h)</option><option value="Calama">Calama (7.4 h)</option>
+          <option value="Copiapó">Copiapó (6.8 h)</option><option value="La Serena">La Serena (6.2 h)</option>
+          <option value="Valparaíso">Valparaíso (5.4 h)</option><option value="Santiago" selected>Santiago (5.8 h)</option>
+          <option value="Rancagua">Rancagua (5.5 h)</option><option value="Concepción">Concepción (4.5 h)</option>
+          <option value="Temuco">Temuco (4.2 h)</option><option value="Puerto Montt">Puerto Montt (3.6 h)</option>
+          <option value="Punta Arenas">Punta Arenas (3.0 h)</option>
+          <option value="Barranquilla">Barranquilla, Col (5.5 h)</option>
+          <option value="Bogotá">Bogotá, Col (4.5 h)</option>
+          <option value="Lima">Lima, Perú (5.2 h)</option>
+        </select>
+        <span class="hint" id="map-ciudad-hint">HSP: 5.8 h/día</span>
+      </div>
+      <div>
+        <label>Potencia de panel</label>
+        <select id="map-panel-wp" onchange="onPanelChange()">
+          <option value="400|1.72|1.02">400 Wp — Estándar (1.72×1.02m)</option>
+          <option value="450|1.76|1.04">450 Wp — Media (1.76×1.04m)</option>
+          <option value="550|2.10|1.05" selected>550 Wp — Alta eficiencia ★ (2.10×1.05m)</option>
+          <option value="600|2.20|1.09">600 Wp — Premium (2.20×1.09m)</option>
+          <option value="670|2.38|1.13">670 Wp — Bifacial (2.38×1.13m)</option>
+        </select>
+        <span class="hint" id="panel-dim-hint">2.10×1.05m · 2.2 m²/panel</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL OPTIONS (3 potencias) -->
+  <div id="panel-options-section" style="display:none;margin-bottom:0.8rem;">
+    <div class="sec-title">Opciones de Panel para este Techo</div>
+    <div class="grid3" id="panel-options-grid"></div>
+  </div>
+
+  <!-- LAYOUT CANVAS -->
+  <div id="layout-section" style="display:none;margin-bottom:0.8rem;">
+    <div class="sec-title">Distribución Óptima de Paneles</div>
+    <canvas id="layout-canvas" height="340"></canvas>
+    <div id="layout-info" style="margin-top:0.5rem;font-size:0.73rem;color:var(--muted);line-height:1.6;"></div>
+  </div>
+
+  <!-- SHADOW HEATMAP -->
+  <div id="shadow-section" style="display:none;margin-bottom:0.8rem;">
+    <div class="sec-title">Mapa de Calor de Sombras</div>
+    <div class="card" style="margin-bottom:0.7rem;">
+      <div class="grid2" style="margin-bottom:0.7rem;">
+        <div>
+          <label>Hora del día</label>
+          <input type="range" class="hour-slider" id="hour-slider" min="6" max="20" value="12" oninput="updateShadow()"/>
+          <div style="display:flex;justify-content:space-between;font-size:0.6rem;color:var(--muted);margin-top:0.2rem;"><span>6am</span><span id="hour-label">12:00</span><span>8pm</span></div>
+        </div>
+        <div>
+          <label>Mes</label>
+          <input type="range" class="hour-slider" id="month-slider" min="1" max="12" value="6" oninput="updateShadow()"/>
+          <div style="display:flex;justify-content:space-between;font-size:0.6rem;color:var(--muted);margin-top:0.2rem;"><span>Ene</span><span id="month-label">Jun</span><span>Dic</span></div>
+        </div>
+      </div>
+      <div style="margin-bottom:0.4rem;">
+        <button class="btn-sm btn-outline" id="btn-anim" onclick="toggleAnimation()" style="font-size:0.65rem;">▶ Animar día</button>
+        <span style="font-size:0.65rem;color:var(--muted);margin-left:0.5rem;" id="shadow-pct"></span>
+      </div>
+    </div>
+    <canvas id="shadow-canvas" height="320"></canvas>
+    <div class="shadow-legend" style="margin-top:0.5rem;">
+      <span>Sin sombra</span><div class="shadow-legend-bar"></div><span>Máx. sombra</span>
+      <span style="margin-left:0.5rem;font-size:0.62rem;color:#3a4d60;">* Estimación basada en azimut solar, altitud y geometría del techo</span>
+    </div>
+    <div id="shadow-monthly" style="margin-top:0.8rem;"></div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="map-results" style="display:none;">
+    <div class="sec-title">◈ Prefactibilidad del Sistema</div>
+    <div class="grid4" style="margin-bottom:0.8rem;" id="map-metrics"></div>
+    <div class="card" style="margin-bottom:0.8rem;">
+      <div style="font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.4rem;">Recuperación de inversión</div>
+      <div class="roi-track"><div class="roi-fill" id="map-roi-fill" style="width:0%"></div></div>
+      <div style="display:flex;justify-content:space-between;font-size:0.58rem;color:#2a3d50;"><span>Año 0</span><span id="map-roi-mid"></span><span>Año 25</span></div>
+    </div>
+    <div class="grid2" style="margin-bottom:0.8rem;"><div id="map-det1"></div><div id="map-det2"></div></div>
+    <div class="warn-box">⚠ <strong style="color:var(--sun);">Estudio referencial.</strong> Estimaciones con datos históricos. Para proyecto real solicite ingeniería detallada, medición in situ y cotización formal.</div>
+  </div>
+
+</div><!-- end tab-mapa -->
+
+<!-- ══════════════════════════════════════════════════════
+     TAB: CALCULADORA
+══════════════════════════════════════════════════════ -->
+<div id="tab-calc" style="display:none;">
+  <div style="display:flex;gap:0.7rem;margin-bottom:1.1rem;">
     <button class="tipo-btn active" onclick="setTipo('residencial',this)">🏠 Residencial</button>
     <button class="tipo-btn" onclick="setTipo('comercial',this)">🏢 Comercial</button>
   </div>
-
-  <div class="grid2" style="margin-bottom:1rem;">
+  <div class="grid2" style="margin-bottom:0.9rem;">
     <div class="card">
       <label>Ciudad</label>
-      <select id="ciudad-sel" onchange="onCiudadChange()">
-        <option value="Arica">Arica</option><option value="Iquique">Iquique</option>
-        <option value="Antofagasta">Antofagasta</option><option value="Calama">Calama</option>
-        <option value="Copiapó">Copiapó</option><option value="La Serena">La Serena</option>
-        <option value="Valparaíso">Valparaíso</option><option value="Santiago" selected>Santiago</option>
-        <option value="Rancagua">Rancagua</option><option value="Talca">Talca</option>
-        <option value="Concepción">Concepción</option><option value="Temuco">Temuco</option>
-        <option value="Valdivia">Valdivia</option><option value="Puerto Montt">Puerto Montt</option>
-        <option value="Punta Arenas">Punta Arenas</option>
-        <option value="Barranquilla">Barranquilla (Colombia)</option>
-        <option value="Bogotá">Bogotá (Colombia)</option>
-        <option value="Medellín">Medellín (Colombia)</option>
-        <option value="Ciudad de México">Ciudad de México</option>
-        <option value="Lima">Lima (Perú)</option>
-      </select>
-      <span class="hint" id="ciudad-hint">HSP: 5.8 h/día · Región Metropolitana</span>
-    </div>
-    <div class="card">
-      <label>Área disponible (m²)</label>
-      <input type="number" id="area-m2" value="40" min="5" max="5000" oninput="updateMaxPanels()"/>
-      <span class="hint" id="area-hint">Máx. ~20 paneles en este espacio</span>
-    </div>
-  </div>
-
-  <div class="grid2" style="margin-bottom:1rem;">
-    <div class="card">
-      <label>Potencia panel seleccionado</label>
-      <select id="panel-wp-sel" onchange="updateMaxPanels()">
-        <option value="400">400 Wp — Estándar residencial</option>
-        <option value="450">450 Wp — Eficiencia media</option>
-        <option value="550" selected>550 Wp — Alta eficiencia</option>
-        <option value="600">600 Wp — Premium</option>
-        <option value="670">670 Wp — Bifacial premium</option>
-      </select>
-      <span class="hint" id="panel-dim-hint">Dimensiones: ~2.0 m²/panel</span>
-    </div>
-    <div class="card">
-      <label>Modo de cálculo</label>
-      <div style="display:flex;gap:0.5rem;margin-bottom:0.5rem;">
-        <button class="tipo-btn active" id="modo-p" onclick="setModo('paneles')" style="font-size:0.75rem;">N° Paneles</button>
-        <button class="tipo-btn" id="modo-b" onclick="setModo('presupuesto')" style="font-size:0.75rem;">Presupuesto</button>
-        <button class="tipo-btn" id="modo-c" onclick="setModo('consumo')" style="font-size:0.75rem;">Consumo</button>
-      </div>
-      <div id="inp-paneles"><input type="number" id="num-paneles" value="10" min="1" max="500"/><span class="hint">Paneles cotizados</span></div>
-      <div id="inp-presupuesto" style="display:none"><input type="number" id="presupuesto-usd" value="5000" step="500"/><span class="hint">Presupuesto en USD</span></div>
-      <div id="inp-consumo" style="display:none"><input type="number" id="consumo-kwh" value="300" step="10"/><span class="hint">Consumo mensual en kWh</span></div>
-    </div>
-  </div>
-
-  <div class="card" style="margin-bottom:1rem;">
-    <label>Ángulo de inclinación del techo</label>
-    <div style="display:flex;align-items:center;gap:1rem;">
-      <input type="range" id="angulo-range" min="0" max="60" value="15" oninput="updateAngle()" style="flex:1;accent-color:var(--sun);">
-      <div style="text-align:center;min-width:60px;">
-        <div style="font-family:'Syne',sans-serif;font-size:1.5rem;color:var(--sun);" id="angulo-val">15°</div>
-        <div style="font-size:0.6rem;color:var(--muted);" id="angulo-desc">Inclinado</div>
-      </div>
-    </div>
-    <span class="hint" id="angulo-hint">Ángulo óptimo para Santiago: ~23°</span>
-  </div>
-
-  <button class="btn-primary" onclick="calcular()" style="margin-bottom:1.5rem;">Calcular Prefactibilidad →</button>
-
-  <div id="calc-results" style="display:none;">
-    <div class="sec-title">◈ Resultados</div>
-    <div class="grid4" style="margin-bottom:1rem;" id="metrics-row1"></div>
-    <div class="grid4" style="margin-bottom:1rem;" id="metrics-row2"></div>
-    <div class="card" style="margin-bottom:1rem;">
-      <div style="font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.7rem;">Recuperación de inversión</div>
-      <div class="roi-track"><div class="roi-fill" id="roi-fill" style="width:0%"></div></div>
-      <div style="display:flex;justify-content:space-between;font-size:0.6rem;color:#2a3d50;margin-top:0.2rem;"><span>Año 0</span><span id="roi-mid"></span><span>Año 25</span></div>
-    </div>
-    <div class="grid2" style="margin-bottom:1rem;">
-      <div id="detalle-col1"></div>
-      <div id="detalle-col2"></div>
-    </div>
-    <div class="warn-box">⚠ <strong style="color:var(--sun);">Estudio referencial.</strong> Valores estimados con promedios históricos. Para un proyecto real solicite ingeniería in situ, análisis de sombras y cotización formal.</div>
-  </div>
-</div>
-
-<!-- ═══════════════ PANELES ÓPTIMOS ═══════════════ -->
-<div id="tab-paneles" style="display:none;">
-  <div class="sec-title">Comparativa de Paneles por Potencia</div>
-  <div class="grid2" style="margin-bottom:1rem;">
-    <div class="card">
-      <label>Área del techo (m²)</label>
-      <input type="number" id="opt-area" value="40" min="5" oninput="renderPanelOptions()"/>
-    </div>
-    <div class="card">
-      <label>Ciudad (para HSP)</label>
-      <select id="opt-ciudad" onchange="renderPanelOptions()">
-        <option value="Arica">Arica (7.5)</option><option value="Iquique">Iquique (7.2)</option>
-        <option value="Antofagasta">Antofagasta (7.0)</option><option value="Santiago" selected>Santiago (5.8)</option>
-        <option value="Concepción">Concepción (4.5)</option><option value="Punta Arenas">Punta Arenas (3.0)</option>
-        <option value="Barranquilla">Barranquilla (5.5)</option><option value="Bogotá">Bogotá (4.5)</option>
-        <option value="Lima">Lima (5.2)</option>
-      </select>
-    </div>
-  </div>
-
-  <div id="panel-options-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem;"></div>
-
-  <div class="sec-title">Distribución Visual en el Techo</div>
-  <div class="grid2" style="margin-bottom:1rem;">
-    <div class="card">
-      <label>Ancho del techo (m)</label>
-      <input type="number" id="roof-w" value="8" min="2" max="100" oninput="drawLayout()"/>
-    </div>
-    <div class="card">
-      <label>Largo del techo (m)</label>
-      <input type="number" id="roof-l" value="5" min="2" max="100" oninput="drawLayout()"/>
-    </div>
-  </div>
-  <div class="card" style="margin-bottom:1rem;">
-    <label>Potencia del panel para layout</label>
-    <select id="layout-wp" onchange="drawLayout()">
-      <option value="400|1.7|1.0">400 Wp (1.7×1.0m)</option>
-      <option value="450|1.75|1.04">450 Wp (1.75×1.04m)</option>
-      <option value="550|2.1|1.05" selected>550 Wp (2.1×1.05m)</option>
-      <option value="600|2.2|1.09">600 Wp (2.2×1.09m)</option>
-      <option value="670|2.38|1.13">670 Wp (2.38×1.13m)</option>
-    </select>
-  </div>
-  <canvas id="layout-canvas" height="300"></canvas>
-  <div id="layout-info" style="margin-top:0.6rem;font-size:0.75rem;color:var(--muted);"></div>
-</div>
-
-<!-- ═══════════════ CLIMA SOLAR ═══════════════ -->
-<div id="tab-clima" style="display:none;">
-  <div class="grid2" style="margin-bottom:1.2rem;">
-    <div class="card">
-      <label>Ciudad</label>
-      <select id="clima-ciudad" onchange="renderClima()">
+      <select id="calc-ciudad" onchange="onCalcCiudad()">
         <option value="Arica">Arica</option><option value="Iquique">Iquique</option>
         <option value="Antofagasta">Antofagasta</option><option value="Santiago" selected>Santiago</option>
         <option value="Concepción">Concepción</option><option value="Punta Arenas">Punta Arenas</option>
-        <option value="Barranquilla">Barranquilla</option><option value="Bogotá">Bogotá</option>
-        <option value="Lima">Lima</option>
+        <option value="Barranquilla">Barranquilla</option><option value="Bogotá">Bogotá</option><option value="Lima">Lima</option>
+      </select>
+      <span class="hint" id="calc-ciudad-hint">HSP: 5.8 h/día</span>
+    </div>
+    <div class="card">
+      <label>Área disponible (m²)</label>
+      <input type="number" id="calc-area" value="40" min="5" oninput="updateCalcMax()"/>
+      <span class="hint" id="calc-area-hint">Máx. ~20 paneles</span>
+    </div>
+  </div>
+  <div class="grid2" style="margin-bottom:0.9rem;">
+    <div class="card">
+      <label>Panel</label>
+      <select id="calc-panel">
+        <option value="400|2.0">400 Wp</option><option value="450|2.1">450 Wp</option>
+        <option value="550|2.2" selected>550 Wp ★</option><option value="600|2.4">600 Wp</option><option value="670|2.7">670 Wp Bifacial</option>
       </select>
     </div>
     <div class="card">
-      <label>Consumo mensual (kWh) — para comparar</label>
-      <input type="number" id="clima-consumo" value="300" oninput="renderClima()"/>
+      <label>Modo</label>
+      <div style="display:flex;gap:0.4rem;margin-bottom:0.5rem;">
+        <button class="btn-sm btn-active" id="cm-p" onclick="setCalcModo('p')" style="flex:1;font-size:0.7rem;">Paneles</button>
+        <button class="btn-sm btn-outline" id="cm-b" onclick="setCalcModo('b')" style="flex:1;font-size:0.7rem;">Presupuesto</button>
+        <button class="btn-sm btn-outline" id="cm-c" onclick="setCalcModo('c')" style="flex:1;font-size:0.7rem;">Consumo</button>
+      </div>
+      <div id="ci-p"><input type="number" id="calc-npan" value="10" min="1"/><span class="hint">paneles cotizados</span></div>
+      <div id="ci-b" style="display:none"><input type="number" id="calc-budget" value="5000" step="500"/><span class="hint">USD disponibles</span></div>
+      <div id="ci-c" style="display:none"><input type="number" id="calc-consumo" value="300"/><span class="hint">kWh/mes</span></div>
     </div>
   </div>
-
-  <div class="sec-title">Irradiación Mensual</div>
-  <div class="card" style="margin-bottom:1rem;">
-    <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
-      <span style="font-size:0.7rem;color:var(--muted);">kWh/m²/día por mes</span>
-      <span style="font-size:0.7rem;color:var(--sun);" id="irrad-avg"></span>
-    </div>
-    <div id="irrad-chart" class="bar-chart"></div>
-    <div id="irrad-months" style="display:flex;gap:4px;margin-top:3px;"></div>
+  <div class="card" style="margin-bottom:0.9rem;">
+    <label>Ángulo de inclinación: <span id="calc-ang-val" style="color:var(--sun)">15°</span></label>
+    <input type="range" id="calc-ang" min="0" max="60" value="15" oninput="document.getElementById('calc-ang-val').textContent=this.value+'°'" style="accent-color:var(--sun);width:100%;margin-top:0.3rem;">
+    <span class="hint" id="calc-ang-hint">Ángulo óptimo: ~23°</span>
   </div>
-
-  <div class="grid2" style="margin-bottom:1rem;">
-    <div class="card">
-      <div class="sec-title" style="margin-bottom:0.6rem;">Temperatura y Efecto en Paneles</div>
-      <div id="temp-info"></div>
+  <button class="btn-primary" onclick="runCalc()" style="margin-bottom:1.2rem;">Calcular →</button>
+  <div id="calc-results" style="display:none;">
+    <div class="sec-title">Resultados</div>
+    <div class="grid4" style="margin-bottom:0.8rem;" id="calc-m1"></div>
+    <div class="grid4" style="margin-bottom:0.8rem;" id="calc-m2"></div>
+    <div class="card" style="margin-bottom:0.8rem;">
+      <div style="font-size:0.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.35rem;">Recuperación de inversión</div>
+      <div class="roi-track"><div class="roi-fill" id="calc-roi" style="width:0%"></div></div>
+      <div style="display:flex;justify-content:space-between;font-size:0.58rem;color:#2a3d50;"><span>Año 0</span><span id="calc-roi-mid"></span><span>Año 25</span></div>
     </div>
-    <div class="card">
-      <div class="sec-title" style="margin-bottom:0.6rem;">Dirección Solar Óptima</div>
-      <div id="solar-direction"></div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="sec-title" style="margin-bottom:0.6rem;">Generación vs Consumo</div>
-    <div id="gen-vs-consumo"></div>
+    <div class="grid2"><div id="calc-d1"></div><div id="calc-d2"></div></div>
+    <div class="warn-box" style="margin-top:0.8rem;">⚠ <strong style="color:var(--sun);">Referencial.</strong> Valores estimados con promedios históricos.</div>
   </div>
 </div>
 
-<!-- ═══════════════ ANALIZADOR IA ═══════════════ -->
-<div id="tab-analizador" style="display:none;">
-  <div style="margin-bottom:1.2rem;padding:0.9rem 1.1rem;background:rgba(245,197,24,0.03);border:1px solid rgba(245,197,24,0.1);border-radius:10px;font-size:0.75rem;color:#6a7d94;line-height:1.6;">
-    Sube una o dos propuestas en PDF. Claude leerá los documentos, extraerá datos técnicos y financieros, y entregará una recomendación fundamentada.
-  </div>
+<!-- ══════════════════════════════════════════════════════
+     TAB: CLIMA SOLAR
+══════════════════════════════════════════════════════ -->
+<div id="tab-clima" style="display:none;">
   <div class="grid2" style="margin-bottom:1rem;">
+    <div class="card"><label>Ciudad</label>
+      <select id="clima-ciudad" onchange="renderClima()">
+        <option value="Santiago" selected>Santiago</option><option value="Arica">Arica</option>
+        <option value="Antofagasta">Antofagasta</option><option value="Concepción">Concepción</option>
+        <option value="Punta Arenas">Punta Arenas</option><option value="Barranquilla">Barranquilla</option>
+        <option value="Bogotá">Bogotá</option><option value="Lima">Lima</option>
+      </select>
+    </div>
+    <div class="card"><label>Consumo mensual (kWh)</label><input type="number" id="clima-consumo" value="300" oninput="renderClima()"/></div>
+  </div>
+  <div class="sec-title">Irradiación Mensual</div>
+  <div class="card" style="margin-bottom:0.9rem;">
+    <div style="display:flex;justify-content:space-between;margin-bottom:0.4rem;">
+      <span style="font-size:0.65rem;color:var(--muted);">kWh/m²/día</span>
+      <span style="font-size:0.65rem;color:var(--sun);" id="irrad-avg"></span>
+    </div>
+    <div id="irrad-chart" class="bar-chart"></div>
+    <div id="irrad-months" style="display:flex;gap:3px;margin-top:2px;"></div>
+  </div>
+  <div class="grid2" style="margin-bottom:0.9rem;">
+    <div class="card"><div class="sec-title" style="margin-bottom:0.5rem;">Temperatura y Rendimiento</div><div id="temp-info"></div></div>
+    <div class="card"><div class="sec-title" style="margin-bottom:0.5rem;">Orientación Solar Óptima</div><div id="solar-dir"></div></div>
+  </div>
+  <div class="card"><div class="sec-title" style="margin-bottom:0.5rem;">Generación Estimada vs Consumo</div><div id="gen-vs"></div></div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     TAB: ANALIZADOR IA
+══════════════════════════════════════════════════════ -->
+<div id="tab-analizador" style="display:none;">
+  <div style="margin-bottom:1rem;padding:0.8rem 1rem;background:rgba(245,197,24,0.03);border:1px solid rgba(245,197,24,0.1);border-radius:10px;font-size:0.72rem;color:#6a7d94;line-height:1.6;">
+    Sube una o dos propuestas en PDF. Claude extrae datos técnicos y financieros, detecta el tipo de contrato (EPC/PPA) y entrega una recomendación fundamentada.
+  </div>
+  <div class="grid2" style="margin-bottom:0.9rem;">
     <div class="upload-zone" id="uz1" ondragover="dov(event,1)" ondragleave="dlv(1)" ondrop="ddr(event,1)">
       <input type="file" accept=".pdf" onchange="fsel(event,1)"/>
-      <div style="font-size:1.8rem;margin-bottom:0.4rem;">📄</div>
-      <div style="font-family:'Syne',sans-serif;font-size:0.78rem;font-weight:700;color:var(--sun);">Propuesta 1</div>
-      <div style="font-size:0.65rem;color:var(--muted);">Arrastra PDF o haz clic</div>
-      <div style="font-size:0.65rem;color:var(--green);margin-top:0.4rem;" id="fn1"></div>
+      <div style="font-size:1.6rem;margin-bottom:0.35rem;">📄</div>
+      <div style="font-family:'Syne',sans-serif;font-size:0.75rem;font-weight:700;color:var(--sun);">Propuesta 1</div>
+      <div style="font-size:0.62rem;color:var(--muted);">Arrastra PDF o haz clic</div>
+      <div style="font-size:0.62rem;color:var(--green);margin-top:0.35rem;" id="fn1"></div>
     </div>
     <div class="upload-zone" id="uz2" ondragover="dov(event,2)" ondragleave="dlv(2)" ondrop="ddr(event,2)">
       <input type="file" accept=".pdf" onchange="fsel(event,2)"/>
-      <div style="font-size:1.8rem;margin-bottom:0.4rem;">📄</div>
-      <div style="font-family:'Syne',sans-serif;font-size:0.78rem;font-weight:700;color:var(--sun);">Propuesta 2 <span style="color:var(--muted);font-weight:400;">(opcional)</span></div>
-      <div style="font-size:0.65rem;color:var(--muted);">Arrastra PDF o haz clic</div>
-      <div style="font-size:0.65rem;color:var(--green);margin-top:0.4rem;" id="fn2"></div>
+      <div style="font-size:1.6rem;margin-bottom:0.35rem;">📄</div>
+      <div style="font-family:'Syne',sans-serif;font-size:0.75rem;font-weight:700;color:var(--sun);">Propuesta 2 <span style="color:var(--muted);font-weight:400;">(opcional)</span></div>
+      <div style="font-size:0.62rem;color:var(--muted);">Arrastra PDF o haz clic</div>
+      <div style="font-size:0.62rem;color:var(--green);margin-top:0.35rem;" id="fn2"></div>
     </div>
   </div>
-  <div id="ai-error" style="display:none;background:rgba(255,77,109,0.07);border:1px solid rgba(255,77,109,0.18);border-radius:8px;padding:0.8rem;font-size:0.75rem;color:#ff8fa3;margin-bottom:1rem;"></div>
-  <button class="btn-primary" id="btn-ai" onclick="analyzeAI()" disabled style="margin-bottom:1rem;">◈ Analizar con IA</button>
-  <div class="loading-bar" id="ai-loading"></div>
-  <div style="text-align:center;font-size:0.75rem;color:var(--muted);padding:1rem;display:none;" id="ai-loading-msg">Analizando<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span> <span style="font-size:0.6rem;color:#2a3d50;">15–30 seg</span></div>
-  <div id="ai-results" style="display:none;"></div>
+  <div id="ai-err" style="display:none;background:rgba(255,77,109,0.07);border:1px solid rgba(255,77,109,0.18);border-radius:8px;padding:0.7rem;font-size:0.72rem;color:#ff8fa3;margin-bottom:0.8rem;"></div>
+  <button class="btn-primary" id="btn-ai" onclick="runAI()" disabled style="margin-bottom:0.8rem;">◈ Analizar con IA</button>
+  <div class="loading-bar" id="ai-bar"></div>
+  <div style="text-align:center;font-size:0.72rem;color:var(--muted);padding:0.8rem;display:none;" id="ai-loading-msg">Analizando<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></div>
+  <div id="ai-results"></div>
 </div>
 
-<!-- ═══════════════ GLOSARIO ═══════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     TAB: GLOSARIO
+══════════════════════════════════════════════════════ -->
 <div id="tab-glosario" style="display:none;">
-  <p style="color:var(--muted);font-size:0.8rem;margin-bottom:1.2rem;line-height:1.6;">Conceptos fundamentales para interpretar el estudio de prefactibilidad.</p>
+  <p style="color:var(--muted);font-size:0.78rem;margin-bottom:1rem;line-height:1.6;">Conceptos clave para interpretar el estudio de prefactibilidad.</p>
   <div class="glos-grid" id="glos-grid"></div>
 </div>
 
-<!-- ═══════════════ SESIONES ═══════════════ -->
+<!-- ══════════════════════════════════════════════════════
+     TAB: SESIONES
+══════════════════════════════════════════════════════ -->
 <div id="tab-sesiones" style="display:none;">
-  <div style="display:flex;flex-direction:column;gap:0.7rem;" id="ses-list"></div>
+  <div style="display:flex;flex-direction:column;gap:0.65rem;" id="ses-list"></div>
 </div>
 
 </main>
 
+<!-- ══════════════════════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════════════════════ -->
 <script>
-// ─── DATA ────────────────────────────────────────────────────────────────────
-const CIUDADES = {
-  "Arica":        {hsp:7.5,lat:-18.5,temp:[27,27,26,25,22,20,19,20,21,23,25,26],irrad:[8.2,7.8,7.0,6.2,5.5,5.0,5.2,5.8,6.5,7.5,8.0,8.3],region:"Arica y Parinacota"},
-  "Iquique":      {hsp:7.2,lat:-20.2,temp:[26,26,25,23,21,19,18,19,20,22,24,25],irrad:[7.9,7.5,6.8,5.9,5.2,4.8,5.0,5.5,6.2,7.1,7.7,8.0],region:"Tarapacá"},
-  "Antofagasta":  {hsp:7.0,lat:-23.7,temp:[24,24,23,21,18,16,15,16,17,20,22,23],irrad:[7.6,7.2,6.5,5.7,5.0,4.6,4.8,5.3,5.9,6.8,7.4,7.7],region:"Antofagasta"},
-  "Calama":       {hsp:7.4,lat:-22.5,temp:[26,25,24,21,17,14,14,15,17,21,24,25],irrad:[8.0,7.6,6.9,6.1,5.4,4.9,5.1,5.7,6.3,7.2,7.8,8.1],region:"Antofagasta"},
-  "Copiapó":      {hsp:6.8,lat:-27.4,temp:[29,29,27,24,20,17,16,17,19,23,26,28],irrad:[7.4,7.0,6.2,5.3,4.6,4.2,4.4,5.0,5.6,6.5,7.1,7.5],region:"Atacama"},
-  "La Serena":    {hsp:6.2,lat:-29.9,temp:[22,22,21,19,16,14,13,14,15,17,20,21],irrad:[6.8,6.4,5.7,4.8,4.1,3.8,4.0,4.6,5.2,6.0,6.6,7.0],region:"Coquimbo"},
-  "Valparaíso":   {hsp:5.4,lat:-33.0,temp:[20,20,19,17,14,12,11,12,13,15,17,19],irrad:[6.1,5.7,5.0,4.1,3.5,3.2,3.4,4.0,4.6,5.4,5.9,6.3],region:"Valparaíso"},
-  "Santiago":     {hsp:5.8,lat:-33.5,temp:[29,29,27,22,17,13,12,14,16,20,24,27],irrad:[6.5,6.1,5.4,4.4,3.8,3.4,3.6,4.2,4.9,5.7,6.2,6.6],region:"Metropolitana"},
-  "Rancagua":     {hsp:5.5,lat:-34.2,temp:[28,28,26,21,16,12,11,13,15,19,23,26],irrad:[6.2,5.8,5.1,4.1,3.5,3.1,3.3,3.9,4.6,5.4,5.9,6.3],region:"O'Higgins"},
-  "Talca":        {hsp:5.2,lat:-35.4,temp:[27,27,24,20,15,11,10,12,14,18,22,25],irrad:[5.9,5.5,4.8,3.8,3.2,2.9,3.0,3.7,4.3,5.1,5.6,6.0],region:"Maule"},
-  "Concepción":   {hsp:4.5,lat:-36.8,temp:[22,22,20,17,13,10,9,10,12,15,18,20],irrad:[5.2,4.8,4.1,3.2,2.6,2.3,2.5,3.1,3.7,4.5,5.0,5.4],region:"Biobío"},
-  "Temuco":       {hsp:4.2,lat:-38.7,temp:[20,20,18,15,11,8,7,8,10,13,16,18],irrad:[4.9,4.5,3.8,2.9,2.3,2.0,2.2,2.8,3.4,4.2,4.7,5.1],region:"La Araucanía"},
-  "Valdivia":     {hsp:3.9,lat:-39.8,temp:[18,18,16,13,10,8,7,8,9,11,14,16],irrad:[4.5,4.2,3.5,2.6,2.1,1.8,1.9,2.5,3.1,3.8,4.3,4.7],region:"Los Ríos"},
-  "Puerto Montt": {hsp:3.6,lat:-41.5,temp:[16,16,15,12,9,7,6,7,8,10,12,14],irrad:[4.2,3.9,3.2,2.3,1.8,1.5,1.7,2.2,2.8,3.5,4.0,4.4],region:"Los Lagos"},
-  "Punta Arenas": {hsp:3.0,lat:-53.2,temp:[11,11,9,6,3,1,1,2,4,6,8,10],irrad:[3.5,3.2,2.5,1.7,1.2,0.9,1.1,1.6,2.2,2.9,3.4,3.7],region:"Magallanes"},
-  "Barranquilla": {hsp:5.5,lat:10.96,temp:[29,30,30,30,30,29,29,30,30,30,29,29],irrad:[5.8,5.9,5.7,5.2,5.0,5.3,5.6,5.8,5.5,5.2,5.0,5.5],region:"Atlántico, Colombia"},
-  "Bogotá":       {hsp:4.5,lat:4.7,temp:[14,15,15,15,15,14,13,14,14,14,14,14],irrad:[4.8,4.9,4.7,4.3,4.0,4.2,4.5,4.7,4.4,4.1,4.0,4.6],region:"Cundinamarca, Colombia"},
-  "Medellín":     {hsp:4.8,lat:6.2,temp:[22,22,22,22,22,21,21,21,21,21,21,22],irrad:[5.1,5.2,5.0,4.6,4.3,4.5,4.8,5.0,4.7,4.4,4.2,4.9],region:"Antioquia, Colombia"},
-  "Ciudad de México":{hsp:5.3,lat:19.4,temp:[18,20,23,24,24,23,22,22,21,20,18,17],irrad:[5.6,5.8,5.6,5.3,5.0,4.9,5.1,5.3,5.0,4.9,5.1,5.4],region:"México"},
-  "Lima":         {hsp:5.2,lat:-12.1,temp:[27,28,27,25,22,19,18,18,19,20,23,25],irrad:[5.5,5.2,4.8,4.3,3.9,3.7,4.0,4.5,4.9,5.3,5.5,5.6],region:"Lima, Perú"},
+// ─── CONSTANTS ───────────────────────────────────────────────────────────────
+const CIUDADES={
+  "Arica":       {hsp:7.5,lat:-18.5,lng:-70.3,temp:[27,27,26,25,22,20,19,20,21,23,25,26],irrad:[8.2,7.8,7.0,6.2,5.5,5.0,5.2,5.8,6.5,7.5,8.0,8.3],region:"Arica y Parinacota"},
+  "Iquique":     {hsp:7.2,lat:-20.2,lng:-70.1,temp:[26,26,25,23,21,19,18,19,20,22,24,25],irrad:[7.9,7.5,6.8,5.9,5.2,4.8,5.0,5.5,6.2,7.1,7.7,8.0],region:"Tarapacá"},
+  "Antofagasta": {hsp:7.0,lat:-23.7,lng:-70.4,temp:[24,24,23,21,18,16,15,16,17,20,22,23],irrad:[7.6,7.2,6.5,5.7,5.0,4.6,4.8,5.3,5.9,6.8,7.4,7.7],region:"Antofagasta"},
+  "Calama":      {hsp:7.4,lat:-22.5,lng:-68.9,temp:[26,25,24,21,17,14,14,15,17,21,24,25],irrad:[8.0,7.6,6.9,6.1,5.4,4.9,5.1,5.7,6.3,7.2,7.8,8.1],region:"Antofagasta"},
+  "Copiapó":     {hsp:6.8,lat:-27.4,lng:-70.3,temp:[29,29,27,24,20,17,16,17,19,23,26,28],irrad:[7.4,7.0,6.2,5.3,4.6,4.2,4.4,5.0,5.6,6.5,7.1,7.5],region:"Atacama"},
+  "La Serena":   {hsp:6.2,lat:-29.9,lng:-71.3,temp:[22,22,21,19,16,14,13,14,15,17,20,21],irrad:[6.8,6.4,5.7,4.8,4.1,3.8,4.0,4.6,5.2,6.0,6.6,7.0],region:"Coquimbo"},
+  "Valparaíso":  {hsp:5.4,lat:-33.0,lng:-71.6,temp:[20,20,19,17,14,12,11,12,13,15,17,19],irrad:[6.1,5.7,5.0,4.1,3.5,3.2,3.4,4.0,4.6,5.4,5.9,6.3],region:"Valparaíso"},
+  "Santiago":    {hsp:5.8,lat:-33.5,lng:-70.7,temp:[29,29,27,22,17,13,12,14,16,20,24,27],irrad:[6.5,6.1,5.4,4.4,3.8,3.4,3.6,4.2,4.9,5.7,6.2,6.6],region:"Metropolitana"},
+  "Rancagua":    {hsp:5.5,lat:-34.2,lng:-70.7,temp:[28,28,26,21,16,12,11,13,15,19,23,26],irrad:[6.2,5.8,5.1,4.1,3.5,3.1,3.3,3.9,4.6,5.4,5.9,6.3],region:"O'Higgins"},
+  "Concepción":  {hsp:4.5,lat:-36.8,lng:-73.1,temp:[22,22,20,17,13,10,9,10,12,15,18,20],irrad:[5.2,4.8,4.1,3.2,2.6,2.3,2.5,3.1,3.7,4.5,5.0,5.4],region:"Biobío"},
+  "Temuco":      {hsp:4.2,lat:-38.7,lng:-72.6,temp:[20,20,18,15,11,8,7,8,10,13,16,18],irrad:[4.9,4.5,3.8,2.9,2.3,2.0,2.2,2.8,3.4,4.2,4.7,5.1],region:"La Araucanía"},
+  "Puerto Montt":{hsp:3.6,lat:-41.5,lng:-72.9,temp:[16,16,15,12,9,7,6,7,8,10,12,14],irrad:[4.2,3.9,3.2,2.3,1.8,1.5,1.7,2.2,2.8,3.5,4.0,4.4],region:"Los Lagos"},
+  "Punta Arenas":{hsp:3.0,lat:-53.2,lng:-70.9,temp:[11,11,9,6,3,1,1,2,4,6,8,10],irrad:[3.5,3.2,2.5,1.7,1.2,0.9,1.1,1.6,2.2,2.9,3.4,3.7],region:"Magallanes"},
+  "Barranquilla":{hsp:5.5,lat:10.96,lng:-74.8,temp:[29,30,30,30,30,29,29,30,30,30,29,29],irrad:[5.8,5.9,5.7,5.2,5.0,5.3,5.6,5.8,5.5,5.2,5.0,5.5],region:"Atlántico, Colombia"},
+  "Bogotá":      {hsp:4.5,lat:4.7,lng:-74.1,temp:[14,15,15,15,15,14,13,14,14,14,14,14],irrad:[4.8,4.9,4.7,4.3,4.0,4.2,4.5,4.7,4.4,4.1,4.0,4.6],region:"Cundinamarca, Colombia"},
+  "Lima":        {hsp:5.2,lat:-12.1,lng:-77.0,temp:[27,28,27,25,22,19,18,18,19,20,23,25],irrad:[5.5,5.2,4.8,4.3,3.9,3.7,4.0,4.5,4.9,5.3,5.5,5.6],region:"Lima, Perú"},
 };
-
-const PANELS = [
-  {wp:400,w:1.72,h:1.02,label:"400 Wp",desc:"Estándar residencial",color:"#38bdf8"},
-  {wp:450,w:1.76,h:1.04,label:"450 Wp",desc:"Eficiencia media",color:"#34d399"},
-  {wp:550,w:2.10,h:1.05,label:"550 Wp",desc:"Alta eficiencia ★",color:"#f5c518",recommended:true},
-  {wp:600,w:2.20,h:1.09,label:"600 Wp",desc:"Premium",color:"#c084fc"},
-  {wp:670,w:2.38,h:1.13,label:"670 Wp",desc:"Bifacial premium",color:"#fb923c"},
+const PANELS_DATA=[
+  {wp:400,w:1.72,h:1.02,label:"400 Wp",desc:"Estándar residencial",col:"#38bdf8"},
+  {wp:450,w:1.76,h:1.04,label:"450 Wp",desc:"Eficiencia media",col:"#34d399"},
+  {wp:550,w:2.10,h:1.05,label:"550 Wp ★",desc:"Alta eficiencia",col:"#f5c518",rec:true},
+  {wp:600,w:2.20,h:1.09,label:"600 Wp",desc:"Premium",col:"#c084fc"},
+  {wp:670,w:2.38,h:1.13,label:"670 Wp",desc:"Bifacial premium",col:"#fb923c"},
 ];
-
-const TARIFA_CLP=145,USD_CLP=950,PR=0.78,DEGRADACION=0.005,CO2=0.29,PRECIO_WP=0.25,FACTOR_INST=1.45;
 const MESES=["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
+const TARIFA=145,USD_CLP=950,PR=0.78,DEG=0.005,CO2F=0.29,PWP=0.25,FINST=1.45;
 
-let tipoInst='residencial',modoCalc='paneles';
-let aiFiles={1:null,2:null},aiB64={1:null,2:null};
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let map,drawMgr,polygon=null,polyArea=0,polyAngle=0,polyConfirmed=false;
+let polyBounds=null,polyCenter=null;
+let acService,geocoder;
+let animTimer=null,animRunning=false;
+let aiB64={1:null,2:null};
+let calcModo='p';
+let selectedPanelWp=550;
 
 // ─── TABS ─────────────────────────────────────────────────────────────────────
 function showTab(id){
-  ['calc','paneles','clima','analizador','glosario','sesiones'].forEach(t=>{
-    document.getElementById('tab-'+t).style.display=t===id?'':'none';
+  const tabs=['mapa','calc','clima','analizador','glosario','sesiones'];
+  tabs.forEach(t=>{document.getElementById('tab-'+t).style.display=t===id?'':'none';});
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',tabs[i]===id));
+  if(id==='clima')renderClima();
+  if(id==='mapa'&&polygon)setTimeout(drawLayout,100);
+}
+
+// ─── GOOGLE MAPS INIT ─────────────────────────────────────────────────────────
+function initMap(){
+  const c=CIUDADES['Santiago'];
+  map=new google.maps.Map(document.getElementById('map'),{
+    center:{lat:c.lat,lng:c.lng},zoom:18,
+    mapTypeId:'satellite',tilt:0,
+    mapTypeControl:true,
+    mapTypeControlOptions:{style:google.maps.MapTypeControlStyle.DROPDOWN_MENU,mapTypeIds:['satellite','hybrid','roadmap']},
   });
-  document.querySelectorAll('.tab-btn').forEach((b,i)=>{
-    b.classList.toggle('active',['calc','paneles','clima','analizador','glosario','sesiones'][i]===id);
+  drawMgr=new google.maps.drawing.DrawingManager({
+    drawingMode:null,drawingControl:false,
+    polygonOptions:{fillColor:'#f5c518',fillOpacity:0.22,strokeColor:'#f5c518',strokeWeight:2,editable:true,draggable:true},
   });
-  if(id==='paneles'){renderPanelOptions();drawLayout();}
-  if(id==='clima'){renderClima();}
+  drawMgr.setMap(map);
+  google.maps.event.addListener(drawMgr,'polygoncomplete',p=>{
+    if(polygon)polygon.setMap(null);
+    polygon=p;drawMgr.setDrawingMode(null);
+    updatePolyData();
+    google.maps.event.addListener(p.getPath(),'set_at',updatePolyData);
+    google.maps.event.addListener(p.getPath(),'insert_at',updatePolyData);
+    document.getElementById('btn-clear').style.display='';
+    document.getElementById('btn-confirm').style.display='';
+    setChip('chip-mode','✓ Polígono dibujado',true);
+  });
+  acService=new google.maps.places.AutocompleteService();
+  geocoder=new google.maps.Geocoder();
 }
 
-// ─── CALCULADORA ──────────────────────────────────────────────────────────────
-function setTipo(t,btn){tipoInst=t;document.querySelectorAll('.tipo-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
-function setModo(m){
-  modoCalc=m;
-  ['paneles','presupuesto','consumo'].forEach(k=>{document.getElementById('inp-'+k).style.display=k===m?'':'none';});
-  ['p','b','c'].forEach((k,i)=>{
-    const id='modo-'+k;
-    const active=['paneles','presupuesto','consumo'][i]===m;
-    document.getElementById(id).style.background=active?'rgba(245,197,24,0.1)':'rgba(255,255,255,0.02)';
-    document.getElementById(id).style.borderColor=active?'rgba(245,197,24,0.35)':'rgba(255,255,255,0.07)';
-    document.getElementById(id).style.color=active?'var(--sun)':'var(--muted)';
+// ─── ADDRESS ──────────────────────────────────────────────────────────────────
+let acTimer;
+function onAddrInput(){
+  clearTimeout(acTimer);
+  const v=document.getElementById('addr-input').value;
+  if(v.length<3){document.getElementById('autocomplete-dropdown').style.display='none';return;}
+  acTimer=setTimeout(()=>{
+    acService.getPlacePredictions({input:v+', Chile',componentRestrictions:{country:'cl'}},
+    (preds,st)=>{
+      const dd=document.getElementById('autocomplete-dropdown');
+      if(st!==google.maps.places.PlacesServiceStatus.OK||!preds){dd.style.display='none';return;}
+      dd.innerHTML=preds.slice(0,5).map(p=>`<div class="ac-item" onclick="selectPlace('${p.place_id}','${p.description.replace(/'/g,"\\'")}'">${p.description}</div>`).join('');
+      dd.style.display='';
+    });
+  },280);
+}
+function searchAddr(){
+  const q=document.getElementById('addr-input').value;
+  if(!q)return;
+  document.getElementById('autocomplete-dropdown').style.display='none';
+  geocoder.geocode({address:q},(res,st)=>{
+    if(st==='OK'&&res[0]){goToLocation(res[0].geometry.location);}
   });
 }
-function onCiudadChange(){
-  const c=document.getElementById('ciudad-sel').value;
-  const d=CIUDADES[c];
-  if(d) document.getElementById('ciudad-hint').textContent=`HSP: ${d.hsp} h/día · ${d.region}`;
-  updateAngle();
+function selectPlace(pid,desc){
+  document.getElementById('addr-input').value=desc;
+  document.getElementById('autocomplete-dropdown').style.display='none';
+  geocoder.geocode({placeId:pid},(res,st)=>{
+    if(st==='OK'&&res[0])goToLocation(res[0].geometry.location);
+  });
 }
-function updateAngle(){
-  const v=parseInt(document.getElementById('angulo-range').value);
-  document.getElementById('angulo-val').textContent=v+'°';
-  const c=CIUDADES[document.getElementById('ciudad-sel').value];
-  const opt=c?Math.round(Math.abs(c.lat)-10):15;
-  document.getElementById('angulo-hint').textContent=`Ángulo óptimo para ${document.getElementById('ciudad-sel').value}: ~${opt}°`;
-  document.getElementById('angulo-desc').textContent=v<5?'Plano':v<15?'Leve':v<30?'Inclinado':v<45?'Pronunciado':'Muy inclinado';
+function goToLocation(loc){
+  map.setCenter(loc);map.setZoom(19);map.setMapTypeId('satellite');
+  detectCity(loc.lat(),loc.lng());
 }
-function updateMaxPanels(){
-  const area=parseFloat(document.getElementById('area-m2').value)||40;
-  const wp=parseInt(document.getElementById('panel-wp-sel').value)||550;
-  const p=PANELS.find(x=>x.wp===wp)||PANELS[2];
-  const m2=p.w*p.h*1.1;
-  const max=Math.floor(area/m2);
-  document.getElementById('area-hint').textContent=`Máx. ~${max} paneles (${p.w}×${p.h}m c/u)`;
-  document.getElementById('panel-dim-hint').textContent=`Dimensiones: ${p.w}×${p.h}m · ~${(p.w*p.h).toFixed(1)} m²/panel`;
-}
-function angleFactor(angle,lat){
-  const opt=Math.max(10,Math.abs(lat)-10);
-  const diff=Math.abs(angle-opt);
-  return Math.max(0.82,1-(diff/15)*0.05);
-}
-function calcular(){
-  const ciudad=CIUDADES[document.getElementById('ciudad-sel').value];
-  const area=parseFloat(document.getElementById('area-m2').value)||40;
-  const wp=parseInt(document.getElementById('panel-wp-sel').value)||550;
-  const p=PANELS.find(x=>x.wp===wp)||PANELS[2];
-  const m2=p.w*p.h*1.1;
-  const maxP=Math.floor(area/m2);
-  const angle=parseInt(document.getElementById('angulo-range').value)||15;
-  const af=angleFactor(angle,ciudad.lat);
-
-  let numP;
-  if(modoCalc==='paneles') numP=Math.min(parseInt(document.getElementById('num-paneles').value)||10,maxP);
-  else if(modoCalc==='presupuesto'){const b=parseFloat(document.getElementById('presupuesto-usd').value)||5000;numP=Math.min(Math.floor(b/(wp*PRECIO_WP*FACTOR_INST)),maxP);}
-  else{const kwh=parseFloat(document.getElementById('consumo-kwh').value)||300;const hsp=ciudad.hsp*af;numP=Math.min(Math.ceil((kwh/30)/(hsp*PR*0.001*wp)),maxP);}
-  numP=Math.max(1,numP);
-
-  const kwp=numP*wp/1000;
-  const hspEf=ciudad.hsp*af;
-  const genMes=kwp*hspEf*30*PR;
-  const genAnual=genMes*12;
-  const costoUSD=numP*wp*PRECIO_WP*FACTOR_INST;
-  const costoCLP=costoUSD*USD_CLP;
-  const ahorroMes=genMes*TARIFA_CLP;
-  const ahorroAnual=ahorroMes*12;
-  const roi=costoCLP/ahorroAnual;
-  let gen25=0,ahorro25=0;
-  for(let y=0;y<25;y++){gen25+=genAnual*Math.pow(1-DEGRADACION,y);ahorro25+=ahorroAnual*Math.pow(1.03,y);}
-  const co2t=gen25*CO2/1000,arb=Math.round(co2t*1000/21.7),ben=ahorro25-costoCLP,lcoe=(costoCLP/gen25).toFixed(1);
-
-  const fCLP=v=>'$'+Math.round(v).toLocaleString('es-CL');
-  const m1=[
-    {l:'Sistema',v:kwp.toFixed(2)+' kWp',s:numP+' paneles de '+wp+'Wp',c:'var(--sun)'},
-    {l:'Generación/mes',v:Math.round(genMes).toLocaleString()+' kWh',s:Math.round(genAnual).toLocaleString()+' kWh/año',c:'var(--blue)'},
-    {l:'Ahorro mensual',v:fCLP(ahorroMes),s:fCLP(ahorroAnual)+'/año',c:'var(--green)'},
-    {l:'Factor ángulo',v:(af*100).toFixed(1)+'%',s:'Ángulo: '+angle+'°',c:'var(--purple)'},
-  ];
-  const m2r=[
-    {l:'Payback',v:roi.toFixed(1)+' años',s:'Inversión: US$'+Math.round(costoUSD).toLocaleString(),c:'var(--purple)'},
-    {l:'CO₂ evitado',v:co2t.toFixed(1)+' ton',s:'≈'+arb.toLocaleString()+' árboles',c:'#80cbc4'},
-    {l:'Beneficio neto 25a',v:fCLP(ben),s:'vs inversión inicial',c:'#ffcc80'},
-    {l:'LCOE',v:'$'+lcoe+'/kWh',s:'Tarifa red: $'+TARIFA_CLP,c:'#f9a8d4'},
-  ];
-  document.getElementById('metrics-row1').innerHTML=m1.map(m=>`<div class="metric"><div class="lbl">${m.l}</div><div class="val" style="color:${m.c}">${m.v}</div><div class="sub">${m.s}</div></div>`).join('');
-  document.getElementById('metrics-row2').innerHTML=m2r.map(m=>`<div class="metric"><div class="lbl">${m.l}</div><div class="val" style="color:${m.c}">${m.v}</div><div class="sub">${m.s}</div></div>`).join('');
-  document.getElementById('roi-fill').style.width=Math.min((roi/25)*100,100)+'%';
-  document.getElementById('roi-mid').textContent='Retorno: año '+roi.toFixed(1);
-  const d1=[['Ciudad/HSP',`${document.getElementById('ciudad-sel').value} · ${ciudad.hsp} h/día`],['Ángulo',`${angle}° (factor ${(af*100).toFixed(0)}%)`],['HSP efectivo',`${hspEf.toFixed(2)} h/día`],['Paneles',`${numP} × ${wp}Wp`],['Potencia pico',`${kwp.toFixed(2)} kWp`]];
-  const d2=[['PR sistema',`${(PR*100).toFixed(0)}%`],['Costo USD',`US$ ${Math.round(costoUSD).toLocaleString()}`],['LCOE',`$${lcoe}/kWh`],['Gen 25 años',`${Math.round(gen25/1000).toLocaleString()} MWh`],['Área usada',`~${(numP*p.w*p.h).toFixed(0)} m²`]];
-  const rowHtml=rows=>rows.map(([k,v])=>`<div style="display:flex;justify-content:space-between;padding:0.3rem 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:0.75rem;"><span style="color:var(--muted)">${k}</span><span style="color:#c8bda8;font-weight:500">${v}</span></div>`).join('');
-  document.getElementById('detalle-col1').innerHTML='<div class="card">'+rowHtml(d1)+'</div>';
-  document.getElementById('detalle-col2').innerHTML='<div class="card">'+rowHtml(d2)+'</div>';
-  document.getElementById('calc-results').style.display='';
-  setTimeout(()=>document.getElementById('calc-results').scrollIntoView({behavior:'smooth'}),100);
+function detectCity(lat,lng){
+  let near='Santiago',minD=Infinity;
+  Object.entries(CIUDADES).forEach(([n,d])=>{
+    const dist=Math.hypot(lat-d.lat,lng-d.lng);
+    if(dist<minD){minD=dist;near=n;}
+  });
+  const sel=document.getElementById('map-ciudad');
+  if([...sel.options].some(o=>o.value===near))sel.value=near;
+  onMapCiudadChange();
 }
 
-// ─── PANEL OPTIONS ────────────────────────────────────────────────────────────
-function renderPanelOptions(){
-  const area=parseFloat(document.getElementById('opt-area').value)||40;
-  const ciudad=CIUDADES[document.getElementById('opt-ciudad').value]||CIUDADES['Santiago'];
-  const threeOptions=[PANELS[0],PANELS[2],PANELS[4]]; // 400,550,670
-  document.getElementById('panel-options-grid').innerHTML=threeOptions.map(p=>{
+// ─── POLYGON ──────────────────────────────────────────────────────────────────
+function startDraw(){
+  map.setMapTypeId('satellite');
+  drawMgr.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
+  setChip('chip-mode','Dibujando… doble clic para cerrar',true);
+}
+function clearPoly(){
+  if(polygon){polygon.setMap(null);polygon=null;}
+  polyArea=0;polyAngle=0;polyConfirmed=false;polyBounds=null;polyCenter=null;
+  ['btn-clear','btn-confirm','btn-layout','btn-shadows'].forEach(id=>document.getElementById(id).style.display='none');
+  ['chip-area','chip-orient','chip-panels'].forEach(id=>{const el=document.getElementById(id);el.style.display='none';});
+  setChip('chip-mode','Vista satelital',false);
+  document.getElementById('angle-box').style.display='none';
+  document.getElementById('panel-options-section').style.display='none';
+  document.getElementById('layout-section').style.display='none';
+  document.getElementById('shadow-section').style.display='none';
+  document.getElementById('map-results').style.display='none';
+}
+function confirmPoly(){
+  polyConfirmed=true;
+  document.getElementById('btn-confirm').style.display='none';
+  document.getElementById('btn-layout').style.display='';
+  document.getElementById('btn-shadows').style.display='';
+  setChip('chip-mode','✓ Techo confirmado',true);
+  renderPanelOptions3();
+  document.getElementById('panel-options-section').style.display='';
+  runMapCalc();
+}
+
+function updatePolyData(){
+  if(!polygon)return;
+  const path=polygon.getPath();
+  const coords=[];for(let i=0;i<path.getLength();i++)coords.push(path.getAt(i));
+  polyArea=Math.round(google.maps.geometry.spherical.computeArea(path));
+  polyCenter={lat:coords.reduce((s,c)=>s+c.lat(),0)/coords.length,lng:coords.reduce((s,c)=>s+c.lng(),0)/coords.length};
+  polyBounds=new google.maps.LatLngBounds();coords.forEach(c=>polyBounds.extend(c));
+  const lats=coords.map(c=>c.lat()),lngs=coords.map(c=>c.lng());
+  const dLat=Math.max(...lats)-Math.min(...lats);
+  const dLng=Math.max(...lngs)-Math.min(...lngs);
+  const ratio=Math.min(dLat,dLng)/Math.max(dLat,dLng+0.0001);
+  const lat=polyCenter.lat;
+  const optA=Math.max(10,Math.abs(lat)-10);
+  const elong=1-ratio;
+  polyAngle=Math.round(Math.min(45,Math.max(5,optA*0.4+optA*elong*0.6)));
+  document.getElementById('angle-box').style.display='';
+  document.getElementById('angle-big').textContent=polyAngle+'°';
+  document.getElementById('angle-manual').value=polyAngle;
+  const mainAngle=Math.atan2(dLng,dLat)*180/Math.PI;
+  const dirs=['N','NE','E','SE','S','SO','O','NO'];
+  const orient=dirs[Math.round(((mainAngle+360)%360)/45)%8];
+  document.getElementById('angle-info').innerHTML=`Lat: ${Math.abs(lat).toFixed(1)}°${lat<0?'S':'N'} · Orientación: <strong style="color:var(--sun)">${orient}</strong><br>Ángulo óptimo: ~${optA}° · Área polígono: <strong style="color:var(--green)">${polyArea} m²</strong>`;
+  setChip('chip-area','Área: '+polyArea+' m²',false);document.getElementById('chip-area').style.display='';
+  setChip('chip-orient','Orient: '+orient,false);document.getElementById('chip-orient').style.display='';
+  detectCity(lat,polyCenter.lng);
+}
+function onManualAngle(){
+  const v=parseInt(document.getElementById('angle-manual').value);
+  if(!isNaN(v)){polyAngle=v;document.getElementById('angle-big').textContent=v+'°';}
+}
+function setChip(id,txt,active){
+  const el=document.getElementById(id);
+  el.textContent=txt;
+  el.classList.toggle('active',active);
+}
+function onMapCiudadChange(){
+  const c=CIUDADES[document.getElementById('map-ciudad').value];
+  if(c)document.getElementById('map-ciudad-hint').textContent=`HSP: ${c.hsp} h/día · ${c.region}`;
+}
+function onPanelChange(){
+  const v=document.getElementById('map-panel-wp').value.split('|');
+  document.getElementById('panel-dim-hint').textContent=`${v[1]}×${v[2]}m · ${(parseFloat(v[1])*parseFloat(v[2])).toFixed(1)} m²/panel`;
+  if(polyConfirmed){generateLayout();renderPanelOptions3();}
+}
+
+// ─── PANEL OPTIONS 3 ──────────────────────────────────────────────────────────
+function renderPanelOptions3(){
+  if(!polyArea)return;
+  const ciudad=CIUDADES[document.getElementById('map-ciudad').value];
+  const three=[PANELS_DATA[0],PANELS_DATA[2],PANELS_DATA[4]];
+  document.getElementById('panel-options-grid').innerHTML=three.map(p=>{
     const m2=p.w*p.h*1.1;
-    const maxP=Math.floor(area/m2);
+    const maxP=Math.floor(polyArea/m2);
     const kwp=maxP*p.wp/1000;
     const genMes=kwp*ciudad.hsp*30*PR;
-    const costoUSD=maxP*p.wp*PRECIO_WP*FACTOR_INST;
-    return `<div class="panel-opt ${p.recommended?'recommended':''}">
-      ${p.recommended?'<div class="rec-tag">⭐ RECOMENDADO</div>':''}
-      <div style="text-align:center;margin-bottom:0.8rem;">
-        <div style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:${p.color}">${p.label}</div>
-        <div style="font-size:0.65rem;color:var(--muted)">${p.desc}</div>
+    const costoUSD=maxP*p.wp*PWP*FINST;
+    return `<div class="panel-card ${p.rec?'selected':''}" onclick="selectPanelOpt(${p.wp},this)">
+      ${p.rec?'<div class="rec-badge">⭐ RECOMENDADO</div>':''}
+      <div style="text-align:center;margin-bottom:0.6rem;">
+        <div style="font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:${p.col}">${p.label}</div>
+        <div style="font-size:0.6rem;color:var(--muted)">${p.desc}</div>
       </div>
-      <div style="font-size:0.68rem;color:var(--muted);margin-bottom:0.3rem;">Dimensiones</div>
-      <div style="font-size:0.8rem;margin-bottom:0.7rem;color:var(--text)">${p.w}×${p.h}m · ${(p.w*p.h).toFixed(2)} m²</div>
-      ${[['Paneles en '+area+'m²',maxP+' und'],['Potencia total',kwp.toFixed(2)+' kWp'],['Gen. mensual',Math.round(genMes).toLocaleString()+' kWh'],['Costo aprox.','US$'+Math.round(costoUSD).toLocaleString()]].map(([k,v])=>`
-        <div style="display:flex;justify-content:space-between;padding:0.25rem 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:0.73rem;">
-          <span style="color:var(--muted)">${k}</span><span style="color:${p.color};font-weight:600">${v}</span>
-        </div>`).join('')}
+      <div class="pr"><span>Paneles en ${polyArea}m²</span><span style="color:${p.col};font-weight:600">${maxP}</span></div>
+      <div class="pr"><span>Potencia total</span><span style="color:${p.col};font-weight:600">${kwp.toFixed(1)} kWp</span></div>
+      <div class="pr"><span>Gen. mensual</span><span style="color:${p.col};font-weight:600">${Math.round(genMes).toLocaleString()} kWh</span></div>
+      <div class="pr" style="border:none"><span>Costo aprox.</span><span style="color:${p.col};font-weight:600">US$${Math.round(costoUSD).toLocaleString()}</span></div>
     </div>`;
   }).join('');
 }
+function selectPanelOpt(wp,card){
+  document.querySelectorAll('.panel-card').forEach(c=>c.classList.remove('selected'));
+  card.classList.add('selected');
+  selectedPanelWp=wp;
+  const sel=document.getElementById('map-panel-wp');
+  const opt=[...sel.options].find(o=>o.value.startsWith(wp+'|'));
+  if(opt)sel.value=opt.value;
+  generateLayout();runMapCalc();
+}
 
-// ─── LAYOUT CANVAS ───────────────────────────────────────────────────────────
-function drawLayout(){
+// ─── ANGLE FACTOR ─────────────────────────────────────────────────────────────
+function angleFactor(angle,lat){
+  const opt=Math.max(10,Math.abs(lat)-10);
+  return Math.max(0.82,1-(Math.abs(angle-opt)/15)*0.05);
+}
+
+// ─── MAP CALC ─────────────────────────────────────────────────────────────────
+function runMapCalc(){
+  if(!polyArea)return;
+  const ciudad=CIUDADES[document.getElementById('map-ciudad').value];
+  const pv=document.getElementById('map-panel-wp').value.split('|');
+  const pw=parseInt(pv[0]),ph=parseFloat(pv[1]),phh=parseFloat(pv[2]);
+  const m2=ph*phh*1.1;
+  const maxP=Math.floor(polyArea/m2);
+  const angle=polyAngle||15;
+  const af=angleFactor(angle,ciudad.lat);
+  const kwp=maxP*pw/1000;
+  const hspEf=ciudad.hsp*af;
+  const genMes=kwp*hspEf*30*PR;
+  const genAnual=genMes*12;
+  const costoUSD=maxP*pw*PWP*FINST;
+  const costoCLP=costoUSD*USD_CLP;
+  const ahorroMes=genMes*TARIFA;
+  const ahorroAnual=ahorroMes*12;
+  const roi=costoCLP/ahorroAnual;
+  let gen25=0,aho25=0;
+  for(let y=0;y<25;y++){gen25+=genAnual*Math.pow(1-DEG,y);aho25+=ahorroAnual*Math.pow(1.03,y);}
+  const co2=gen25*CO2F/1000,arb=Math.round(co2*1000/21.7),ben=aho25-costoCLP;
+  const fCLP=v=>'$'+Math.round(v).toLocaleString('es-CL');
+  document.getElementById('map-metrics').innerHTML=[
+    {l:'Sistema',v:kwp.toFixed(2)+' kWp',s:maxP+' paneles de '+pw+'Wp',c:'var(--sun)'},
+    {l:'Gen. mensual',v:Math.round(genMes).toLocaleString()+' kWh',s:Math.round(genAnual).toLocaleString()+'/año',c:'var(--blue)'},
+    {l:'Ahorro mensual',v:fCLP(ahorroMes),s:fCLP(ahorroAnual)+'/año',c:'var(--green)'},
+    {l:'Payback',v:roi.toFixed(1)+' años',s:'Inv: US$'+Math.round(costoUSD).toLocaleString(),c:'var(--purple)'},
+  ].map(m=>`<div class="metric"><div class="lbl">${m.l}</div><div class="val" style="color:${m.c}">${m.v}</div><div class="sub">${m.s}</div></div>`).join('');
+  document.getElementById('map-roi-fill').style.width=Math.min((roi/25)*100,100)+'%';
+  document.getElementById('map-roi-mid').textContent='Retorno: año '+roi.toFixed(1);
+  const r=rows=>rows.map(([k,v])=>`<div style="display:flex;justify-content:space-between;padding:0.28rem 0;border-bottom:1px solid rgba(255,255,255,0.035);font-size:0.72rem;"><span style="color:var(--muted)">${k}</span><span style="color:#c8bda8;font-weight:500">${v}</span></div>`).join('');
+  document.getElementById('map-det1').innerHTML='<div class="card">'+r([['Ciudad/HSP',document.getElementById('map-ciudad').value+' · '+ciudad.hsp+' h'],[`Ángulo`,angle+'° (×'+( af*100).toFixed(0)+'%)'],['Área techo',polyArea+' m²'],['Paneles',maxP+' × '+pw+'Wp'],['kWp',kwp.toFixed(2)]])+'</div>';
+  document.getElementById('map-det2').innerHTML='<div class="card">'+r([['CO₂ evitado',co2.toFixed(1)+' ton (≈'+arb.toLocaleString()+' árboles)'],['Gen 25 años',Math.round(gen25/1000).toLocaleString()+' MWh'],['Beneficio neto',fCLP(ben)],['LCOE','$'+(costoCLP/gen25).toFixed(1)+'/kWh'],['Tarifa red','$'+TARIFA+'/kWh']])+'</div>';
+  setChip('chip-panels',maxP+' paneles · '+kwp.toFixed(1)+' kWp',true);document.getElementById('chip-panels').style.display='';
+  document.getElementById('map-results').style.display='';
+}
+
+// ─── LAYOUT ON MAP + CANVAS ───────────────────────────────────────────────────
+function generateLayout(){
+  if(!polygon||!polyArea)return;
+  // Draw panels on map using Rectangles overlay
+  drawPanelsOnMap();
+  // Draw detailed canvas
+  drawLayoutCanvas();
+  document.getElementById('layout-section').style.display='';
+  setTimeout(()=>document.getElementById('layout-section').scrollIntoView({behavior:'smooth'}),100);
+}
+
+let panelOverlays=[];
+function drawPanelsOnMap(){
+  panelOverlays.forEach(o=>o.setMap(null));
+  panelOverlays=[];
+  if(!polyBounds||!polyCenter)return;
+  const pv=document.getElementById('map-panel-wp').value.split('|');
+  const pw=parseFloat(pv[1]),ph=parseFloat(pv[2]);
+  // Convert meters to degrees approx
+  const latPerM=1/111320;
+  const lngPerM=1/(111320*Math.cos(polyCenter.lat*Math.PI/180));
+  const GAP_M=0.15,MARGIN_M=0.3;
+  const bounds=polyBounds;
+  const south=bounds.getSouthWest().lat(),north=bounds.getNorthEast().lat();
+  const west=bounds.getSouthWest().lng(),east=bounds.getNorthEast().lng();
+  const roofW=(east-west)/lngPerM,roofH=(north-south)/latPerM;
+  const cols=Math.floor((roofW-MARGIN_M*2)/(pw+GAP_M));
+  const rows=Math.floor((roofH-MARGIN_M*2)/(ph+GAP_M));
+  for(let r=0;r<rows;r++){
+    for(let c=0;c<cols;c++){
+      const x=west+(MARGIN_M+c*(pw+GAP_M))*lngPerM;
+      const y=south+(MARGIN_M+r*(ph+GAP_M))*latPerM;
+      const rect=new google.maps.Rectangle({
+        bounds:{south:y,north:y+ph*latPerM,west:x,east:x+pw*lngPerM},
+        fillColor:'#38bdf8',fillOpacity:0.35,
+        strokeColor:'#38bdf8',strokeWeight:0.8,
+        map:map,clickable:false,
+      });
+      panelOverlays.push(rect);
+    }
+  }
+}
+
+function drawLayoutCanvas(){
   const canvas=document.getElementById('layout-canvas');
   const ctx=canvas.getContext('2d');
-  const rw=parseFloat(document.getElementById('roof-w').value)||8;
-  const rl=parseFloat(document.getElementById('roof-l').value)||5;
-  const sel=document.getElementById('layout-wp').value.split('|');
-  const pw=parseFloat(sel[1]),ph=parseFloat(sel[2]),wpVal=parseInt(sel[0]);
-  const GAP=0.1,MARGIN=0.3;
-  const cw=canvas.offsetWidth||600,ch=300;
+  const pv=document.getElementById('map-panel-wp').value.split('|');
+  const pw=parseFloat(pv[1]),ph=parseFloat(pv[2]);
+  const GAP=0.12,MARGIN=0.3;
+  if(!polyBounds)return;
+  const bounds=polyBounds;
+  const south=bounds.getSouthWest().lat(),north=bounds.getNorthEast().lat();
+  const west=bounds.getSouthWest().lng(),east=bounds.getNorthEast().lng();
+  const latPerM=1/111320;
+  const lngPerM=1/(111320*Math.cos(polyCenter.lat*Math.PI/180));
+  const roofW=(east-west)/lngPerM,roofH=(north-south)/latPerM;
+  const cw=canvas.offsetWidth||900,ch=340;
   canvas.width=cw;canvas.height=ch;
-  const scale=Math.min((cw-40)/(rw),(ch-40)/(rl));
-  const offX=(cw-rw*scale)/2,offY=(ch-rl*scale)/2;
+  const scale=Math.min((cw-40)/roofW,(ch-40)/roofH)*0.9;
+  const offX=(cw-roofW*scale)/2,offY=(ch-roofH*scale)/2;
   ctx.clearRect(0,0,cw,ch);
-  // roof
-  ctx.fillStyle='rgba(255,255,255,0.04)';ctx.strokeStyle='rgba(245,197,24,0.3)';ctx.lineWidth=1.5;
-  ctx.beginPath();ctx.rect(offX,offY,rw*scale,rl*scale);ctx.fill();ctx.stroke();
-  // label
-  ctx.fillStyle='rgba(74,95,114,0.8)';ctx.font='11px DM Sans';ctx.textAlign='center';
-  ctx.fillText(`${rw}m × ${rl}m = ${(rw*rl).toFixed(0)} m²`,cw/2,offY-6);
-  // panels
+  // Roof bg
+  ctx.fillStyle='rgba(255,255,255,0.04)';ctx.strokeStyle='rgba(245,197,24,0.35)';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.rect(offX,offY,roofW*scale,roofH*scale);ctx.fill();ctx.stroke();
+  // Roof dims label
+  ctx.fillStyle='rgba(74,95,114,0.9)';ctx.font='11px DM Sans';ctx.textAlign='center';
+  ctx.fillText(`${roofW.toFixed(1)}m × ${roofH.toFixed(1)}m · Área: ${polyArea} m²`,cw/2,offY-7);
+  // Panels
+  const cols=Math.floor((roofW-MARGIN*2)/(pw+GAP));
+  const rows=Math.floor((roofH-MARGIN*2)/(ph+GAP));
   let count=0;
-  const cols=Math.floor((rw-MARGIN*2)/(pw+GAP));
-  const rows2=Math.floor((rl-MARGIN*2)/(ph+GAP));
-  for(let r=0;r<rows2;r++){
+  for(let r=0;r<rows;r++){
     for(let c=0;c<cols;c++){
       const x=offX+(MARGIN+c*(pw+GAP))*scale;
       const y=offY+(MARGIN+r*(ph+GAP))*scale;
-      ctx.fillStyle='rgba(56,189,248,0.15)';
-      ctx.strokeStyle='rgba(56,189,248,0.6)';ctx.lineWidth=0.8;
-      ctx.beginPath();ctx.rect(x,y,pw*scale,ph*scale);ctx.fill();ctx.stroke();
-      // grid lines on panel
-      ctx.strokeStyle='rgba(56,189,248,0.2)';ctx.lineWidth=0.3;
+      // Panel body
+      ctx.fillStyle='rgba(15,40,70,0.85)';
+      ctx.fillRect(x,y,pw*scale,ph*scale);
+      // Panel gradient
+      const grad=ctx.createLinearGradient(x,y,x+pw*scale,y+ph*scale);
+      grad.addColorStop(0,'rgba(56,189,248,0.25)');
+      grad.addColorStop(1,'rgba(56,189,248,0.08)');
+      ctx.fillStyle=grad;ctx.fillRect(x,y,pw*scale,ph*scale);
+      // Border
+      ctx.strokeStyle='rgba(56,189,248,0.7)';ctx.lineWidth=0.7;
+      ctx.strokeRect(x,y,pw*scale,ph*scale);
+      // Grid lines
+      ctx.strokeStyle='rgba(56,189,248,0.18)';ctx.lineWidth=0.3;
       for(let g=1;g<6;g++){ctx.beginPath();ctx.moveTo(x+pw*scale*g/6,y);ctx.lineTo(x+pw*scale*g/6,y+ph*scale);ctx.stroke();}
       for(let g=1;g<4;g++){ctx.beginPath();ctx.moveTo(x,y+ph*scale*g/4);ctx.lineTo(x+pw*scale,y+ph*scale*g/4);ctx.stroke();}
       count++;
     }
   }
-  const kwp=count*wpVal/1000;
+  // North arrow
+  ctx.fillStyle='rgba(245,197,24,0.8)';ctx.font='bold 11px DM Sans';ctx.textAlign='center';
+  const isS=polyCenter.lat<0;
+  ctx.fillText(isS?'▲ N':'▲ N',offX+roofW*scale-15,offY+15);
   document.getElementById('layout-info').innerHTML=
-    `<strong style="color:var(--green)">${count} paneles</strong> de ${wpVal}Wp · 
-     <strong style="color:var(--sun)">${kwp.toFixed(2)} kWp</strong> · 
-     Distribución: ${cols} columnas × ${rows2} filas · 
-     Área ocupada: ${(count*pw*ph).toFixed(1)} m² de ${(rw*rl).toFixed(0)} m² disponibles`;
+    `<strong style="color:var(--green)">${count} paneles</strong> · <strong style="color:var(--sun)">${(count*parseInt(pv[0])/1000).toFixed(2)} kWp</strong> · Distribución: ${cols} columnas × ${rows} filas · Área paneles: ${(count*pw*ph).toFixed(1)} m² / ${polyArea} m² disponibles · Espaciado: ${(GAP*100).toFixed(0)}cm entre paneles`;
 }
 
-// ─── CLIMA ───────────────────────────────────────────────────────────────────
+// ─── SHADOW HEATMAP ───────────────────────────────────────────────────────────
+function generateShadows(){
+  document.getElementById('shadow-section').style.display='';
+  updateShadow();
+  renderMonthlyShading();
+  setTimeout(()=>document.getElementById('shadow-section').scrollIntoView({behavior:'smooth'}),100);
+}
+
+function solarPosition(lat,month,hour){
+  // Simplified solar position model
+  const declin=23.45*Math.sin((360/365*(month*30-80))*Math.PI/180)*Math.PI/180;
+  const latR=lat*Math.PI/180;
+  const hourAngle=(hour-12)*15*Math.PI/180;
+  const sinAlt=Math.sin(latR)*Math.sin(declin)+Math.cos(latR)*Math.cos(declin)*Math.cos(hourAngle);
+  const altitude=Math.asin(Math.max(-0.1,sinAlt))*180/Math.PI;
+  const cosAz=(Math.sin(declin)-Math.sin(latR)*sinAlt)/(Math.cos(latR)*Math.cos(Math.asin(sinAlt))+0.0001);
+  let azimuth=Math.acos(Math.max(-1,Math.min(1,cosAz)))*180/Math.PI;
+  if(hour>12)azimuth=360-azimuth;
+  return{altitude,azimuth};
+}
+
+function updateShadow(){
+  const hour=parseInt(document.getElementById('hour-slider').value);
+  const month=parseInt(document.getElementById('month-slider').value);
+  document.getElementById('hour-label').textContent=hour+':00';
+  document.getElementById('month-label').textContent=MESES[month-1];
+  const ciudad=CIUDADES[document.getElementById('map-ciudad').value];
+  const lat=polyCenter?polyCenter.lat:ciudad.lat;
+  const sol=solarPosition(lat,month,hour);
+  drawShadowHeatmap(sol.altitude,sol.azimuth,hour,month);
+}
+
+function drawShadowHeatmap(altitude,azimuth,hour,month){
+  const canvas=document.getElementById('shadow-canvas');
+  const ctx=canvas.getContext('2d');
+  const cw=canvas.offsetWidth||900,ch=320;
+  canvas.width=cw;canvas.height=ch;
+  ctx.clearRect(0,0,cw,ch);
+  if(!polyBounds){
+    ctx.fillStyle='rgba(74,95,114,0.5)';ctx.font='14px DM Sans';ctx.textAlign='center';
+    ctx.fillText('Dibuja y confirma el polígono del techo primero',cw/2,ch/2);return;
+  }
+  const bounds=polyBounds;
+  const south=bounds.getSouthWest().lat(),north=bounds.getNorthEast().lat();
+  const west=bounds.getSouthWest().lng(),east=bounds.getNorthEast().lng();
+  const latPerM=1/111320;
+  const lngPerM=1/(111320*Math.cos(polyCenter.lat*Math.PI/180));
+  const roofW=(east-west)/lngPerM,roofH=(north-south)/latPerM;
+  const scale=Math.min((cw-40)/roofW,(ch-40)/roofH)*0.9;
+  const offX=(cw-roofW*scale)/2,offY=(ch-roofH*scale)/2;
+  const CELL=8; // px per shadow cell
+  const cols2=Math.ceil(roofW*scale/CELL),rows2=Math.ceil(roofH*scale/CELL);
+  // Draw heatmap cells
+  const altRad=altitude*Math.PI/180;
+  const azRad=(azimuth-180)*Math.PI/180; // relative to south
+  const sunAbove=altitude>5;
+  for(let r=0;r<rows2;r++){
+    for(let c=0;c<cols2;c++){
+      // Shadow factor: edges and direction facing away from sun get more shadow
+      const cx=(c/cols2-0.5),cy=(r/rows2-0.5);
+      let shadow=0;
+      if(!sunAbove){shadow=0.95;}
+      else{
+        // Simulate shadow from north edge / parapets
+        const isNorthHemi=polyCenter.lat>0;
+        const distFromShadeEdge=isNorthHemi?(1-r/rows2):(r/rows2);
+        const altFactor=Math.max(0,1-altitude/60);
+        shadow=altFactor*distFromShadeEdge*0.7;
+        // Add corner shadows
+        shadow+=0.15*Math.exp(-((cx*cx+cy*cy)*8));
+        shadow=Math.min(0.9,shadow);
+      }
+      const x=offX+c*CELL,y=offY+r*CELL;
+      const r2=Math.round(shadow*255),g2=Math.round((1-shadow)*229),b2=Math.round((1-shadow)*160);
+      ctx.fillStyle=`rgba(${r2},${g2},${b2},0.75)`;
+      ctx.fillRect(x,y,CELL,CELL);
+    }
+  }
+  // Roof outline
+  ctx.strokeStyle='rgba(245,197,24,0.5)';ctx.lineWidth=1.5;
+  ctx.strokeRect(offX,offY,roofW*scale,roofH*scale);
+  // Sun indicator
+  const sunX=offX+roofW*scale*(0.5+Math.sin(azimuth*Math.PI/180)*0.35);
+  const sunY=offY+roofH*scale*(0.5-Math.cos(azimuth*Math.PI/180)*0.35);
+  if(sunAbove){
+    ctx.beginPath();ctx.arc(Math.min(cw-20,Math.max(20,sunX)),Math.min(ch-20,Math.max(20,sunY)),10,0,Math.PI*2);
+    ctx.fillStyle='rgba(245,197,24,0.9)';ctx.fill();
+    ctx.font='bold 10px DM Sans';ctx.fillStyle='#060c14';ctx.textAlign='center';
+    ctx.fillText('☀',Math.min(cw-20,Math.max(20,sunX)),Math.min(ch-20,Math.max(20,sunY))+4);
+  }
+  // Info overlay
+  const avgShadow=sunAbove?Math.round(Math.max(0,1-altitude/60)*35):95;
+  const pct=100-avgShadow;
+  document.getElementById('shadow-pct').textContent=`Área útil estimada: ${pct}% · Altitud solar: ${altitude.toFixed(1)}° · Azimut: ${azimuth.toFixed(0)}°`;
+  ctx.fillStyle='rgba(6,12,20,0.75)';ctx.fillRect(offX,offY+roofH*scale+2,roofW*scale,22);
+  ctx.fillStyle='rgba(245,197,24,0.8)';ctx.font='10px DM Sans';ctx.textAlign='center';
+  ctx.fillText(`${MESES[month-1]} ${hour}:00 · Alt: ${altitude.toFixed(1)}° · Az: ${azimuth.toFixed(0)}° · ${sunAbove?'Sol sobre el horizonte':'Noche / sin sol'}`,offX+roofW*scale/2,offY+roofH*scale+15);
+}
+
+function renderMonthlyShading(){
+  const ciudad=CIUDADES[document.getElementById('map-ciudad').value];
+  const lat=polyCenter?polyCenter.lat:ciudad.lat;
+  const months=MESES.map((m,i)=>{
+    // Average useful area across daylight hours
+    let totalPct=0,hours=0;
+    for(let h=7;h<=18;h++){
+      const sol=solarPosition(lat,i+1,h);
+      if(sol.altitude>5){totalPct+=(1-(Math.max(0,1-sol.altitude/60)*0.35));hours++;}
+    }
+    const pct=hours>0?Math.round(totalPct/hours*100):0;
+    return{m,pct};
+  });
+  const maxP=Math.max(...months.map(m=>m.pct));
+  document.getElementById('shadow-monthly').innerHTML=`
+    <div class="sec-title" style="margin-bottom:0.5rem;">Área Libre de Sombras por Mes (%)</div>
+    <div class="card">
+      <div style="display:flex;align-items:flex-end;gap:3px;height:65px;margin-bottom:3px;">
+        ${months.map(({m,pct})=>{
+          const h=Math.round((pct/maxP)*60);
+          const col=pct>85?'var(--green)':pct>70?'var(--sun)':'var(--red)';
+          return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;">
+            <div style="font-size:0.5rem;color:${col}">${pct}</div>
+            <div style="width:100%;height:${h}px;background:${col};border-radius:2px 2px 0 0;"></div>
+          </div>`;
+        }).join('')}
+      </div>
+      <div style="display:flex;gap:3px;">${MESES.map(m=>`<div style="flex:1;text-align:center;font-size:0.46rem;color:var(--muted)">${m}</div>`).join('')}</div>
+    </div>`;
+}
+
+let animStep=6;
+function toggleAnimation(){
+  if(animRunning){clearInterval(animTimer);animRunning=false;document.getElementById('btn-anim').textContent='▶ Animar día';}
+  else{
+    animRunning=true;document.getElementById('btn-anim').textContent='⏹ Detener';
+    animStep=6;
+    animTimer=setInterval(()=>{
+      document.getElementById('hour-slider').value=animStep;
+      document.getElementById('hour-label').textContent=animStep+':00';
+      const month=parseInt(document.getElementById('month-slider').value);
+      const ciudad=CIUDADES[document.getElementById('map-ciudad').value];
+      const lat=polyCenter?polyCenter.lat:ciudad.lat;
+      const sol=solarPosition(lat,month,animStep);
+      drawShadowHeatmap(sol.altitude,sol.azimuth,animStep,month);
+      animStep++;if(animStep>20){clearInterval(animTimer);animRunning=false;document.getElementById('btn-anim').textContent='▶ Animar día';}
+    },400);
+  }
+}
+
+// ─── CALCULADORA ──────────────────────────────────────────────────────────────
+function setCalcModo(m){
+  calcModo=m;
+  ['p','b','c'].forEach(k=>{
+    document.getElementById('ci-'+k).style.display=k===m?'':'none';
+    const btn=document.getElementById('cm-'+k);
+    btn.className='btn-sm '+(k===m?'btn-active':'btn-outline');
+  });
+}
+function onCalcCiudad(){
+  const c=CIUDADES[document.getElementById('calc-ciudad').value];
+  if(c)document.getElementById('calc-ciudad-hint').textContent=`HSP: ${c.hsp} h/día`;
+  const opt=Math.round(Math.abs(c.lat)-10);
+  document.getElementById('calc-ang-hint').textContent=`Ángulo óptimo: ~${opt}°`;
+}
+function updateCalcMax(){
+  const area=parseFloat(document.getElementById('calc-area').value)||40;
+  const pv=document.getElementById('calc-panel').value.split('|');
+  document.getElementById('calc-area-hint').textContent=`Máx. ~${Math.floor(area/parseFloat(pv[1]))} paneles`;
+}
+function runCalc(){
+  const ciudad=CIUDADES[document.getElementById('calc-ciudad').value];
+  const area=parseFloat(document.getElementById('calc-area').value)||40;
+  const pv=document.getElementById('calc-panel').value.split('|');
+  const pw=parseInt(pv[0]),m2pp=parseFloat(pv[1]);
+  const maxP=Math.floor(area/m2pp);
+  const angle=parseInt(document.getElementById('calc-ang').value)||15;
+  const af=angleFactor(angle,ciudad.lat);
+  let numP;
+  if(calcModo==='p')numP=Math.min(parseInt(document.getElementById('calc-npan').value)||10,maxP);
+  else if(calcModo==='b'){const b=parseFloat(document.getElementById('calc-budget').value)||5000;numP=Math.min(Math.floor(b/(pw*PWP*FINST)),maxP);}
+  else{const kwh=parseFloat(document.getElementById('calc-consumo').value)||300;numP=Math.min(Math.ceil((kwh/30)/(ciudad.hsp*af*PR*0.001*pw)),maxP);}
+  numP=Math.max(1,numP);
+  const kwp=numP*pw/1000,hspEf=ciudad.hsp*af,genMes=kwp*hspEf*30*PR,genAnual=genMes*12;
+  const costoUSD=numP*pw*PWP*FINST,costoCLP=costoUSD*USD_CLP,ahorroMes=genMes*TARIFA,ahorroAnual=ahorroMes*12,roi=costoCLP/ahorroAnual;
+  let gen25=0,aho25=0;for(let y=0;y<25;y++){gen25+=genAnual*Math.pow(1-DEG,y);aho25+=ahorroAnual*Math.pow(1.03,y);}
+  const co2=(gen25*CO2F/1000).toFixed(1),ben=aho25-costoCLP;
+  const fCLP=v=>'$'+Math.round(v).toLocaleString('es-CL');
+  const M=(l,v,s,c)=>`<div class="metric"><div class="lbl">${l}</div><div class="val" style="color:${c}">${v}</div><div class="sub">${s}</div></div>`;
+  document.getElementById('calc-m1').innerHTML=
+    M('Sistema',kwp.toFixed(2)+' kWp',numP+' × '+pw+'Wp','var(--sun)')+
+    M('Gen. mensual',Math.round(genMes).toLocaleString()+' kWh',Math.round(genAnual).toLocaleString()+'/año','var(--blue)')+
+    M('Ahorro mensual',fCLP(ahorroMes),fCLP(ahorroAnual)+'/año','var(--green)')+
+    M('Factor ángulo',(af*100).toFixed(1)+'%',angle+'°','var(--purple)');
+  document.getElementById('calc-m2').innerHTML=
+    M('Payback',roi.toFixed(1)+' años','Inv: US$'+Math.round(costoUSD).toLocaleString(),'var(--purple)')+
+    M('CO₂ evitado',co2+' ton','25 años','#80cbc4')+
+    M('Beneficio neto 25a',fCLP(ben),'vs inversión','#ffcc80')+
+    M('LCOE','$'+(costoCLP/gen25).toFixed(1)+'/kWh','Tarifa: $'+TARIFA,'#f9a8d4');
+  document.getElementById('calc-roi').style.width=Math.min((roi/25)*100,100)+'%';
+  document.getElementById('calc-roi-mid').textContent='Retorno: año '+roi.toFixed(1);
+  const r=rows=>rows.map(([k,v])=>`<div style="display:flex;justify-content:space-between;padding:0.25rem 0;border-bottom:1px solid rgba(255,255,255,0.03);font-size:0.7rem;"><span style="color:var(--muted)">${k}</span><span style="color:#c8bda8;font-weight:500">${v}</span></div>`).join('');
+  document.getElementById('calc-d1').innerHTML='<div class="card">'+r([['Ciudad',document.getElementById('calc-ciudad').value],['HSP efectivo',hspEf.toFixed(2)+' h/día'],['Ángulo',angle+'° (×'+(af*100).toFixed(0)+'%)'],['Área usada','~'+(numP*m2pp).toFixed(0)+' m²']])+'</div>';
+  document.getElementById('calc-d2').innerHTML='<div class="card">'+r([['Costo USD','US$'+Math.round(costoUSD).toLocaleString()],['Gen 25 años',Math.round(gen25/1000).toLocaleString()+' MWh'],['Ahorro acum. 25a',fCLP(aho25)],['PR sistema',(PR*100).toFixed(0)+'%']])+'</div>';
+  document.getElementById('calc-results').style.display='';
+  setTimeout(()=>document.getElementById('calc-results').scrollIntoView({behavior:'smooth'}),100);
+}
+
+// ─── CLIMA ────────────────────────────────────────────────────────────────────
 function renderClima(){
   const nombre=document.getElementById('clima-ciudad').value;
-  const c=CIUDADES[nombre];
+  const c=CIUDADES[nombre];if(!c)return;
   const consumo=parseFloat(document.getElementById('clima-consumo').value)||300;
-  if(!c)return;
-  // Irradiación bar chart
   const maxI=Math.max(...c.irrad);
   const avg=(c.irrad.reduce((a,b)=>a+b,0)/12).toFixed(2);
   document.getElementById('irrad-avg').textContent='Promedio: '+avg+' kWh/m²/día';
-  const chart=document.getElementById('irrad-chart');
-  chart.innerHTML=c.irrad.map((v,i)=>{
-    const h=Math.round((v/maxI)*72);
-    const col=v>=avg?'var(--sun)':'var(--blue)';
-    return `<div class="bar-col">
-      <div class="bar-val">${v}</div>
-      <div class="bar-fill" style="height:${h}px;background:${col};"></div>
-    </div>`;
+  document.getElementById('irrad-chart').innerHTML=c.irrad.map((v,i)=>{
+    const h=Math.round((v/maxI)*70);const col=v>=avg?'var(--sun)':'var(--blue)';
+    return`<div class="bar-col"><div style="font-size:0.48rem;color:${col}">${v}</div><div class="bar-fill" style="height:${h}px;background:${col};"></div></div>`;
   }).join('');
-  document.getElementById('irrad-months').innerHTML=MESES.map(m=>`<div style="flex:1;text-align:center;font-size:0.48rem;color:var(--muted)">${m}</div>`).join('');
-
-  // Temperatura
-  const maxT=Math.max(...c.temp),minT=Math.min(...c.temp);
-  const tempLoss=((maxT-25)*0.004*100).toFixed(1);
+  document.getElementById('irrad-months').innerHTML=MESES.map(m=>`<div style="flex:1;text-align:center;font-size:0.46rem;color:var(--muted)">${m}</div>`).join('');
+  const maxT=Math.max(...c.temp),minT=Math.min(...c.temp),avgT=Math.round(c.temp.reduce((a,b)=>a+b,0)/12);
   document.getElementById('temp-info').innerHTML=`
-    <div style="margin-bottom:0.6rem;">
-      ${MESES.map((m,i)=>`<span title="${m}: ${c.temp[i]}°C" style="display:inline-block;width:7.5%;height:20px;background:hsl(${Math.round(240-(c.temp[i]-minT)/(maxT-minT)*240)},70%,50%);border-radius:2px;margin:1px;"></span>`).join('')}
+    <div style="display:flex;gap:1px;margin-bottom:0.5rem;">
+      ${MESES.map((m,i)=>`<div title="${m}: ${c.temp[i]}°C" style="flex:1;height:18px;background:hsl(${Math.round(240-(c.temp[i]-minT)/(maxT-minT+1)*240)},65%,50%);border-radius:2px;"></div>`).join('')}
     </div>
-    <div style="font-size:0.72rem;color:var(--muted);line-height:1.7;">
-      Máx: <span style="color:var(--red)">${maxT}°C</span> · Mín: <span style="color:var(--blue)">${minT}°C</span><br>
-      Pérdida por temperatura pico: <span style="color:var(--sun)">~${tempLoss}%</span><br>
-      <span style="color:#3a4d60;font-size:0.65rem;">Los paneles pierden ~0.4%/°C sobre 25°C (NOCT). En meses calurosos la generación efectiva se reduce.</span>
+    <div style="font-size:0.7rem;color:var(--muted);line-height:1.65;">
+      Máx: <span style="color:var(--red)">${maxT}°C</span> · Mín: <span style="color:var(--blue)">${minT}°C</span> · Prom: <span style="color:var(--sun)">${avgT}°C</span><br>
+      Pérdida pico por T°: ~<span style="color:var(--sun)">${((maxT-25)*0.4).toFixed(1)}%</span><br>
+      <span style="font-size:0.62rem;color:#3a4d60;">Paneles pierden ~0.4%/°C sobre 25°C (coef. temperatura). En verano la generación se reduce levemente.</span>
     </div>`;
-
-  // Solar direction
-  const lat=c.lat;
-  const isNorth=lat<0;
-  document.getElementById('solar-direction').innerHTML=`
-    <div style="text-align:center;margin-bottom:0.6rem;">
+  const lat=c.lat;const isS=lat<0;
+  document.getElementById('solar-dir').innerHTML=`
+    <div style="text-align:center;">
       <svg width="100" height="100" viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-        <circle cx="50" cy="50" r="30" fill="none" stroke="rgba(245,197,24,0.15)" stroke-width="0.5"/>
-        ${['N','E','S','O'].map((d,i)=>{const a=i*90*Math.PI/180;return `<text x="${50+46*Math.sin(a)}" y="${50-46*Math.cos(a)+4}" text-anchor="middle" fill="rgba(74,95,114,0.8)" font-size="8">${d}</text>`}).join('')}
-        <line x1="50" y1="50" x2="${50+35*Math.sin(0)}" y2="${50-35*Math.cos(0)}" stroke="${isNorth?'rgba(245,197,24,0.3)':'var(--sun)'}" stroke-width="${isNorth?1:2.5}"/>
-        <line x1="50" y1="50" x2="${50+35*Math.sin(Math.PI)}" y2="${50-35*Math.cos(Math.PI)}" stroke="${!isNorth?'rgba(245,197,24,0.3)':'var(--sun)'}" stroke-width="${!isNorth?1:2.5}"/>
+        <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+        ${['N','E','S','O'].map((d,i)=>{const a=i*90*Math.PI/180;return`<text x="${50+46*Math.sin(a)}" y="${50-46*Math.cos(a)+4}" text-anchor="middle" fill="rgba(74,95,114,0.8)" font-size="8">${d}</text>`}).join('')}
+        <line x1="50" y1="50" x2="${50+36*Math.sin(0)}" y2="${50-36*Math.cos(0)}" stroke="${isS?'var(--sun)':'rgba(245,197,24,0.25)'}" stroke-width="${isS?2.5:1}"/>
+        <line x1="50" y1="50" x2="${50+36*Math.sin(Math.PI)}" y2="${50-36*Math.cos(Math.PI)}" stroke="${!isS?'var(--sun)':'rgba(245,197,24,0.25)'}" stroke-width="${!isS?2.5:1}"/>
         <circle cx="50" cy="50" r="3" fill="var(--sun)"/>
-        <text x="50" y="85" text-anchor="middle" fill="var(--sun)" font-size="9" font-weight="bold">Óptimo: ${isNorth?'NORTE':'SUR'}</text>
+        <text x="50" y="84" text-anchor="middle" fill="var(--sun)" font-size="8.5" font-weight="bold">Óptimo: ${isS?'NORTE':'SUR'}</text>
       </svg>
     </div>
-    <div style="font-size:0.7rem;color:var(--muted);line-height:1.6;text-align:center;">
-      Lat: ${Math.abs(lat).toFixed(1)}°${lat<0?'S':'N'}<br>
-      Ángulo óptimo: ~${Math.max(10,Math.round(Math.abs(lat)-10))}°<br>
-      Azimut: ${isNorth?'0° (Norte)':'180° (Sur)'}
-    </div>`;
-
-  // Gen vs consumo
+    <div style="font-size:0.68rem;color:var(--muted);line-height:1.6;text-align:center;margin-top:0.2rem;">Lat: ${Math.abs(lat).toFixed(1)}°${isS?'S':'N'}<br>Ángulo óptimo: ~${Math.max(10,Math.round(Math.abs(lat)-10))}°<br>Azimut: ${isS?'0° (Norte)':'180° (Sur)'}</div>`;
   const kwpRef=5;
-  document.getElementById('gen-vs-consumo').innerHTML=`
-    <div style="font-size:0.7rem;color:var(--muted);margin-bottom:0.6rem;">Sistema de referencia: 5 kWp · Tu consumo: ${consumo} kWh/mes</div>
-    <div style="display:flex;gap:3px;align-items:flex-end;height:70px;margin-bottom:4px;">
+  document.getElementById('gen-vs').innerHTML=`
+    <div style="font-size:0.65rem;color:var(--muted);margin-bottom:0.4rem;">Sistema referencial 5 kWp · Consumo: ${consumo} kWh/mes</div>
+    <div style="display:flex;gap:3px;align-items:flex-end;height:65px;margin-bottom:3px;">
       ${MESES.map((m,i)=>{
         const gen=Math.round(kwpRef*c.irrad[i]*30*PR);
         const maxV=Math.max(consumo,...c.irrad.map(v=>kwpRef*v*30*PR));
-        const hg=Math.round((gen/maxV)*65),hc=Math.round((consumo/maxV)*65);
-        const surplus=gen>=consumo;
-        return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;">
-          <div style="width:50%;height:${hg}px;background:${surplus?'var(--green)':'var(--blue)'};border-radius:2px 2px 0 0;"></div>
-          <div style="width:80%;height:1px;background:rgba(255,77,109,0.5);"></div>
+        const hg=Math.round((gen/maxV)*60),surplus=gen>=consumo;
+        return`<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;">
+          <div style="width:55%;height:${hg}px;background:${surplus?'var(--green)':'var(--blue)'};border-radius:2px 2px 0 0;"></div>
         </div>`;
       }).join('')}
     </div>
-    <div style="display:flex;gap:3px;">${MESES.map(m=>`<div style="flex:1;text-align:center;font-size:0.45rem;color:var(--muted)">${m}</div>`).join('')}</div>
-    <div style="display:flex;gap:1rem;margin-top:0.5rem;font-size:0.65rem;">
-      <span style="color:var(--green)">■ Excedente</span>
-      <span style="color:var(--blue)">■ Déficit</span>
-      <span style="color:rgba(255,77,109,0.6)">— Consumo</span>
-    </div>`;
+    <div style="display:flex;gap:3px;">${MESES.map(m=>`<div style="flex:1;text-align:center;font-size:0.46rem;color:var(--muted)">${m}</div>`).join('')}</div>
+    <div style="display:flex;gap:0.8rem;margin-top:0.4rem;font-size:0.62rem;"><span style="color:var(--green)">■ Excedente</span><span style="color:var(--blue)">■ Déficit</span></div>`;
 }
 
-// ─── AI ANALYZER ─────────────────────────────────────────────────────────────
+// ─── AI ───────────────────────────────────────────────────────────────────────
 function dov(e,n){e.preventDefault();document.getElementById('uz'+n).classList.add('drag-over');}
 function dlv(n){document.getElementById('uz'+n).classList.remove('drag-over');}
-function ddr(e,n){e.preventDefault();dlv(n);const f=e.dataTransfer.files[0];if(f)procFile(f,n);}
-function fsel(e,n){const f=e.target.files[0];if(f)procFile(f,n);}
-function procFile(f,n){
-  aiFiles[n]=f;
+function ddr(e,n){e.preventDefault();dlv(n);const f=e.dataTransfer.files[0];if(f)pf(f,n);}
+function fsel(e,n){const f=e.target.files[0];if(f)pf(f,n);}
+function pf(f,n){
   document.getElementById('fn'+n).textContent='✓ '+f.name;
   document.getElementById('uz'+n).classList.add('loaded');
   const r=new FileReader();
-  r.onload=e=>{aiB64[n]=e.target.result.split(',')[1];checkAI();};
+  r.onload=e=>{aiB64[n]=e.target.result.split(',')[1];document.getElementById('btn-ai').disabled=!aiB64[1];};
   r.readAsDataURL(f);
 }
-function checkAI(){document.getElementById('btn-ai').disabled=!aiB64[1];}
-
-async function analyzeAI(){
-  document.getElementById('ai-error').style.display='none';
+async function runAI(){
+  document.getElementById('ai-err').style.display='none';
   document.getElementById('btn-ai').disabled=true;
-  document.getElementById('ai-loading').classList.add('active');
+  document.getElementById('ai-bar').classList.add('active');
   document.getElementById('ai-loading-msg').style.display='block';
-  document.getElementById('ai-results').style.display='none';
+  document.getElementById('ai-results').innerHTML='';
   const two=!!aiB64[2];
   try{
-    const content=[{type:'text',text:buildAIPrompt(two)}];
+    const content=[{type:'text',text:aiPrompt(two)}];
     content.push({type:'document',source:{type:'base64',media_type:'application/pdf',data:aiB64[1]}});
-    if(two) content.push({type:'document',source:{type:'base64',media_type:'application/pdf',data:aiB64[2]}});
+    if(two)content.push({type:'document',source:{type:'base64',media_type:'application/pdf',data:aiB64[2]}});
     const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:3000,messages:[{role:'user',content}]})
     });
     const data=await res.json();
-    if(data.error) throw new Error(data.error.message);
+    if(data.error)throw new Error(data.error.message);
     const txt=data.content.map(c=>c.text||'').join('');
     const clean=txt.replace(/```json|```/g,'').trim();
-    let result;
-    try{result=JSON.parse(clean);}catch(e){const m=clean.match(/\{[\s\S]*\}/);if(m)result=JSON.parse(m[0]);else throw new Error('No se pudo parsear JSON');}
+    let result;try{result=JSON.parse(clean);}catch(e){const m=clean.match(/\{[\s\S]*\}/);if(m)result=JSON.parse(m[0]);else throw new Error('No se pudo parsear JSON');}
     renderAI(result,two);
   }catch(e){
-    document.getElementById('ai-error').textContent='⚠ '+e.message;
-    document.getElementById('ai-error').style.display='block';
+    document.getElementById('ai-err').textContent='⚠ '+e.message;document.getElementById('ai-err').style.display='block';
   }finally{
-    document.getElementById('ai-loading').classList.remove('active');
-    document.getElementById('ai-loading-msg').style.display='none';
-    document.getElementById('btn-ai').disabled=false;
+    document.getElementById('ai-bar').classList.remove('active');document.getElementById('ai-loading-msg').style.display='none';document.getElementById('btn-ai').disabled=false;
   }
 }
-
-function buildAIPrompt(two){
-  return `Eres experto en sistemas fotovoltaicos y evaluación financiera en Latinoamérica. Analiza ${two?'estas DOS propuestas':'esta propuesta'} y devuelve SOLO JSON válido sin texto adicional:
-{"propuesta1":{"empresa":"","tipo_contrato":"EPC|PPA","descripcion_tipo":"","potencia_kwp":0,"num_paneles":0,"potencia_panel_wp":0,"area_m2":0,"generacion_anual_kwh":0,"costo_total_usd":0,"moneda":"","tarifa_kwh":0,"ahorro_anual":0,"payback_anos":0,"tir_pct":0,"duracion_contrato_anos":0,"incluye_mantenimiento":true,"fortalezas":[],"debilidades":[],"score_tecnico":0,"score_financiero":0,"score_condiciones":0}${two?',"propuesta2":{}':''},"escenario_optimo":{"num_paneles_recomendado":0,"potencia_kwp_recomendada":0,"razon":"","consideraciones":[]},"comparacion":{"ganador":"propuesta1|propuesta2|empate","criterio_principal":"","tabla":[{"parametro":"","p1":"","p2":"","mejor":"p1|p2|igual"}]},"recomendacion":{"titulo":"","propuesta_recomendada":"","razon_principal":"","argumentos":[],"advertencias":[],"proximos_pasos":[]},"diferencias_ppa_epc":{"mostrar":true,"explicacion_epc":"","explicacion_ppa":"","cuando_conviene_epc":"","cuando_conviene_ppa":""}}`;
+function aiPrompt(two){
+  return`Eres experto en sistemas fotovoltaicos en Latinoamérica. Analiza ${two?'estas DOS propuestas':'esta propuesta'} y devuelve SOLO JSON válido sin texto adicional:\n{"propuesta1":{"empresa":"","tipo_contrato":"EPC|PPA","descripcion_tipo":"","potencia_kwp":0,"num_paneles":0,"potencia_panel_wp":0,"area_m2":0,"generacion_anual_kwh":0,"costo_total_usd":0,"moneda":"","tarifa_kwh":0,"ahorro_anual":0,"payback_anos":0,"tir_pct":0,"duracion_contrato_anos":0,"incluye_mantenimiento":true,"fortalezas":[],"debilidades":[],"score_tecnico":0,"score_financiero":0,"score_condiciones":0}${two?',"propuesta2":{}':''},"escenario_optimo":{"num_paneles_recomendado":0,"potencia_kwp_recomendada":0,"razon":"","consideraciones":[]},"comparacion":{"ganador":"propuesta1|propuesta2|empate","criterio_principal":"","tabla":[{"parametro":"","p1":"","p2":"","mejor":"p1|p2|igual"}]},"recomendacion":{"titulo":"","razon_principal":"","argumentos":[],"advertencias":[],"proximos_pasos":[]},"diferencias_ppa_epc":{"mostrar":true,"explicacion_epc":"","explicacion_ppa":"","cuando_conviene_epc":"","cuando_conviene_ppa":""}}`;
 }
-
-function renderAI(data,two){
-  const el=document.getElementById('ai-results');
-  const p1=data.propuesta1,p2=data.propuesta2,rec=data.recomendacion,opt=data.escenario_optimo,comp=data.comparacion;
-  const fN=v=>v!=null&&v!==undefined?v:'—';
-  const tipoC=t=>t==='EPC'?'color:var(--blue);background:rgba(56,189,248,0.1);border-color:rgba(56,189,248,0.3)':'color:var(--sun);background:rgba(245,197,24,0.1);border-color:rgba(245,197,24,0.3)';
-  
-  let html=`<div class="sec-title">① Tipo de Contrato</div>
-  <div class="grid2" style="margin-bottom:1.2rem;">
-    <div class="card"><div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.6rem;"><span style="padding:0.2rem 0.6rem;border-radius:12px;font-size:0.65rem;font-weight:700;border:1px solid;${tipoC(p1.tipo_contrato)}">${p1.tipo_contrato||'—'}</span><strong style="font-size:0.85rem;">${p1.empresa||'Propuesta 1'}</strong></div><div style="font-size:0.75rem;color:var(--muted);line-height:1.6;">${p1.descripcion_tipo||''}</div></div>
-    ${two&&p2?`<div class="card"><div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.6rem;"><span style="padding:0.2rem 0.6rem;border-radius:12px;font-size:0.65rem;font-weight:700;border:1px solid;${tipoC(p2.tipo_contrato)}">${p2.tipo_contrato||'—'}</span><strong style="font-size:0.85rem;">${p2.empresa||'Propuesta 2'}</strong></div><div style="font-size:0.75rem;color:var(--muted);line-height:1.6;">${p2.descripcion_tipo||''}</div></div>`:'<div></div>'}
+function renderAI(d,two){
+  const p1=d.propuesta1,p2=d.propuesta2,rec=d.recomendacion,opt=d.escenario_optimo,comp=d.comparacion,dif=d.diferencias_ppa_epc;
+  const tc=t=>t==='EPC'?'color:var(--blue);background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.28)':'color:var(--sun);background:rgba(245,197,24,0.1);border:1px solid rgba(245,197,24,0.28)';
+  let h=`<div class="sec-title">① Tipo de Contrato</div>
+  <div class="grid2" style="margin-bottom:1rem;">
+    <div class="card"><div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;"><span style="padding:0.18rem 0.55rem;border-radius:10px;font-size:0.62rem;font-weight:700;${tc(p1.tipo_contrato)}">${p1.tipo_contrato||'—'}</span><strong>${p1.empresa||'Propuesta 1'}</strong></div><div style="font-size:0.72rem;color:var(--muted);line-height:1.55;">${p1.descripcion_tipo||''}</div>${(p1.fortalezas||[]).map(f=>`<div style="font-size:0.68rem;color:#5a7a6a;margin-top:0.2rem;">→ ${f}</div>`).join('')}</div>
+    ${two&&p2?`<div class="card"><div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;"><span style="padding:0.18rem 0.55rem;border-radius:10px;font-size:0.62rem;font-weight:700;${tc(p2.tipo_contrato)}">${p2.tipo_contrato||'—'}</span><strong>${p2.empresa||'Propuesta 2'}</strong></div><div style="font-size:0.72rem;color:var(--muted);line-height:1.55;">${p2.descripcion_tipo||''}</div>${(p2.fortalezas||[]).map(f=>`<div style="font-size:0.68rem;color:#5a7a6a;margin-top:0.2rem;">→ ${f}</div>`).join('')}</div>`:'<div></div>'}
   </div>`;
-
-  if(data.diferencias_ppa_epc?.mostrar){
-    const d=data.diferencias_ppa_epc;
-    html+=`<div class="card" style="margin-bottom:1.2rem;background:rgba(245,197,24,0.02);border-color:rgba(245,197,24,0.1);">
-      <div style="font-family:'Syne',sans-serif;font-size:0.65rem;font-weight:700;color:var(--sun);letter-spacing:0.15em;margin-bottom:0.7rem;">EPC vs PPA — ¿Cuál es la diferencia?</div>
-      <div class="grid2"><div><div style="font-size:0.65rem;color:var(--blue);font-weight:700;margin-bottom:0.35rem;">📋 EPC</div><div style="font-size:0.72rem;color:var(--muted);line-height:1.6;">${d.explicacion_epc}</div><div style="font-size:0.65rem;color:#3a4d60;margin-top:0.3rem;">✓ ${d.cuando_conviene_epc}</div></div>
-      <div><div style="font-size:0.65rem;color:var(--sun);font-weight:700;margin-bottom:0.35rem;">📑 PPA</div><div style="font-size:0.72rem;color:var(--muted);line-height:1.6;">${d.explicacion_ppa}</div><div style="font-size:0.65rem;color:#3a4d60;margin-top:0.3rem;">✓ ${d.cuando_conviene_ppa}</div></div></div>
-    </div>`;
-  }
-
-  if(two&&p2&&comp?.tabla){
-    html+=`<div class="sec-title">② Comparación</div>
-    <div class="compare-grid-table" style="margin-bottom:1.2rem;">
-      <div class="cg-hdr">Parámetro</div><div class="cg-hdr">${p1.empresa||'Propuesta 1'}</div><div class="cg-hdr">${p2.empresa||'Propuesta 2'}</div>
+  if(dif?.mostrar)h+=`<div class="card" style="margin-bottom:1rem;background:rgba(245,197,24,0.02);border-color:rgba(245,197,24,0.08);">
+    <div style="font-family:'Syne',sans-serif;font-size:0.6rem;font-weight:700;color:var(--sun);letter-spacing:0.15em;margin-bottom:0.6rem;">EPC VS PPA</div>
+    <div class="grid2"><div><div style="font-size:0.62rem;color:var(--blue);font-weight:700;margin-bottom:0.3rem;">📋 EPC</div><div style="font-size:0.7rem;color:var(--muted);line-height:1.55;">${dif.explicacion_epc}</div><div style="font-size:0.62rem;color:#3a4d60;margin-top:0.25rem;">✓ ${dif.cuando_conviene_epc}</div></div>
+    <div><div style="font-size:0.62rem;color:var(--sun);font-weight:700;margin-bottom:0.3rem;">📑 PPA</div><div style="font-size:0.7rem;color:var(--muted);line-height:1.55;">${dif.explicacion_ppa}</div><div style="font-size:0.62rem;color:#3a4d60;margin-top:0.25rem;">✓ ${dif.cuando_conviene_ppa}</div></div></div></div>`;
+  if(two&&p2&&comp?.tabla)h+=`<div class="sec-title">② Comparación</div>
+    <div class="cg-table" style="margin-bottom:1rem;">
+      <div class="cg-hdr">Parámetro</div><div class="cg-hdr">${p1.empresa||'P1'}</div><div class="cg-hdr">${p2.empresa||'P2'}</div>
       ${comp.tabla.map(r=>`<div class="cg-cell lbl">${r.parametro}</div><div class="cg-cell ${r.mejor==='p1'?'win':''}">${r.p1}${r.mejor==='p1'?'<span class="win-tag">✓</span>':''}</div><div class="cg-cell ${r.mejor==='p2'?'win':''}">${r.p2}${r.mejor==='p2'?'<span class="win-tag">✓</span>':''}</div>`).join('')}
     </div>`;
-  }
-
-  html+=`<div class="sec-title">③ Métricas Clave</div>
-  <div class="grid4" style="margin-bottom:1.2rem;">
-    ${[{l:'Potencia',v:fN(p1.potencia_kwp)+' kWp',c:'var(--sun)'},{l:'Paneles',v:fN(p1.num_paneles),c:'var(--blue)'},{l:'Payback',v:p1.payback_anos?p1.payback_anos.toFixed(1)+' años':'—',c:'var(--green)'},{l:'TIR',v:p1.tir_pct?p1.tir_pct.toFixed(1)+'%':'—',c:'var(--purple)'}].map(m=>`<div class="metric"><div class="lbl">${m.l}</div><div class="val" style="color:${m.c}">${m.v}</div></div>`).join('')}
+  h+=`<div class="sec-title">③ Métricas</div>
+  <div class="grid4" style="margin-bottom:1rem;">
+    ${[{l:'kWp',v:(p1.potencia_kwp||'—')+' kWp',c:'var(--sun)'},{l:'Paneles',v:p1.num_paneles||'—',c:'var(--blue)'},{l:'Payback',v:p1.payback_anos?p1.payback_anos.toFixed(1)+' a':'—',c:'var(--green)'},{l:'TIR',v:p1.tir_pct?p1.tir_pct.toFixed(1)+'%':'—',c:'var(--purple)'}].map(m=>`<div class="metric"><div class="lbl">${m.l}</div><div class="val" style="color:${m.c}">${m.v}</div></div>`).join('')}
   </div>`;
-
-  if(opt){
-    html+=`<div class="sec-title">④ Escenario Óptimo</div>
-    <div class="card" style="margin-bottom:1.2rem;background:rgba(56,189,248,0.03);border-color:rgba(56,189,248,0.12);">
-      <div style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
-        <div style="text-align:center;"><div style="font-family:'Syne',sans-serif;font-size:2rem;color:var(--blue);">${fN(opt.num_paneles_recomendado)}</div><div style="font-size:0.62rem;color:var(--muted);">paneles recomendados</div><div style="font-size:0.75rem;color:var(--sun)">${fN(opt.potencia_kwp_recomendada)} kWp</div></div>
-        <div style="flex:1;min-width:180px;"><div style="font-size:0.75rem;color:var(--text);line-height:1.7;margin-bottom:0.4rem;">${opt.razon||''}</div>${(opt.consideraciones||[]).map(c=>`<div style="font-size:0.68rem;color:#3a4d60;margin-bottom:0.2rem;">· ${c}</div>`).join('')}</div>
+  if(opt)h+=`<div class="sec-title">④ Escenario Óptimo</div>
+    <div class="card" style="margin-bottom:1rem;background:rgba(56,189,248,0.03);border-color:rgba(56,189,248,0.1);">
+      <div style="display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;">
+        <div style="text-align:center;"><div style="font-family:'Syne',sans-serif;font-size:1.8rem;color:var(--blue)">${opt.num_paneles_recomendado||'—'}</div><div style="font-size:0.58rem;color:var(--muted)">paneles recomendados</div><div style="font-size:0.72rem;color:var(--sun)">${opt.potencia_kwp_recomendada||'—'} kWp</div></div>
+        <div style="flex:1;min-width:160px;"><div style="font-size:0.72rem;color:var(--text);line-height:1.65;margin-bottom:0.35rem;">${opt.razon||''}</div>${(opt.consideraciones||[]).map(c=>`<div style="font-size:0.65rem;color:#3a4d60;margin-bottom:0.18rem;">· ${c}</div>`).join('')}</div>
       </div>
     </div>`;
-  }
-
-  if(rec){
-    html+=`<div class="sec-title">⑤ Recomendación Final</div>
-    <div class="rec-box" style="margin-bottom:1.2rem;">
-      <div style="font-family:'Syne',sans-serif;font-size:0.6rem;font-weight:700;color:var(--green);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:0.5rem;">Análisis IA</div>
-      <div style="font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:#fff;margin-bottom:0.5rem;">${rec.titulo||''}</div>
-      <div style="font-size:0.78rem;color:var(--text);line-height:1.7;margin-bottom:0.6rem;">${rec.razon_principal||''}</div>
-      ${(rec.argumentos||[]).map(a=>`<div style="font-size:0.73rem;color:#8a9bb5;padding:0.2rem 0 0.2rem 0.7rem;border-left:2px solid rgba(0,229,160,0.25);margin-bottom:0.25rem;">${a}</div>`).join('')}
-      ${rec.advertencias?.length?`<div style="margin-top:0.7rem;padding:0.6rem;background:rgba(255,77,109,0.07);border-radius:6px;">${rec.advertencias.map(a=>`<div style="font-size:0.7rem;color:#ff8fa3;">⚠ ${a}</div>`).join('')}</div>`:''}
-      ${rec.proximos_pasos?.length?`<div style="margin-top:0.6rem;"><div style="font-size:0.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.3rem;">Próximos pasos</div>${rec.proximos_pasos.map((s,i)=>`<div style="font-size:0.7rem;color:#8a9bb5;margin-bottom:0.2rem;"><span style="color:var(--sun)">${i+1}.</span> ${s}</div>`).join('')}</div>`:''}
+  if(rec)h+=`<div class="sec-title">⑤ Recomendación Final</div>
+    <div class="rec-box" style="margin-bottom:1rem;">
+      <div style="font-family:'Syne',sans-serif;font-size:0.58rem;font-weight:700;color:var(--green);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:0.4rem;">Análisis IA</div>
+      <div style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;color:#fff;margin-bottom:0.45rem;">${rec.titulo||''}</div>
+      <div style="font-size:0.75rem;color:var(--text);line-height:1.68;margin-bottom:0.5rem;">${rec.razon_principal||''}</div>
+      ${(rec.argumentos||[]).map(a=>`<div style="font-size:0.7rem;color:#8a9bb5;padding:0.18rem 0 0.18rem 0.6rem;border-left:2px solid rgba(0,229,160,0.22);margin-bottom:0.2rem;">${a}</div>`).join('')}
+      ${rec.advertencias?.length?`<div style="margin-top:0.6rem;padding:0.5rem;background:rgba(255,77,109,0.06);border-radius:6px;">${rec.advertencias.map(a=>`<div style="font-size:0.68rem;color:#ff8fa3;">⚠ ${a}</div>`).join('')}</div>`:''}
+      ${rec.proximos_pasos?.length?`<div style="margin-top:0.55rem;"><div style="font-size:0.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.25rem;">Próximos pasos</div>${rec.proximos_pasos.map((s,i)=>`<div style="font-size:0.68rem;color:#8a9bb5;margin-bottom:0.18rem;"><span style="color:var(--sun)">${i+1}.</span> ${s}</div>`).join('')}</div>`:''}
     </div>`;
-  }
-
-  el.innerHTML=html;
-  el.style.display='block';
-  setTimeout(()=>el.scrollIntoView({behavior:'smooth'}),100);
+  document.getElementById('ai-results').innerHTML=h;
+  setTimeout(()=>document.getElementById('ai-results').scrollIntoView({behavior:'smooth'}),100);
 }
 
 // ─── GLOSARIO ─────────────────────────────────────────────────────────────────
 const GLOSARIO=[
-  {t:'HSP',f:'Horas Sol Pico',d:'Horas equivalentes con irradiancia de 1.000 W/m². Define la energía generada por día.',i:'☀️'},
-  {t:'kWp',f:'Kilovatios Pico',d:'Potencia máxima del sistema bajo condiciones STC (1000 W/m², 25°C).',i:'⚡'},
-  {t:'STC',f:'Standard Test Conditions',d:'Condiciones de laboratorio: 1.000 W/m², 25°C, AM 1.5. Base para comparar paneles.',i:'🔬'},
-  {t:'NOCT',f:'Nominal Operating Cell Temp',d:'Temperatura real de operación en campo (~45°C). A mayor T° menor potencia.',i:'🌡️'},
-  {t:'Inversor',f:'Inversor Solar',d:'Convierte DC de paneles en AC compatible con la red eléctrica.',i:'🔄'},
-  {t:'PR',f:'Performance Ratio',d:'Eficiencia global del sistema incluyendo pérdidas por T°, cables e inversor (0.75–0.85).',i:'📊'},
-  {t:'Net Metering',f:'Medición Neta',d:'Marco legal que permite inyectar excedentes a la red y descontarlos de la boleta.',i:'⚖️'},
-  {t:'LCOE',f:'Costo Nivelado de Energía',d:'Costo total dividido entre energía generada en vida útil. Permite comparar tecnologías.',i:'💰'},
-  {t:'Irradiancia',f:'Irradiancia Solar',d:'Potencia solar instantánea por m² (W/m²). Irradiación = energía acumulada (Wh/m²).',i:'🌤️'},
-  {t:'MPPT',f:'Max Power Point Tracking',d:'Algoritmo del inversor que maximiza la potencia extraída del panel en tiempo real.',i:'🎯'},
-  {t:'PPA',f:'Power Purchase Agreement',d:'Acuerdo donde el cliente compra la energía generada (no el sistema). Sin inversión inicial.',i:'📑'},
-  {t:'EPC',f:'Engineering Procurement Construction',d:'Modalidad de compra directa del sistema. El cliente es dueño desde el inicio.',i:'🏗️'},
+  {t:'HSP',f:'Horas Sol Pico',d:'Número de horas equivalentes con irradiancia de 1.000 W/m². Define la energía generada por día por kWp instalado.',i:'☀️'},
+  {t:'kWp',f:'Kilovatios Pico',d:'Potencia máxima del sistema bajo condiciones STC (1000 W/m², 25°C, AM 1.5).',i:'⚡'},
+  {t:'STC',f:'Standard Test Conditions',d:'Condiciones de laboratorio para medir paneles: 1.000 W/m², 25°C, masa de aire AM 1.5.',i:'🔬'},
+  {t:'NOCT',f:'Nominal Operating Cell Temp',d:'Temperatura real de operación de la celda en campo (~45°C). A mayor temperatura, menor potencia.',i:'🌡️'},
+  {t:'Inversor',f:'Inversor Solar',d:'Convierte corriente continua (DC) de los paneles en corriente alterna (AC) compatible con la red.',i:'🔄'},
+  {t:'PR',f:'Performance Ratio',d:'Eficiencia global del sistema incluyendo pérdidas por temperatura, cableado e inversor (buen PR: 0.75–0.85).',i:'📊'},
+  {t:'Net Metering',f:'Medición Neta',d:'Marco legal que permite inyectar excedentes a la red eléctrica y descontarlos de la boleta.',i:'⚖️'},
+  {t:'LCOE',f:'Costo Nivelado de Energía',d:'Costo total dividido entre energía generada en vida útil. Permite comparar tecnologías energéticas.',i:'💰'},
+  {t:'Irradiancia',f:'Irradiancia Solar',d:'Potencia solar instantánea por m² (W/m²). La irradiación es la energía acumulada (Wh/m²).',i:'🌤️'},
+  {t:'MPPT',f:'Max Power Point Tracking',d:'Algoritmo del inversor que maximiza continuamente la potencia extraída del panel.',i:'🎯'},
+  {t:'PPA',f:'Power Purchase Agreement',d:'El cliente compra la energía generada, no el sistema. Sin inversión inicial. Contrato por 10–20 años.',i:'📑'},
+  {t:'EPC',f:'Engineering Procurement Construction',d:'Compra directa del sistema. El cliente es propietario desde el primer día.',i:'🏗️'},
 ];
-let glosOpen=null;
+let gOpen=null;
 function renderGlosario(){
   document.getElementById('glos-grid').innerHTML=GLOSARIO.map((g,i)=>`
-    <div class="glos-card ${glosOpen===i?'open':''}" onclick="toggleGlos(${i})">
-      <div style="display:flex;align-items:center;gap:0.6rem;">
-        <span style="font-size:1.2rem;">${g.i}</span>
-        <div><div style="color:var(--sun);font-weight:600;font-size:0.88rem;">${g.t}</div><div style="font-size:0.62rem;color:var(--muted);">${g.f}</div></div>
-        <span style="margin-left:auto;color:var(--muted);font-size:0.72rem;">${glosOpen===i?'▲':'▼'}</span>
+    <div class="glos-card ${gOpen===i?'open':''}" onclick="tglos(${i})">
+      <div style="display:flex;align-items:center;gap:0.55rem;">
+        <span style="font-size:1.1rem">${g.i}</span>
+        <div><div style="color:var(--sun);font-weight:600;font-size:0.85rem">${g.t}</div><div style="font-size:0.6rem;color:var(--muted)">${g.f}</div></div>
+        <span style="margin-left:auto;color:var(--muted);font-size:0.68rem">${gOpen===i?'▲':'▼'}</span>
       </div>
-      ${glosOpen===i?`<div style="margin-top:0.6rem;padding-top:0.6rem;border-top:1px solid var(--border);font-size:0.75rem;color:#8a9bb5;line-height:1.65;">${g.d}</div>`:''}
+      ${gOpen===i?`<div style="margin-top:0.55rem;padding-top:0.55rem;border-top:1px solid var(--border);font-size:0.72rem;color:#8a9bb5;line-height:1.6">${g.d}</div>`:''}
     </div>`).join('');
 }
-function toggleGlos(i){glosOpen=glosOpen===i?null:i;renderGlosario();}
+function tglos(i){gOpen=gOpen===i?null:i;renderGlosario();}
 
 // ─── SESIONES ─────────────────────────────────────────────────────────────────
 const SESIONES=[
-  {n:1,t:'Fundamentos de la Energía Solar',c:'#ff8f00',p:['Radiación solar: global, directa y difusa','Irradiancia vs. irradiación','Movimiento solar: azimut, elevación','Ángulo óptimo para cada latitud']},
-  {n:2,t:'Tecnologías de Paneles FV',c:'#f57c00',p:['Efecto fotoeléctrico y celda solar','Mono, policristalino, bifacial','Curva I-V y punto MPP','STC vs. NOCT']},
-  {n:3,t:'Componentes del Sistema',c:'#e65100',p:['Inversores: string, micro, optimizadores','Baterías LFP y NMC','Estructuras y seguimiento solar','Cableado, fusibles y protecciones']},
-  {n:4,t:'Dimensionamiento Básico',c:'#ffb300',p:['Cálculo de consumo (kWh/mes)','HSP y estimación de generación','N° paneles y tamaño inversor','Relación DC/AC']},
-  {n:5,t:'Ingeniería de Detalle',c:'#fdd835',p:['Diseño de strings','Análisis de sombras y pérdidas','Performance Ratio (PR)','PVsyst, SAM, Helioscope']},
-  {n:6,t:'Marco Regulatorio',c:'#a5d6a7',p:['Ley 20.936 Chile / Ley 1715 Colombia','Net Billing y Net Metering','Conexión con distribuidora','Normas técnicas SEC / RETIE']},
-  {n:7,t:'Evaluación Económica',c:'#80cbc4',p:['CAPEX y OPEX','VAN, TIR, Payback, LCOE','Incentivos tributarios','Análisis de sensibilidad']},
-  {n:8,t:'Interpretación del Estudio',c:'#81d4fa',p:['Uso de esta herramienta','Limitaciones del estudio','Pasos hacia proyecto real','Lectura crítica de cotizaciones']},
+  {n:1,t:'Fundamentos de la Energía Solar',c:'#ff8f00',p:['Radiación: global, directa y difusa','Irradiancia vs. irradiación','Movimiento solar y ángulos','HSP por zona geográfica']},
+  {n:2,t:'Tecnologías de Paneles FV',c:'#f57c00',p:['Efecto fotoeléctrico','Mono, policristalino, bifacial','Curva I-V y punto MPP','STC vs. NOCT']},
+  {n:3,t:'Componentes del Sistema',c:'#e65100',p:['Inversores: string, micro, optimizadores','Baterías LFP y NMC','Estructuras y seguimiento','Protecciones eléctricas']},
+  {n:4,t:'Dimensionamiento Básico',c:'#ffb300',p:['Cálculo de consumo (kWh)','HSP y generación estimada','N° paneles y tamaño inversor','Relación DC/AC']},
+  {n:5,t:'Ingeniería de Detalle',c:'#fdd835',p:['Diseño de strings','Análisis de sombras','Performance Ratio','PVsyst · SAM · Helioscope']},
+  {n:6,t:'Marco Regulatorio',c:'#a5d6a7',p:['Ley 20.936 Chile / Ley 1715 Colombia','Net Billing y Net Metering','Conexión con distribuidora','Normas SEC / RETIE']},
+  {n:7,t:'Evaluación Económica',c:'#80cbc4',p:['CAPEX y OPEX','VAN · TIR · Payback · LCOE','Incentivos tributarios','Análisis de sensibilidad']},
+  {n:8,t:'Uso de esta Herramienta',c:'#81d4fa',p:['Interpretar el estudio referencial','Limitaciones del modelo','Pasos hacia proyecto real','Leer cotizaciones correctamente']},
 ];
 function renderSesiones(){
   document.getElementById('ses-list').innerHTML=SESIONES.map(s=>`
     <div class="ses-card" style="border-left-color:${s.c}">
-      <div style="display:flex;align-items:center;gap:0.7rem;margin-bottom:0.5rem;">
-        <div style="width:24px;height:24px;border-radius:50%;background:${s.c}18;border:1px solid ${s.c}44;color:${s.c};display:flex;align-items:center;justify-content:center;font-size:0.68rem;flex-shrink:0;">${s.n}</div>
-        <div style="color:${s.c};font-size:0.82rem;font-weight:500;">Sesión ${s.n}: ${s.t}</div>
+      <div style="display:flex;align-items:center;gap:0.65rem;margin-bottom:0.45rem;">
+        <div style="width:22px;height:22px;border-radius:50%;background:${s.c}18;border:1px solid ${s.c}44;color:${s.c};display:flex;align-items:center;justify-content:center;font-size:0.65rem;flex-shrink:0">${s.n}</div>
+        <div style="color:${s.c};font-size:0.8rem;font-weight:500">Sesión ${s.n}: ${s.t}</div>
       </div>
-      <div style="display:flex;flex-wrap:wrap;gap:0.3rem;">${s.p.map(p=>`<span class="tag">· ${p}</span>`).join('')}</div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.28rem">${s.p.map(p=>`<span class="tag">· ${p}</span>`).join('')}</div>
     </div>`).join('');
 }
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
-onCiudadChange();
-updateMaxPanels();
 renderGlosario();
 renderSesiones();
-window.addEventListener('resize',()=>{if(document.getElementById('tab-paneles').style.display!=='none')drawLayout();});
+onMapCiudadChange();
+onCalcCiudad();
+window.addEventListener('resize',()=>{
+  if(polygon&&polyConfirmed){
+    if(document.getElementById('layout-section').style.display!=='none')drawLayoutCanvas();
+    if(document.getElementById('shadow-section').style.display!=='none')updateShadow();
+  }
+});
 </script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRPM-dWslynLx1EuUGE4UIIYAJ_bTOmtQ&libraries=drawing,geometry,places&callback=initMap" async defer></script>
 </body>
 </html>
