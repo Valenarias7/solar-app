@@ -7,7 +7,7 @@
 
 ## 🚀 Demo en vivo
 
-👉 [**[Ver la app](https://tu-usuario.github.io/solar-app)**](https://valenarias7.github.io/solar-app/)
+👉 (https://valenarias7.github.io/solar-app/))
 
 
 ---
