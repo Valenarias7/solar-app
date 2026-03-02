@@ -7,8 +7,8 @@
 
 ## 🚀 Demo en vivo
 
-👉 **[Ver la app](https://tu-usuario.github.io/solar-app)**
-*(reemplaza con tu URL de GitHub Pages)*
+👉 [**[Ver la app](https://tu-usuario.github.io/solar-app)**](https://valenarias7.github.io/solar-app/)
+
 
 ---
 
