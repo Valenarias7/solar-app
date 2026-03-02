@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Prefactibilidad Solar · Chile</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  :root {
+    --sun: #ffb300;
+    --sun2: #ff6b00;
+    --bg: #080e1c;
+    --bg2: #0d1626;
+    --card: rgba(255,255,255,0.035);
+    --border: rgba(255,255,255,0.07);
+    --text: #ddd5c4;
+    --muted: #5a6d84;
+    --green: #66bb6a;
+    --blue: #4fc3f7;
+    --purple: #ce93d8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse 70% 50% at 50% -10%, rgba(255,179,0,0.07) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+
+  header {
+    position: relative; z-index: 10;
+    padding: 1.4rem 2rem 1rem;
+    border-bottom: 1px solid rgba(255,179,0,0.12);
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(12px);
+    display: flex; align-items: center; gap: 1rem;
+  }
+
+  .sun-icon {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: radial-gradient(circle, #ffb300, #ff6b00);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.3rem;
+    box-shadow: 0 0 28px rgba(255,179,0,0.45);
+    flex-shrink: 0;
+  }
+
+  h1 { font-family: 'DM Serif Display', serif; font-weight: normal; font-size: clamp(1.2rem,3vw,1.7rem); color: #fff; }
+  h1 span { color: var(--sun); }
+  .subtitle { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+
+  nav {
+    position: relative; z-index: 10;
+    display: flex; border-bottom: 1px solid rgba(255,255,255,0.06);
+    background: rgba(0,0,0,0.2);
+    padding: 0 2rem;
+  }
+
+  .tab-btn {
+    padding: 0.85rem 1.3rem;
+    background: none; border: none; border-bottom: 2px solid transparent;
+    color: var(--muted); cursor: pointer; font-family: inherit;
+    font-size: 0.82rem; letter-spacing: 0.04em; transition: all 0.2s;
+  }
+  .tab-btn.active { color: var(--sun); border-bottom-color: var(--sun); }
+
+  main { position: relative; z-index: 5; max-width: 960px; margin: 0 auto; padding: 2rem; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.1rem;
+  }
+
+  label { display: block; font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+
+  input, select {
+    width: 100%; background: rgba(0,0,0,0.35);
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 6px;
+    padding: 0.6rem 0.8rem; color: var(--text);
+    font-size: 0.88rem; font-family: inherit; outline: none;
+  }
+  input:focus, select:focus { border-color: rgba(255,179,0,0.4); }
+
+  .hint { display: block; font-size: 0.68rem; color: #3a4d60; margin-top: 0.35rem; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .grid3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+
+  .btn-primary {
+    width: 100%; padding: 1rem;
+    background: linear-gradient(135deg, var(--sun), var(--sun2));
+    border: none; border-radius: 8px;
+    color: #0a0f1e; font-size: 0.95rem; font-family: inherit;
+    font-weight: 600; cursor: pointer; letter-spacing: 0.06em;
+    text-transform: uppercase; box-shadow: 0 4px 22px rgba(255,140,0,0.3);
+    transition: all 0.2s;
+  }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 28px rgba(255,140,0,0.4); }
+
+  .btn-small {
+    padding: 0.45rem 1rem; border-radius: 6px; cursor: pointer;
+    font-size: 0.78rem; font-family: inherit; border: none; transition: all 0.2s;
+  }
+  .btn-outline {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
+    color: var(--text);
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.08); }
+  .btn-danger {
+    background: rgba(244,67,54,0.12); border: 1px solid rgba(244,67,54,0.3);
+    color: #ef9a9a;
+  }
+  .btn-success {
+    background: rgba(102,187,106,0.15); border: 1px solid rgba(102,187,106,0.3);
+    color: var(--green);
+  }
+
+  #map-container {
+    width: 100%; height: 420px; border-radius: 10px;
+    overflow: hidden; border: 1px solid var(--border);
+    position: relative;
+  }
+
+  #map { width: 100%; height: 100%; }
+
+  .map-overlay {
+    position: absolute; top: 10px; left: 10px; right: 10px;
+    display: flex; gap: 0.5rem; flex-wrap: wrap; pointer-events: none;
+    z-index: 100;
+  }
+  .map-overlay > * { pointer-events: all; }
+
+  .map-badge {
+    background: rgba(8,14,28,0.88);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 6px; padding: 0.35rem 0.8rem;
+    font-size: 0.75rem; color: var(--text);
+    backdrop-filter: blur(8px);
+  }
+  .map-badge.active { border-color: rgba(255,179,0,0.5); color: var(--sun); }
+
+  .search-box {
+    display: flex; gap: 0.6rem; margin-bottom: 0.8rem;
+  }
+  .search-box input { flex: 1; }
+
+  .angle-display {
+    background: rgba(255,179,0,0.08);
+    border: 1px solid rgba(255,179,0,0.2);
+    border-radius: 8px; padding: 0.8rem 1.1rem;
+    display: flex; align-items: center; gap: 1rem;
+    margin-top: 0.8rem;
+  }
+  .angle-val { font-size: 2rem; color: var(--sun); font-family: 'DM Serif Display', serif; }
+  .angle-info { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+
+  .metric-card {
+    text-align: center; border-radius: 10px; padding: 1rem;
+    background: var(--card); border: 1px solid var(--border);
+  }
+  .metric-label { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+  .metric-val { font-size: 1.5rem; font-family: 'DM Serif Display', serif; }
+  .metric-sub { font-size: 0.68rem; color: #3a4d60; margin-top: 0.25rem; }
+
+  .roi-bar { height: 7px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; margin: 0.5rem 0; }
+  .roi-fill { height: 100%; background: linear-gradient(90deg, var(--sun), var(--sun2)); border-radius: 4px; transition: width 1s ease; }
+
+  .detail-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.35rem 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 0.8rem;
+  }
+  .detail-row span:first-child { color: var(--muted); }
+  .detail-row span:last-child { color: #c8bda8; font-weight: 500; }
+
+  .warning-box {
+    background: rgba(255,179,0,0.06);
+    border: 1px solid rgba(255,179,0,0.15);
+    border-radius: 8px; padding: 0.9rem 1.1rem;
+    font-size: 0.78rem; color: var(--muted); line-height: 1.6;
+    margin-top: 1rem;
+  }
+
+  .tipo-sel { display: flex; gap: 0.8rem; margin-bottom: 1.5rem; }
+  .tipo-btn {
+    flex: 1; padding: 0.8rem; border-radius: 8px; cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.07);
+    background: rgba(255,255,255,0.03);
+    color: var(--muted); font-family: inherit; font-size: 0.88rem;
+    transition: all 0.25s;
+  }
+  .tipo-btn.active {
+    background: rgba(255,179,0,0.12);
+    border-color: rgba(255,179,0,0.4);
+    color: var(--sun);
+  }
+
+  .glosario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+  .glosario-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 8px; padding: 0.9rem; cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .glosario-card:hover { border-color: rgba(255,179,0,0.2); }
+  .glosario-card.open { border-color: rgba(255,179,0,0.3); }
+  .glosario-header { display: flex; align-items: center; gap: 0.6rem; }
+  .glosario-term { color: var(--sun); font-size: 0.95rem; font-weight: 600; }
+  .glosario-full { font-size: 0.68rem; color: var(--muted); }
+  .glosario-def {
+    margin-top: 0.7rem; padding-top: 0.7rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.79rem; color: #8a9bb5; line-height: 1.65;
+  }
+
+  .sesion-card {
+    background: var(--card); border-radius: 8px; padding: 1rem 1.1rem;
+    border-left: 3px solid;
+  }
+  .sesion-num {
+    width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; flex-shrink: 0;
+  }
+  .tag {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 4px; padding: 0.15rem 0.55rem;
+    font-size: 0.72rem; color: var(--muted);
+  }
+
+  #autocomplete-list {
+    position: absolute; z-index: 200;
+    background: #0d1626; border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 6px; width: calc(100% - 90px);
+    max-height: 180px; overflow-y: auto;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  }
+  .autocomplete-item {
+    padding: 0.6rem 0.9rem; cursor: pointer;
+    font-size: 0.82rem; color: var(--text);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    transition: background 0.15s;
+  }
+  .autocomplete-item:hover { background: rgba(255,179,0,0.1); }
+
+  .hidden { display: none !important; }
+
+  footer {
+    text-align: center; padding: 1.5rem;
+    color: #1e2d3d; font-size: 0.68rem;
+    border-top: 1px solid rgba(255,255,255,0.03);
+    margin-top: 2rem; position: relative; z-index: 5;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="sun-icon">☀</div>
+  <div>
+    <h1>Prefactibilidad <span>Solar</span></h1>
+    <div class="subtitle">Herramienta educativa · Sistemas Fotovoltaicos Chile</div>
+  </div>
+</header>
+
+<nav>
+  <button class="tab-btn active" onclick="showTab('calculadora')">Calculadora</button>
+  <button class="tab-btn" onclick="showTab('glosario')">Glosario FV</button>
+  <button class="tab-btn" onclick="showTab('sesiones')">Guía de Sesiones</button>
+</nav>
+
+<main>
+
+<!-- ===== CALCULADORA ===== -->
+<div id="tab-calculadora">
+
+  <div class="tipo-sel">
+    <button class="tipo-btn active" onclick="setTipo('residencial',this)">🏠 Residencial</button>
+    <button class="tipo-btn" onclick="setTipo('comercial',this)">🏢 Comercial / Industrial</button>
+  </div>
+
+  <!-- Sección mapa -->
+  <div class="card" style="margin-bottom:1rem;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.8rem;">
+      <div>
+        <div style="font-size:0.78rem;color:var(--sun);font-weight:600;margin-bottom:0.2rem;">📍 Ubicación y Techo</div>
+        <div style="font-size:0.72rem;color:var(--muted);">Busca la dirección, luego dibuja el polígono sobre el techo en el mapa satelital</div>
+      </div>
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;justify-content:flex-end;">
+        <button class="btn-small btn-outline" onclick="startDrawing()" id="btn-draw">✏️ Dibujar techo</button>
+        <button class="btn-small btn-danger" onclick="clearPolygon()" id="btn-clear" style="display:none;">🗑 Borrar</button>
+        <button class="btn-small btn-success" onclick="confirmPolygon()" id="btn-confirm" style="display:none;">✓ Confirmar</button>
+      </div>
+    </div>
+
+    <!-- Search -->
+    <div style="position:relative;">
+      <div class="search-box">
+        <input type="text" id="address-input" placeholder="Ej: Av. Providencia 1234, Santiago" oninput="onAddressInput()" />
+        <button class="btn-small btn-outline" onclick="searchAddress()">Buscar</button>
+      </div>
+      <div id="autocomplete-list" style="display:none;"></div>
+    </div>
+
+    <div id="map-container">
+      <div id="map"></div>
+      <div class="map-overlay">
+        <div class="map-badge" id="badge-mode">Vista normal</div>
+        <div class="map-badge" id="badge-area" style="display:none;"></div>
+        <div class="map-badge" id="badge-orient" style="display:none;"></div>
+      </div>
+    </div>
+
+    <!-- Ángulo estimado -->
+    <div class="angle-display" id="angle-display" style="display:none;">
+      <div>
+        <div style="font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Ángulo de inclinación estimado</div>
+        <div class="angle-val" id="angle-val">—°</div>
+      </div>
+      <div class="angle-info" id="angle-info">
+        Basado en la orientación del polígono y la latitud de la ciudad.<br>
+        Puedes ajustar manualmente abajo.
+      </div>
+      <div style="margin-left:auto;">
+        <label style="margin-bottom:0.3rem;">Ajustar ángulo</label>
+        <input type="number" id="angle-manual" min="0" max="90" style="width:80px;" oninput="onAngleManual()" />
+        <span class="hint">grados</span>
+      </div>
+    </div>
+
+    <!-- Ciudad detectada o manual -->
+    <div class="grid2" style="margin-top:0.8rem;">
+      <div>
+        <label>Ciudad (HSP)</label>
+        <select id="ciudad-sel" onchange="onCiudadChange()">
+          <option value="Arica">Arica (7.5 h/día)</option>
+          <option value="Iquique">Iquique (7.2 h/día)</option>
+          <option value="Antofagasta">Antofagasta (7.0 h/día)</option>
+          <option value="Calama">Calama (7.4 h/día)</option>
+          <option value="Copiapó">Copiapó (6.8 h/día)</option>
+          <option value="La Serena">La Serena (6.2 h/día)</option>
+          <option value="Valparaíso">Valparaíso (5.4 h/día)</option>
+          <option value="Santiago" selected>Santiago (5.8 h/día)</option>
+          <option value="Rancagua">Rancagua (5.5 h/día)</option>
+          <option value="Talca">Talca (5.2 h/día)</option>
+          <option value="Concepción">Concepción (4.5 h/día)</option>
+          <option value="Temuco">Temuco (4.2 h/día)</option>
+          <option value="Valdivia">Valdivia (3.9 h/día)</option>
+          <option value="Puerto Montt">Puerto Montt (3.6 h/día)</option>
+          <option value="Punta Arenas">Punta Arenas (3.0 h/día)</option>
+        </select>
+        <span class="hint" id="ciudad-hsp-hint">HSP: 5.8 h/día · Región Metropolitana</span>
+      </div>
+      <div>
+        <label>Área del polígono (m²)</label>
+        <input type="number" id="area-input" min="5" max="5000" value="" placeholder="Se calcula al dibujar" />
+        <span class="hint">Editable manualmente si no usas el mapa</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Parámetros técnicos -->
+  <div class="grid2" style="margin-bottom:1rem;gap:1rem;">
+    <div class="card">
+      <label>Tipo de cubierta</label>
+      <select id="techo-tipo">
+        <option value="1.0|2.0">Hormigón / Losa plana</option>
+        <option value="0.95|2.2">Teja / Cubierta inclinada</option>
+        <option value="0.98|2.0">Metaldeck / Zinc</option>
+        <option value="0.92|2.2">Fibrocemento</option>
+        <option value="1.02|2.5">Suelo (montaje a tierra)</option>
+      </select>
+      <span class="hint">Afecta factor de rendimiento y espacio por panel</span>
+    </div>
+    <div class="card">
+      <label>Modo de cálculo</label>
+      <div style="display:flex;gap:0.5rem;margin-bottom:0.5rem;">
+        <button class="btn-small btn-outline" id="modo-btn-paneles" onclick="setModo('paneles')" style="flex:1;background:rgba(255,179,0,0.15);border-color:rgba(255,179,0,0.4);color:var(--sun);">N° Paneles</button>
+        <button class="btn-small btn-outline" id="modo-btn-presupuesto" onclick="setModo('presupuesto')" style="flex:1;">Presupuesto</button>
+      </div>
+      <div id="input-paneles">
+        <input type="number" id="num-paneles" min="1" max="1000" value="10" />
+        <span class="hint">Paneles de 550 Wp cada uno</span>
+      </div>
+      <div id="input-presupuesto" style="display:none;">
+        <input type="number" id="presupuesto-usd" min="500" max="500000" step="500" value="5000" />
+        <span class="hint">Presupuesto en USD (equipos + instalación)</span>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-primary" onclick="calcular()">Calcular Prefactibilidad →</button>
+
+  <!-- Resultados -->
+  <div id="resultado-section" style="display:none;margin-top:2.5rem;">
+    <h2 style="font-family:'DM Serif Display',serif;font-weight:normal;color:var(--sun);margin-bottom:1.2rem;font-size:1.1rem;">◈ Resultados del Estudio</h2>
+
+    <div class="grid3" style="margin-bottom:1rem;">
+      <div class="metric-card">
+        <div class="metric-label">Sistema</div>
+        <div class="metric-val" style="color:var(--sun);" id="r-kwp">—</div>
+        <div class="metric-sub" id="r-paneles-desc">—</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Generación Mensual</div>
+        <div class="metric-val" style="color:var(--blue);" id="r-gen-mes">—</div>
+        <div class="metric-sub" id="r-gen-anual">—</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Ahorro Mensual</div>
+        <div class="metric-val" style="color:var(--green);" id="r-ahorro-mes">—</div>
+        <div class="metric-sub" id="r-ahorro-anual">—</div>
+      </div>
+    </div>
+
+    <div class="grid3" style="margin-bottom:1rem;">
+      <div class="metric-card">
+        <div class="metric-label">Retorno de Inversión</div>
+        <div class="metric-val" style="color:var(--purple);" id="r-roi">—</div>
+        <div class="metric-sub" id="r-costo">—</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">CO₂ Evitado 25 años</div>
+        <div class="metric-val" style="color:#80cbc4;" id="r-co2">—</div>
+        <div class="metric-sub" id="r-arboles">—</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Beneficio Neto 25 años</div>
+        <div class="metric-val" style="color:#ffcc80;" id="r-beneficio">—</div>
+        <div class="metric-sub">vs. costo de inversión</div>
+      </div>
+    </div>
+
+    <!-- ROI bar -->
+    <div class="card" style="margin-bottom:1rem;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;font-size:0.75rem;">
+        <span style="color:var(--muted);">Recuperación de inversión</span>
+        <span style="color:var(--sun);" id="r-roi-label">—</span>
+      </div>
+      <div class="roi-bar"><div class="roi-fill" id="roi-fill" style="width:0%;"></div></div>
+      <div style="display:flex;justify-content:space-between;margin-top:0.3rem;font-size:0.68rem;color:#2a3d50;">
+        <span>Año 0</span><span>Año 25 (vida útil)</span>
+      </div>
+    </div>
+
+    <!-- Inclinación info -->
+    <div class="card" style="margin-bottom:1rem;border-color:rgba(255,179,0,0.12);">
+      <div style="font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.7rem;">Parámetros de Irradiación</div>
+      <div class="grid3">
+        <div style="text-align:center;">
+          <div style="font-size:1.3rem;color:var(--sun);" id="r-angulo">—°</div>
+          <div style="font-size:0.68rem;color:var(--muted);">Ángulo techo</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:1.3rem;color:var(--blue);" id="r-hsp">—</div>
+          <div style="font-size:0.68rem;color:var(--muted);">HSP (h/día)</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:1.3rem;color:var(--green);" id="r-factor-ang">—</div>
+          <div style="font-size:0.68rem;color:var(--muted);">Factor por ángulo</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Desglose -->
+    <div class="card" style="margin-bottom:1rem;">
+      <div style="font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.8rem;">Desglose Técnico y Financiero</div>
+      <div class="grid2">
+        <div id="detalle-col1"></div>
+        <div id="detalle-col2"></div>
+      </div>
+    </div>
+
+    <div class="warning-box">
+      ⚠️ <strong style="color:var(--sun);">Estudio referencial.</strong> Los valores son estimaciones basadas en promedios históricos de radiación solar, tarifas vigentes y precios de mercado. Para un proyecto real solicite ingeniería con medición in situ, análisis de sombras 3D y cotización formal.
+    </div>
+  </div>
+</div>
+
+<!-- ===== GLOSARIO ===== -->
+<div id="tab-glosario" style="display:none;">
+  <p style="color:var(--muted);font-size:0.83rem;margin-bottom:1.3rem;line-height:1.6;">Conceptos fundamentales para interpretar el estudio de prefactibilidad y comprender el comportamiento de un sistema fotovoltaico.</p>
+  <div class="glosario-grid" id="glosario-grid"></div>
+</div>
+
+<!-- ===== SESIONES ===== -->
+<div id="tab-sesiones" style="display:none;">
+  <p style="color:var(--muted);font-size:0.83rem;margin-bottom:1.3rem;line-height:1.6;">Resumen de los conceptos clave abordados en cada sesión del curso.</p>
+  <div style="display:flex;flex-direction:column;gap:0.8rem;" id="sesiones-list"></div>
+</div>
+
+</main>
+
+<footer>Herramienta educativa · Curso Sistemas Fotovoltaicos · Valores referenciales · No constituye ingeniería de proyecto</footer>
+
+<!-- Google Maps -->
+<script>
+const GOOGLE_API_KEY = 'AIzaSyDRPM-dWslynLx1EuUGE4UIIYAJ_bTOmtQ';
+
+// ─── DATA ───────────────────────────────────────────────────
+const CIUDADES = {
+  "Arica":       { hsp:7.5, lat:-18.48, lng:-70.33, region:"Arica y Parinacota" },
+  "Iquique":     { hsp:7.2, lat:-20.21, lng:-70.15, region:"Tarapacá" },
+  "Antofagasta": { hsp:7.0, lat:-23.65, lng:-70.40, region:"Antofagasta" },
+  "Calama":      { hsp:7.4, lat:-22.46, lng:-68.93, region:"Antofagasta" },
+  "Copiapó":     { hsp:6.8, lat:-27.37, lng:-70.33, region:"Atacama" },
+  "La Serena":   { hsp:6.2, lat:-29.91, lng:-71.25, region:"Coquimbo" },
+  "Valparaíso":  { hsp:5.4, lat:-33.05, lng:-71.62, region:"Valparaíso" },
+  "Santiago":    { hsp:5.8, lat:-33.45, lng:-70.67, region:"Metropolitana" },
+  "Rancagua":    { hsp:5.5, lat:-34.17, lng:-70.74, region:"O'Higgins" },
+  "Talca":       { hsp:5.2, lat:-35.43, lng:-71.65, region:"Maule" },
+  "Concepción":  { hsp:4.5, lat:-36.82, lng:-73.05, region:"Biobío" },
+  "Temuco":      { hsp:4.2, lat:-38.74, lng:-72.59, region:"La Araucanía" },
+  "Valdivia":    { hsp:3.9, lat:-39.81, lng:-73.24, region:"Los Ríos" },
+  "Puerto Montt":{ hsp:3.6, lat:-41.47, lng:-72.94, region:"Los Lagos" },
+  "Punta Arenas":{ hsp:3.0, lat:-53.16, lng:-70.91, region:"Magallanes" },
+};
+
+const TARIFA = 145; // CLP/kWh
+const PANEL_WP = 550;
+const USD_CLP = 950;
+const PR = 0.78;
+const DEGRADACION = 0.005;
+const CO2_FACTOR = 0.29;
+const PRECIO_WP_USD = 0.25;
+const FACTOR_INST = 1.45; // equipos × 1.45 = total instalado
+
+// ─── STATE ──────────────────────────────────────────────────
+let map, drawingManager, polygon = null;
+let polygonArea = 0, polygonAngle = 0, roofConfirmed = false;
+let modoCalc = 'paneles';
+let tipoInstalacion = 'residencial';
+let autocompleteService, geocoder, placesService;
+
+// ─── TABS ───────────────────────────────────────────────────
+function showTab(id) {
+  ['calculadora','glosario','sesiones'].forEach(t => {
+    document.getElementById('tab-'+t).style.display = t===id ? '' : 'none';
+    document.querySelectorAll('.tab-btn')[['calculadora','glosario','sesiones'].indexOf(t)]
+      .classList.toggle('active', t===id);
+  });
+}
+
+// ─── TIPO / MODO ─────────────────────────────────────────────
+function setTipo(t, btn) {
+  tipoInstalacion = t;
+  document.querySelectorAll('.tipo-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function setModo(m) {
+  modoCalc = m;
+  document.getElementById('input-paneles').style.display = m==='paneles' ? '' : 'none';
+  document.getElementById('input-presupuesto').style.display = m==='presupuesto' ? '' : 'none';
+  const a = 'background:rgba(255,179,0,0.15);border-color:rgba(255,179,0,0.4);color:var(--sun);';
+  const i = '';
+  document.getElementById('modo-btn-paneles').style.cssText = m==='paneles' ? a : i;
+  document.getElementById('modo-btn-presupuesto').style.cssText = m==='presupuesto' ? a : i;
+}
+
+// ─── GOOGLE MAPS INIT ────────────────────────────────────────
+function initMap() {
+  const c = CIUDADES['Santiago'];
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: { lat: c.lat, lng: c.lng },
+    zoom: 18,
+    mapTypeId: 'satellite',
+    tilt: 0,
+    disableDefaultUI: false,
+    mapTypeControl: true,
+    mapTypeControlOptions: {
+      style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+      mapTypeIds: ['satellite','roadmap','hybrid'],
+    },
+    styles: [],
+  });
+
+  drawingManager = new google.maps.drawing.DrawingManager({
+    drawingMode: null,
+    drawingControl: false,
+    polygonOptions: {
+      fillColor: '#ffb300', fillOpacity: 0.25,
+      strokeColor: '#ffb300', strokeWeight: 2,
+      editable: true, draggable: true,
+    },
+  });
+  drawingManager.setMap(map);
+
+  google.maps.event.addListener(drawingManager, 'polygoncomplete', function(p) {
+    if (polygon) polygon.setMap(null);
+    polygon = p;
+    drawingManager.setDrawingMode(null);
+    updatePolygonData();
+    google.maps.event.addListener(p.getPath(), 'set_at', updatePolygonData);
+    google.maps.event.addListener(p.getPath(), 'insert_at', updatePolygonData);
+    document.getElementById('btn-clear').style.display = '';
+    document.getElementById('btn-confirm').style.display = '';
+    document.getElementById('badge-mode').textContent = 'Polígono dibujado';
+    document.getElementById('badge-mode').classList.add('active');
+  });
+
+  autocompleteService = new google.maps.places.AutocompleteService();
+  geocoder = new google.maps.Geocoder();
+  placesService = new google.maps.places.PlacesService(map);
+}
+
+// ─── ADDRESS SEARCH ─────────────────────────────────────────
+let autocompleteTimeout;
+function onAddressInput() {
+  clearTimeout(autocompleteTimeout);
+  const val = document.getElementById('address-input').value;
+  if (val.length < 3) { document.getElementById('autocomplete-list').style.display='none'; return; }
+  autocompleteTimeout = setTimeout(() => {
+    autocompleteService.getPlacePredictions({
+      input: val + ', Chile',
+      componentRestrictions: { country: 'cl' },
+    }, (preds, status) => {
+      const list = document.getElementById('autocomplete-list');
+      if (status !== google.maps.places.PlacesServiceStatus.OK || !preds) {
+        list.style.display = 'none'; return;
+      }
+      list.innerHTML = '';
+      preds.slice(0,5).forEach(p => {
+        const div = document.createElement('div');
+        div.className = 'autocomplete-item';
+        div.textContent = p.description;
+        div.onclick = () => { selectPlace(p.place_id, p.description); list.style.display='none'; };
+        list.appendChild(div);
+      });
+      list.style.display = '';
+    });
+  }, 300);
+}
+
+function searchAddress() {
+  const q = document.getElementById('address-input').value;
+  if (!q) return;
+  document.getElementById('autocomplete-list').style.display='none';
+  geocoder.geocode({ address: q+', Chile' }, (res, status) => {
+    if (status==='OK' && res[0]) {
+      map.setCenter(res[0].geometry.location);
+      map.setZoom(19);
+      map.setMapTypeId('satellite');
+      detectCityFromLatLng(res[0].geometry.location.lat(), res[0].geometry.location.lng());
+    }
+  });
+}
+
+function selectPlace(placeId, desc) {
+  document.getElementById('address-input').value = desc;
+  geocoder.geocode({ placeId }, (res, status) => {
+    if (status==='OK' && res[0]) {
+      map.setCenter(res[0].geometry.location);
+      map.setZoom(19);
+      map.setMapTypeId('satellite');
+      detectCityFromLatLng(res[0].geometry.location.lat(), res[0].geometry.location.lng());
+    }
+  });
+}
+
+function detectCityFromLatLng(lat, lng) {
+  // Find nearest city
+  let nearest = 'Santiago', minD = Infinity;
+  Object.entries(CIUDADES).forEach(([name, d]) => {
+    const dist = Math.hypot(lat - d.lat, lng - d.lng);
+    if (dist < minD) { minD = dist; nearest = name; }
+  });
+  document.getElementById('ciudad-sel').value = nearest;
+  onCiudadChange();
+}
+
+// ─── DRAWING ─────────────────────────────────────────────────
+function startDrawing() {
+  map.setMapTypeId('satellite');
+  drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
+  document.getElementById('badge-mode').textContent = 'Dibujando... clic para añadir puntos, doble clic para cerrar';
+  document.getElementById('badge-mode').classList.add('active');
+}
+
+function clearPolygon() {
+  if (polygon) { polygon.setMap(null); polygon = null; }
+  polygonArea = 0; polygonAngle = 0; roofConfirmed = false;
+  document.getElementById('btn-clear').style.display='none';
+  document.getElementById('btn-confirm').style.display='none';
+  document.getElementById('badge-area').style.display='none';
+  document.getElementById('badge-orient').style.display='none';
+  document.getElementById('angle-display').style.display='none';
+  document.getElementById('area-input').value='';
+  document.getElementById('badge-mode').textContent='Vista normal';
+  document.getElementById('badge-mode').classList.remove('active');
+}
+
+function confirmPolygon() {
+  roofConfirmed = true;
+  document.getElementById('btn-confirm').style.display='none';
+  document.getElementById('badge-mode').textContent='✓ Techo confirmado';
+}
+
+function updatePolygonData() {
+  if (!polygon) return;
+  const path = polygon.getPath();
+  const coords = [];
+  for (let i=0; i<path.getLength(); i++) coords.push(path.getAt(i));
+
+  // Area using Google Maps geometry
+  const area = google.maps.geometry.spherical.computeArea(path);
+  polygonArea = Math.round(area);
+
+  // Estimate orientation/angle from bounding box
+  const lats = coords.map(c=>c.lat()), lngs = coords.map(c=>c.lng());
+  const dLat = Math.max(...lats) - Math.min(...lats);
+  const dLng = Math.max(...lngs) - Math.min(...lngs);
+
+  // Estimate angle from elongation ratio
+  const ratio = Math.min(dLat,dLng) / Math.max(dLat,dLng);
+  const lat = coords.reduce((s,c)=>s+c.lat(),0)/coords.length;
+  // Optimal angle ≈ latitude - 10° (Chile faces north)
+  const optimalAngle = Math.max(10, Math.abs(lat) - 10);
+  // If polygon is roughly square (flat roof) → smaller angle
+  // If elongated (pitched roof) → closer to optimal
+  const elongFactor = 1 - ratio; // 0=square, 1=very elongated
+  polygonAngle = Math.round(optimalAngle * 0.4 + optimalAngle * elongFactor * 0.6);
+  polygonAngle = Math.min(45, Math.max(5, polygonAngle));
+
+  document.getElementById('area-input').value = polygonArea;
+  document.getElementById('badge-area').textContent = `Área: ${polygonArea} m²`;
+  document.getElementById('badge-area').style.display='';
+
+  // Orientation
+  const mainAngleDeg = Math.atan2(dLng, dLat) * 180 / Math.PI;
+  const dirs = ['N','NE','E','SE','S','SO','O','NO'];
+  const idx = Math.round(((mainAngleDeg + 360) % 360) / 45) % 8;
+  const orientLabel = dirs[idx];
+  document.getElementById('badge-orient').textContent = `Orientación: ${orientLabel}`;
+  document.getElementById('badge-orient').style.display='';
+
+  // Show angle
+  document.getElementById('angle-display').style.display='';
+  document.getElementById('angle-val').textContent = polygonAngle+'°';
+  document.getElementById('angle-manual').value = polygonAngle;
+  document.getElementById('angle-info').innerHTML = 
+    `Estimado por forma del polígono y latitud (${Math.abs(lat).toFixed(1)}°S).<br>
+     Ángulo óptimo para esta latitud: ~${Math.round(Math.abs(lat)-10)}°. Editable.`;
+}
+
+function onAngleManual() {
+  const v = parseInt(document.getElementById('angle-manual').value);
+  if (!isNaN(v)) { polygonAngle = v; document.getElementById('angle-val').textContent = v+'°'; }
+}
+
+function onCiudadChange() {
+  const c = document.getElementById('ciudad-sel').value;
+  const d = CIUDADES[c];
+  document.getElementById('ciudad-hsp-hint').textContent = `HSP: ${d.hsp} h/día · Región ${d.region}`;
+}
+
+// ─── ANGLE FACTOR ────────────────────────────────────────────
+function angleFactor(angle, lat) {
+  // Simple model: max at optimal angle (lat-10), falloff
+  const opt = Math.max(10, Math.abs(lat) - 10);
+  const diff = Math.abs(angle - opt);
+  // Gaussian-ish falloff: ~5% loss per 15° from optimal
+  return Math.max(0.85, 1 - (diff / 15) * 0.05);
+}
+
+// ─── CALCULAR ────────────────────────────────────────────────
+function calcular() {
+  const ciudadName = document.getElementById('ciudad-sel').value;
+  const ciudad = CIUDADES[ciudadName];
+  const area = parseFloat(document.getElementById('area-input').value) || 30;
+  const techoVal = document.getElementById('techo-tipo').value.split('|');
+  const factorTecho = parseFloat(techoVal[0]);
+  const m2PorPanel = parseFloat(techoVal[1]);
+  const angle = polygonAngle || parseInt(document.getElementById('angle-manual').value) || Math.round(Math.abs(ciudad.lat)-10);
+  const afactor = angleFactor(angle, ciudad.lat);
+  const maxPaneles = Math.floor(area / m2PorPanel);
+
+  let numPaneles;
+  if (modoCalc === 'paneles') {
+    numPaneles = Math.min(parseInt(document.getElementById('num-paneles').value)||10, maxPaneles);
+  } else {
+    const presupuesto = parseFloat(document.getElementById('presupuesto-usd').value)||5000;
+    const costoPorPanel = PANEL_WP * PRECIO_WP_USD * FACTOR_INST;
+    numPaneles = Math.min(Math.floor(presupuesto / costoPorPanel), maxPaneles);
+  }
+  numPaneles = Math.max(1, numPaneles);
+
+  const kwp = (numPaneles * PANEL_WP) / 1000;
+  const hspEfectivo = ciudad.hsp * afactor;
+  const genMes = kwp * hspEfectivo * 30 * PR * factorTecho;
+  const genAnual = genMes * 12;
+
+  const costoUSD = numPaneles * PANEL_WP * PRECIO_WP_USD * FACTOR_INST;
+  const costoCLP = costoUSD * USD_CLP;
+  const ahorroMes = genMes * TARIFA;
+  const ahorroAnual = ahorroMes * 12;
+  const roi = costoCLP / ahorroAnual;
+
+  let gen25=0, ahorro25=0;
+  for(let y=0;y<25;y++){
+    gen25 += genAnual * Math.pow(1-DEGRADACION,y);
+    ahorro25 += ahorroAnual * Math.pow(1.03,y);
+  }
+  const co2 = gen25 * CO2_FACTOR / 1000;
+  const arboles = Math.round(co2*1000/21.7);
+  const beneficio = ahorro25 - costoCLP;
+  const lcoe = (costoCLP/gen25).toFixed(1);
+
+  // Update UI
+  const fCLP = v => `$${Math.round(v).toLocaleString('es-CL')}`;
+  document.getElementById('r-kwp').textContent = kwp.toFixed(2)+' kWp';
+  document.getElementById('r-paneles-desc').textContent = `${numPaneles} paneles de ${PANEL_WP}Wp`;
+  document.getElementById('r-gen-mes').textContent = Math.round(genMes).toLocaleString('es-CL')+' kWh/mes';
+  document.getElementById('r-gen-anual').textContent = Math.round(genAnual).toLocaleString('es-CL')+' kWh/año';
+  document.getElementById('r-ahorro-mes').textContent = fCLP(ahorroMes);
+  document.getElementById('r-ahorro-anual').textContent = fCLP(ahorroAnual)+'/año';
+  document.getElementById('r-roi').textContent = roi.toFixed(1)+' años';
+  document.getElementById('r-costo').textContent = `Inversión: US$ ${Math.round(costoUSD).toLocaleString('es-CL')}`;
+  document.getElementById('r-co2').textContent = co2.toFixed(1)+' ton';
+  document.getElementById('r-arboles').textContent = `≈ ${arboles.toLocaleString()} árboles equiv.`;
+  document.getElementById('r-beneficio').textContent = fCLP(beneficio);
+  document.getElementById('r-roi-label').textContent = `${roi.toFixed(1)} años de 25 proyectados`;
+  document.getElementById('roi-fill').style.width = Math.min((roi/25)*100,100)+'%';
+
+  document.getElementById('r-angulo').textContent = angle+'°';
+  document.getElementById('r-hsp').textContent = ciudad.hsp+' h';
+  document.getElementById('r-factor-ang').textContent = (afactor*100).toFixed(1)+'%';
+
+  const d1 = [
+    ['Ciudad / HSP', `${ciudadName} · ${ciudad.hsp} h/día`],
+    ['Ángulo techo', `${angle}° (factor ${(afactor*100).toFixed(0)}%)`],
+    ['HSP efectivo', `${hspEfectivo.toFixed(2)} h/día`],
+    ['Paneles', `${numPaneles} × ${PANEL_WP}Wp`],
+    ['Potencia pico', `${kwp.toFixed(2)} kWp`],
+  ];
+  const d2 = [
+    ['PR (eficiencia)', `${(PR*100).toFixed(0)}%`],
+    ['Costo sistema', `US$ ${Math.round(costoUSD).toLocaleString('es-CL')}`],
+    ['LCOE', `$${lcoe}/kWh`],
+    ['Tarifa red', `$${TARIFA}/kWh`],
+    ['Gen. 25 años', `${Math.round(gen25/1000).toLocaleString('es-CL')} MWh`],
+  ];
+  document.getElementById('detalle-col1').innerHTML = d1.map(([k,v])=>`<div class="detail-row"><span>${k}</span><span>${v}</span></div>`).join('');
+  document.getElementById('detalle-col2').innerHTML = d2.map(([k,v])=>`<div class="detail-row"><span>${k}</span><span>${v}</span></div>`).join('');
+
+  document.getElementById('resultado-section').style.display='';
+  setTimeout(()=>document.getElementById('resultado-section').scrollIntoView({behavior:'smooth'}),100);
+}
+
+// ─── GLOSARIO ────────────────────────────────────────────────
+const GLOSARIO = [
+  {term:'HSP',full:'Horas Sol Pico',def:'Número de horas equivalentes en que la irradiancia solar sería de 1.000 W/m². Determina cuánta energía genera un panel en un día promedio.',icon:'☀️'},
+  {term:'kWp',full:'Kilovatios Pico',def:'Potencia máxima de un sistema FV bajo condiciones estándar (STC). Es la unidad de tamaño del sistema.',icon:'⚡'},
+  {term:'STC',full:'Standard Test Conditions',def:'Condiciones de laboratorio: irradiancia 1.000 W/m², temperatura celda 25°C, masa de aire AM 1.5.',icon:'🔬'},
+  {term:'NOCT',full:'Nominal Operating Cell Temp',def:'Temperatura real de operación de la celda en campo (~45°C). Afecta la potencia entregada vs. STC.',icon:'🌡️'},
+  {term:'Inversor',full:'Inversor Solar',def:'Convierte corriente continua (DC) de los paneles en corriente alterna (AC) compatible con la red.',icon:'🔄'},
+  {term:'PR',full:'Performance Ratio',def:'Eficiencia global del sistema considerando pérdidas por temperatura, cableado, inversor y suciedad. Buen sistema: 0.75–0.85.',icon:'📊'},
+  {term:'Net Metering',full:'Medición Neta',def:'Ley 20.936 en Chile: permite inyectar excedentes a la red y descontarlos de la boleta eléctrica.',icon:'⚖️'},
+  {term:'LCOE',full:'Costo Nivelado de Energía',def:'Costo total del sistema dividido por la energía generada en su vida útil. Permite comparar tecnologías.',icon:'💰'},
+  {term:'Irradiancia',full:'Irradiancia Solar',def:'Potencia de radiación solar por unidad de área (W/m²). Es instantánea; la irradiación es la energía acumulada (Wh/m²).',icon:'🌤️'},
+  {term:'PID',full:'Potential Induced Degradation',def:'Degradación acelerada por diferencias de potencial entre la celda y el marco. Reducible con inversores anti-PID.',icon:'⚠️'},
+  {term:'MPPT',full:'Max Power Point Tracking',def:'Algoritmo del inversor que busca continuamente el punto de máxima potencia del panel.',icon:'🎯'},
+  {term:'Azimut',full:'Azimut Solar',def:'Ángulo horizontal de orientación del panel. En Chile (hemisferio sur), lo óptimo es orientar los paneles hacia el norte (azimut 0°).',icon:'🧭'},
+];
+
+function renderGlosario() {
+  let openIdx = null;
+  const grid = document.getElementById('glosario-grid');
+  function render() {
+    grid.innerHTML = GLOSARIO.map((g,i) => `
+      <div class="glosario-card ${openIdx===i?'open':''}" onclick="toggleGlosario(${i})">
+        <div class="glosario-header">
+          <span style="font-size:1.3rem;">${g.icon}</span>
+          <div>
+            <div class="glosario-term">${g.term}</div>
+            <div class="glosario-full">${g.full}</div>
+          </div>
+          <span style="margin-left:auto;color:var(--muted);font-size:0.8rem;">${openIdx===i?'▲':'▼'}</span>
+        </div>
+        ${openIdx===i?`<div class="glosario-def">${g.def}</div>`:''}
+      </div>
+    `).join('');
+  }
+  window.toggleGlosario = (i) => { openIdx = openIdx===i?null:i; render(); };
+  render();
+}
+
+// ─── SESIONES ────────────────────────────────────────────────
+const SESIONES = [
+  {num:1,tema:'Fundamentos de la Energía Solar',color:'#ff8f00',puntos:['Radiación solar: global, directa y difusa','Irradiancia vs. irradiación','Movimiento solar: azimut, elevación, declinación','Ángulo óptimo para Chile']},
+  {num:2,tema:'Tecnologías de Paneles Fotovoltaicos',color:'#f57c00',puntos:['Efecto fotoeléctrico y funcionamiento de la celda','Mono, policristalino y capa delgada','Curva I-V y punto de máxima potencia','STC vs. NOCT']},
+  {num:3,tema:'Componentes del Sistema FV',color:'#e65100',puntos:['Inversores: string, micro, DC optimizers','Baterías LFP y NMC','Estructuras de soporte y seguimiento','Cableado, fusibles y protecciones']},
+  {num:4,tema:'Dimensionamiento Básico',color:'#ffb300',puntos:['Cálculo de consumo eléctrico','Uso de HSP para estimar generación','Número de paneles y tamaño del inversor','Relación DC/AC']},
+  {num:5,tema:'Ingeniería de Detalle',color:'#fdd835',puntos:['Diseño de strings','Análisis de sombras y pérdidas','Performance Ratio y factores de pérdida','PVsyst, SAM, Helioscope']},
+  {num:6,tema:'Marco Regulatorio en Chile',color:'#a5d6a7',puntos:['Ley 20.936 Net Billing / Net Metering','Conexión con distribuidora','NSEG 10 y normas eléctricas','SEC: equipos certificados y permisos']},
+  {num:7,tema:'Evaluación Económica',color:'#80cbc4',puntos:['CAPEX y OPEX','VAN, TIR, Payback, LCOE','Incentivos tributarios (Art. 33 bis)','Análisis de sensibilidad']},
+  {num:8,tema:'Interpretación del Estudio de Prefactibilidad',color:'#81d4fa',puntos:['Uso de esta herramienta','Limitaciones del estudio referencial','Pasos hacia un proyecto real','Lectura crítica de cotizaciones']},
+];
+
+function renderSesiones() {
+  document.getElementById('sesiones-list').innerHTML = SESIONES.map(s => `
+    <div class="sesion-card" style="border-left-color:${s.color};">
+      <div style="display:flex;align-items:center;gap:0.7rem;margin-bottom:0.6rem;">
+        <div class="sesion-num" style="background:${s.color}18;border:1px solid ${s.color}44;color:${s.color};">${s.num}</div>
+        <div style="color:${s.color};font-size:0.88rem;">Sesión ${s.num}: ${s.tema}</div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.35rem;">
+        ${s.puntos.map(p=>`<span class="tag">· ${p}</span>`).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+// ─── INIT ────────────────────────────────────────────────────
+renderGlosario();
+renderSesiones();
+onCiudadChange();
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRPM-dWslynLx1EuUGE4UIIYAJ_bTOmtQ&libraries=drawing,geometry,places&callback=initMap" async defer></script>
+
+</body>
+</html>
