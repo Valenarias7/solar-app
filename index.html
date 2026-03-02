@@ -1,935 +1,837 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Prefactibilidad Solar · Chile</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Solar Pro · Chile & Latinoamérica</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+:root {
+  --bg:#060c14;--bg2:#0a1220;--sun:#f5c518;--sun2:#ff8c00;
+  --green:#00e5a0;--blue:#38bdf8;--purple:#c084fc;--red:#ff4d6d;
+  --card:rgba(255,255,255,0.03);--border:rgba(255,255,255,0.07);
+  --text:#d4cfc6;--muted:#4a5f72;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(245,197,24,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(245,197,24,0.025) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:0;}
+body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 70% 50% at 50% -5%,rgba(245,197,24,0.07) 0%,transparent 65%);pointer-events:none;z-index:0;}
 
-  :root {
-    --sun: #ffb300;
-    --sun2: #ff6b00;
-    --bg: #080e1c;
-    --bg2: #0d1626;
-    --card: rgba(255,255,255,0.035);
-    --border: rgba(255,255,255,0.07);
-    --text: #ddd5c4;
-    --muted: #5a6d84;
-    --green: #66bb6a;
-    --blue: #4fc3f7;
-    --purple: #ce93d8;
-  }
+header{position:relative;z-index:10;padding:1.2rem 2rem;border-bottom:1px solid rgba(245,197,24,0.1);display:flex;align-items:center;gap:1rem;background:rgba(6,12,20,0.85);backdrop-filter:blur(16px);}
+.logo{width:40px;height:40px;background:conic-gradient(from 0deg,#f5c518,#ff8c00,#f5c518);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 0 20px rgba(245,197,24,0.3);flex-shrink:0;}
+h1{font-family:'Syne',sans-serif;font-size:clamp(1rem,2.5vw,1.5rem);font-weight:800;color:#fff;letter-spacing:-0.02em;}
+h1 span{color:var(--sun);}
+.subtitle{font-size:0.65rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;}
+.ai-badge{margin-left:auto;background:rgba(0,229,160,0.08);border:1px solid rgba(0,229,160,0.2);color:var(--green);padding:0.25rem 0.7rem;border-radius:20px;font-size:0.65rem;letter-spacing:0.08em;white-space:nowrap;}
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+nav{position:relative;z-index:10;display:flex;overflow-x:auto;border-bottom:1px solid rgba(255,255,255,0.05);background:rgba(0,0,0,0.25);padding:0 1.5rem;}
+.tab-btn{padding:0.8rem 1.1rem;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.78rem;letter-spacing:0.04em;transition:all 0.2s;white-space:nowrap;}
+.tab-btn.active{color:var(--sun);border-bottom-color:var(--sun);}
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+main{position:relative;z-index:5;max-width:1000px;margin:0 auto;padding:1.5rem 2rem;}
 
-  body::before {
-    content: '';
-    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-    background: radial-gradient(ellipse 70% 50% at 50% -10%, rgba(255,179,0,0.07) 0%, transparent 70%);
-    pointer-events: none; z-index: 0;
-  }
+/* Cards */
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.1rem;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;}
 
-  header {
-    position: relative; z-index: 10;
-    padding: 1.4rem 2rem 1rem;
-    border-bottom: 1px solid rgba(255,179,0,0.12);
-    background: rgba(0,0,0,0.35);
-    backdrop-filter: blur(12px);
-    display: flex; align-items: center; gap: 1rem;
-  }
+label{display:block;font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.45rem;}
+input,select{width:100%;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.09);border-radius:6px;padding:0.6rem 0.8rem;color:var(--text);font-size:0.85rem;font-family:inherit;outline:none;transition:border-color 0.2s;}
+input:focus,select:focus{border-color:rgba(245,197,24,0.35);}
+.hint{display:block;font-size:0.65rem;color:#2a3d50;margin-top:0.3rem;}
 
-  .sun-icon {
-    width: 44px; height: 44px; border-radius: 50%;
-    background: radial-gradient(circle, #ffb300, #ff6b00);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.3rem;
-    box-shadow: 0 0 28px rgba(255,179,0,0.45);
-    flex-shrink: 0;
-  }
+.sec-title{font-family:'Syne',sans-serif;font-size:0.65rem;font-weight:700;color:var(--sun);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:0.9rem;display:flex;align-items:center;gap:0.5rem;}
+.sec-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(245,197,24,0.15),transparent);}
 
-  h1 { font-family: 'DM Serif Display', serif; font-weight: normal; font-size: clamp(1.2rem,3vw,1.7rem); color: #fff; }
-  h1 span { color: var(--sun); }
-  .subtitle { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+.btn-primary{width:100%;padding:1rem;background:linear-gradient(135deg,var(--sun),var(--sun2));border:none;border-radius:8px;color:#060c14;font-family:'Syne',sans-serif;font-size:0.88rem;font-weight:800;letter-spacing:0.07em;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 24px rgba(245,197,24,0.22);transition:all 0.2s;}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 30px rgba(245,197,24,0.32);}
+.btn-primary:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
 
-  nav {
-    position: relative; z-index: 10;
-    display: flex; border-bottom: 1px solid rgba(255,255,255,0.06);
-    background: rgba(0,0,0,0.2);
-    padding: 0 2rem;
-  }
+.tipo-btn{flex:1;padding:0.75rem;border-radius:8px;cursor:pointer;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.02);color:var(--muted);font-family:inherit;font-size:0.82rem;transition:all 0.22s;}
+.tipo-btn.active{background:rgba(245,197,24,0.1);border-color:rgba(245,197,24,0.35);color:var(--sun);}
 
-  .tab-btn {
-    padding: 0.85rem 1.3rem;
-    background: none; border: none; border-bottom: 2px solid transparent;
-    color: var(--muted); cursor: pointer; font-family: inherit;
-    font-size: 0.82rem; letter-spacing: 0.04em; transition: all 0.2s;
-  }
-  .tab-btn.active { color: var(--sun); border-bottom-color: var(--sun); }
+/* Metric cards */
+.metric{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:0.9rem;text-align:center;}
+.metric .lbl{font-size:0.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.35rem;}
+.metric .val{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:700;}
+.metric .sub{font-size:0.62rem;color:#2a3d50;margin-top:0.2rem;}
 
-  main { position: relative; z-index: 5; max-width: 960px; margin: 0 auto; padding: 2rem; }
+/* Bar chart */
+.bar-chart{display:flex;align-items:flex-end;gap:4px;height:80px;margin-top:0.5rem;}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.bar-fill{width:100%;border-radius:3px 3px 0 0;transition:height 0.8s ease;min-height:2px;}
+.bar-label{font-size:0.52rem;color:var(--muted);}
+.bar-val{font-size:0.52rem;color:var(--text);}
 
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px; padding: 1.1rem;
-  }
+/* Panel layout canvas */
+#layout-canvas{border:1px solid var(--border);border-radius:8px;width:100%;display:block;}
 
-  label { display: block; font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+/* Panel comparison cards */
+.panel-opt{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;position:relative;transition:all 0.2s;cursor:default;}
+.panel-opt.recommended{border-color:rgba(245,197,24,0.4);background:rgba(245,197,24,0.04);}
+.panel-opt .rec-tag{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--sun);color:#060c14;font-family:'Syne',sans-serif;font-size:0.58rem;font-weight:800;padding:0.15rem 0.6rem;border-radius:10px;letter-spacing:0.08em;white-space:nowrap;}
 
-  input, select {
-    width: 100%; background: rgba(0,0,0,0.35);
-    border: 1px solid rgba(255,255,255,0.1); border-radius: 6px;
-    padding: 0.6rem 0.8rem; color: var(--text);
-    font-size: 0.88rem; font-family: inherit; outline: none;
-  }
-  input:focus, select:focus { border-color: rgba(255,179,0,0.4); }
+/* Wind rose */
+.wind-rose{position:relative;width:120px;height:120px;margin:0 auto;}
+.wind-rose svg{width:100%;height:100%;}
 
-  .hint { display: block; font-size: 0.68rem; color: #3a4d60; margin-top: 0.35rem; }
+/* ROI bar */
+.roi-track{height:6px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden;margin:0.4rem 0;}
+.roi-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--sun),var(--sun2));transition:width 1s ease;}
 
-  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .grid3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+/* Upload zones */
+.upload-zone{border:1px dashed rgba(245,197,24,0.2);border-radius:10px;padding:1.5rem;text-align:center;cursor:pointer;transition:all 0.22s;background:rgba(245,197,24,0.015);position:relative;overflow:hidden;}
+.upload-zone:hover,.upload-zone.drag-over{border-color:rgba(245,197,24,0.45);background:rgba(245,197,24,0.04);}
+.upload-zone.loaded{border-color:rgba(0,229,160,0.35);background:rgba(0,229,160,0.03);}
+.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
 
-  .btn-primary {
-    width: 100%; padding: 1rem;
-    background: linear-gradient(135deg, var(--sun), var(--sun2));
-    border: none; border-radius: 8px;
-    color: #0a0f1e; font-size: 0.95rem; font-family: inherit;
-    font-weight: 600; cursor: pointer; letter-spacing: 0.06em;
-    text-transform: uppercase; box-shadow: 0 4px 22px rgba(255,140,0,0.3);
-    transition: all 0.2s;
-  }
-  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 28px rgba(255,140,0,0.4); }
+/* Loading */
+.loading-bar{height:2px;background:linear-gradient(90deg,transparent,var(--sun),transparent);background-size:200% 100%;border-radius:2px;margin-bottom:1rem;display:none;animation:shimmer 1.5s infinite;}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+.loading-bar.active{display:block;}
+.dot{animation:blink 1s infinite;}.dot:nth-child(2){animation-delay:.2s;}.dot:nth-child(3){animation-delay:.4s;}
+@keyframes blink{0%,80%,100%{opacity:0}40%{opacity:1}}
 
-  .btn-small {
-    padding: 0.45rem 1rem; border-radius: 6px; cursor: pointer;
-    font-size: 0.78rem; font-family: inherit; border: none; transition: all 0.2s;
-  }
-  .btn-outline {
-    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
-    color: var(--text);
-  }
-  .btn-outline:hover { background: rgba(255,255,255,0.08); }
-  .btn-danger {
-    background: rgba(244,67,54,0.12); border: 1px solid rgba(244,67,54,0.3);
-    color: #ef9a9a;
-  }
-  .btn-success {
-    background: rgba(102,187,106,0.15); border: 1px solid rgba(102,187,106,0.3);
-    color: var(--green);
-  }
+/* Analysis result */
+.rec-box{background:linear-gradient(135deg,rgba(0,229,160,0.04),rgba(245,197,24,0.04));border:1px solid rgba(0,229,160,0.18);border-radius:12px;padding:1.3rem;position:relative;overflow:hidden;}
+.compare-grid-table{display:grid;grid-template-columns:160px 1fr 1fr;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:1rem;}
+.cg-hdr{background:rgba(245,197,24,0.05);padding:0.6rem 0.9rem;font-family:'Syne',sans-serif;font-size:0.68rem;font-weight:700;color:var(--sun);letter-spacing:0.06em;border-bottom:1px solid var(--border);}
+.cg-cell{padding:0.55rem 0.9rem;font-size:0.75rem;border-bottom:1px solid rgba(255,255,255,0.03);border-right:1px solid rgba(255,255,255,0.03);}
+.cg-cell.lbl{color:var(--muted);font-size:0.68rem;background:rgba(0,0,0,0.15);}
+.cg-cell.win{color:var(--green);font-weight:600;}
+.win-tag{display:inline-block;background:rgba(0,229,160,0.1);border:1px solid rgba(0,229,160,0.2);color:var(--green);padding:0.05rem 0.35rem;border-radius:3px;font-size:0.58rem;margin-left:0.25rem;}
 
-  #map-container {
-    width: 100%; height: 420px; border-radius: 10px;
-    overflow: hidden; border: 1px solid var(--border);
-    position: relative;
-  }
+.warn-box{background:rgba(245,197,24,0.05);border:1px solid rgba(245,197,24,0.12);border-radius:8px;padding:0.8rem 1rem;font-size:0.75rem;color:var(--muted);line-height:1.65;margin-top:0.8rem;}
 
-  #map { width: 100%; height: 100%; }
+/* Glosario */
+.glos-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;}
+.glos-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:0.85rem;cursor:pointer;transition:border-color 0.2s;}
+.glos-card:hover{border-color:rgba(245,197,24,0.18);}
+.glos-card.open{border-color:rgba(245,197,24,0.28);}
 
-  .map-overlay {
-    position: absolute; top: 10px; left: 10px; right: 10px;
-    display: flex; gap: 0.5rem; flex-wrap: wrap; pointer-events: none;
-    z-index: 100;
-  }
-  .map-overlay > * { pointer-events: all; }
+/* Sesiones */
+.ses-card{background:var(--card);border-radius:8px;padding:0.9rem 1rem;border-left:3px solid;}
+.tag{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:4px;padding:0.12rem 0.5rem;font-size:0.68rem;color:var(--muted);}
 
-  .map-badge {
-    background: rgba(8,14,28,0.88);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 6px; padding: 0.35rem 0.8rem;
-    font-size: 0.75rem; color: var(--text);
-    backdrop-filter: blur(8px);
-  }
-  .map-badge.active { border-color: rgba(255,179,0,0.5); color: var(--sun); }
-
-  .search-box {
-    display: flex; gap: 0.6rem; margin-bottom: 0.8rem;
-  }
-  .search-box input { flex: 1; }
-
-  .angle-display {
-    background: rgba(255,179,0,0.08);
-    border: 1px solid rgba(255,179,0,0.2);
-    border-radius: 8px; padding: 0.8rem 1.1rem;
-    display: flex; align-items: center; gap: 1rem;
-    margin-top: 0.8rem;
-  }
-  .angle-val { font-size: 2rem; color: var(--sun); font-family: 'DM Serif Display', serif; }
-  .angle-info { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
-
-  .metric-card {
-    text-align: center; border-radius: 10px; padding: 1rem;
-    background: var(--card); border: 1px solid var(--border);
-  }
-  .metric-label { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem; }
-  .metric-val { font-size: 1.5rem; font-family: 'DM Serif Display', serif; }
-  .metric-sub { font-size: 0.68rem; color: #3a4d60; margin-top: 0.25rem; }
-
-  .roi-bar { height: 7px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; margin: 0.5rem 0; }
-  .roi-fill { height: 100%; background: linear-gradient(90deg, var(--sun), var(--sun2)); border-radius: 4px; transition: width 1s ease; }
-
-  .detail-row {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 0.35rem 0; border-bottom: 1px solid rgba(255,255,255,0.04);
-    font-size: 0.8rem;
-  }
-  .detail-row span:first-child { color: var(--muted); }
-  .detail-row span:last-child { color: #c8bda8; font-weight: 500; }
-
-  .warning-box {
-    background: rgba(255,179,0,0.06);
-    border: 1px solid rgba(255,179,0,0.15);
-    border-radius: 8px; padding: 0.9rem 1.1rem;
-    font-size: 0.78rem; color: var(--muted); line-height: 1.6;
-    margin-top: 1rem;
-  }
-
-  .tipo-sel { display: flex; gap: 0.8rem; margin-bottom: 1.5rem; }
-  .tipo-btn {
-    flex: 1; padding: 0.8rem; border-radius: 8px; cursor: pointer;
-    border: 1px solid rgba(255,255,255,0.07);
-    background: rgba(255,255,255,0.03);
-    color: var(--muted); font-family: inherit; font-size: 0.88rem;
-    transition: all 0.25s;
-  }
-  .tipo-btn.active {
-    background: rgba(255,179,0,0.12);
-    border-color: rgba(255,179,0,0.4);
-    color: var(--sun);
-  }
-
-  .glosario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
-  .glosario-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 8px; padding: 0.9rem; cursor: pointer;
-    transition: border-color 0.2s;
-  }
-  .glosario-card:hover { border-color: rgba(255,179,0,0.2); }
-  .glosario-card.open { border-color: rgba(255,179,0,0.3); }
-  .glosario-header { display: flex; align-items: center; gap: 0.6rem; }
-  .glosario-term { color: var(--sun); font-size: 0.95rem; font-weight: 600; }
-  .glosario-full { font-size: 0.68rem; color: var(--muted); }
-  .glosario-def {
-    margin-top: 0.7rem; padding-top: 0.7rem;
-    border-top: 1px solid var(--border);
-    font-size: 0.79rem; color: #8a9bb5; line-height: 1.65;
-  }
-
-  .sesion-card {
-    background: var(--card); border-radius: 8px; padding: 1rem 1.1rem;
-    border-left: 3px solid;
-  }
-  .sesion-num {
-    width: 26px; height: 26px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.72rem; flex-shrink: 0;
-  }
-  .tag {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 4px; padding: 0.15rem 0.55rem;
-    font-size: 0.72rem; color: var(--muted);
-  }
-
-  #autocomplete-list {
-    position: absolute; z-index: 200;
-    background: #0d1626; border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 6px; width: calc(100% - 90px);
-    max-height: 180px; overflow-y: auto;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-  }
-  .autocomplete-item {
-    padding: 0.6rem 0.9rem; cursor: pointer;
-    font-size: 0.82rem; color: var(--text);
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-    transition: background 0.15s;
-  }
-  .autocomplete-item:hover { background: rgba(255,179,0,0.1); }
-
-  .hidden { display: none !important; }
-
-  footer {
-    text-align: center; padding: 1.5rem;
-    color: #1e2d3d; font-size: 0.68rem;
-    border-top: 1px solid rgba(255,255,255,0.03);
-    margin-top: 2rem; position: relative; z-index: 5;
-  }
+.scroll-top{display:none;}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="sun-icon">☀</div>
+  <div class="logo">☀</div>
   <div>
-    <h1>Prefactibilidad <span>Solar</span></h1>
-    <div class="subtitle">Herramienta educativa · Sistemas Fotovoltaicos Chile</div>
+    <h1>Solar <span>Pro</span></h1>
+    <div class="subtitle">Prefactibilidad · Optimización · Análisis IA</div>
   </div>
+  <div class="ai-badge">✦ Claude AI</div>
 </header>
 
 <nav>
-  <button class="tab-btn active" onclick="showTab('calculadora')">Calculadora</button>
-  <button class="tab-btn" onclick="showTab('glosario')">Glosario FV</button>
-  <button class="tab-btn" onclick="showTab('sesiones')">Guía de Sesiones</button>
+  <button class="tab-btn active" onclick="showTab('calc')">Calculadora</button>
+  <button class="tab-btn" onclick="showTab('paneles')">Paneles Óptimos</button>
+  <button class="tab-btn" onclick="showTab('clima')">Clima Solar</button>
+  <button class="tab-btn" onclick="showTab('analizador')">Analizador IA</button>
+  <button class="tab-btn" onclick="showTab('glosario')">Glosario</button>
+  <button class="tab-btn" onclick="showTab('sesiones')">Sesiones</button>
 </nav>
 
 <main>
 
-<!-- ===== CALCULADORA ===== -->
-<div id="tab-calculadora">
-
-  <div class="tipo-sel">
+<!-- ═══════════════ CALCULADORA ═══════════════ -->
+<div id="tab-calc">
+  <div style="display:flex;gap:0.8rem;margin-bottom:1.3rem;">
     <button class="tipo-btn active" onclick="setTipo('residencial',this)">🏠 Residencial</button>
-    <button class="tipo-btn" onclick="setTipo('comercial',this)">🏢 Comercial / Industrial</button>
+    <button class="tipo-btn" onclick="setTipo('comercial',this)">🏢 Comercial</button>
   </div>
 
-  <!-- Sección mapa -->
-  <div class="card" style="margin-bottom:1rem;">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.8rem;">
-      <div>
-        <div style="font-size:0.78rem;color:var(--sun);font-weight:600;margin-bottom:0.2rem;">📍 Ubicación y Techo</div>
-        <div style="font-size:0.72rem;color:var(--muted);">Busca la dirección, luego dibuja el polígono sobre el techo en el mapa satelital</div>
-      </div>
-      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;justify-content:flex-end;">
-        <button class="btn-small btn-outline" onclick="startDrawing()" id="btn-draw">✏️ Dibujar techo</button>
-        <button class="btn-small btn-danger" onclick="clearPolygon()" id="btn-clear" style="display:none;">🗑 Borrar</button>
-        <button class="btn-small btn-success" onclick="confirmPolygon()" id="btn-confirm" style="display:none;">✓ Confirmar</button>
-      </div>
-    </div>
-
-    <!-- Search -->
-    <div style="position:relative;">
-      <div class="search-box">
-        <input type="text" id="address-input" placeholder="Ej: Av. Providencia 1234, Santiago" oninput="onAddressInput()" />
-        <button class="btn-small btn-outline" onclick="searchAddress()">Buscar</button>
-      </div>
-      <div id="autocomplete-list" style="display:none;"></div>
-    </div>
-
-    <div id="map-container">
-      <div id="map"></div>
-      <div class="map-overlay">
-        <div class="map-badge" id="badge-mode">Vista normal</div>
-        <div class="map-badge" id="badge-area" style="display:none;"></div>
-        <div class="map-badge" id="badge-orient" style="display:none;"></div>
-      </div>
-    </div>
-
-    <!-- Ángulo estimado -->
-    <div class="angle-display" id="angle-display" style="display:none;">
-      <div>
-        <div style="font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.2rem;">Ángulo de inclinación estimado</div>
-        <div class="angle-val" id="angle-val">—°</div>
-      </div>
-      <div class="angle-info" id="angle-info">
-        Basado en la orientación del polígono y la latitud de la ciudad.<br>
-        Puedes ajustar manualmente abajo.
-      </div>
-      <div style="margin-left:auto;">
-        <label style="margin-bottom:0.3rem;">Ajustar ángulo</label>
-        <input type="number" id="angle-manual" min="0" max="90" style="width:80px;" oninput="onAngleManual()" />
-        <span class="hint">grados</span>
-      </div>
-    </div>
-
-    <!-- Ciudad detectada o manual -->
-    <div class="grid2" style="margin-top:0.8rem;">
-      <div>
-        <label>Ciudad (HSP)</label>
-        <select id="ciudad-sel" onchange="onCiudadChange()">
-          <option value="Arica">Arica (7.5 h/día)</option>
-          <option value="Iquique">Iquique (7.2 h/día)</option>
-          <option value="Antofagasta">Antofagasta (7.0 h/día)</option>
-          <option value="Calama">Calama (7.4 h/día)</option>
-          <option value="Copiapó">Copiapó (6.8 h/día)</option>
-          <option value="La Serena">La Serena (6.2 h/día)</option>
-          <option value="Valparaíso">Valparaíso (5.4 h/día)</option>
-          <option value="Santiago" selected>Santiago (5.8 h/día)</option>
-          <option value="Rancagua">Rancagua (5.5 h/día)</option>
-          <option value="Talca">Talca (5.2 h/día)</option>
-          <option value="Concepción">Concepción (4.5 h/día)</option>
-          <option value="Temuco">Temuco (4.2 h/día)</option>
-          <option value="Valdivia">Valdivia (3.9 h/día)</option>
-          <option value="Puerto Montt">Puerto Montt (3.6 h/día)</option>
-          <option value="Punta Arenas">Punta Arenas (3.0 h/día)</option>
-        </select>
-        <span class="hint" id="ciudad-hsp-hint">HSP: 5.8 h/día · Región Metropolitana</span>
-      </div>
-      <div>
-        <label>Área del polígono (m²)</label>
-        <input type="number" id="area-input" min="5" max="5000" value="" placeholder="Se calcula al dibujar" />
-        <span class="hint">Editable manualmente si no usas el mapa</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Parámetros técnicos -->
-  <div class="grid2" style="margin-bottom:1rem;gap:1rem;">
+  <div class="grid2" style="margin-bottom:1rem;">
     <div class="card">
-      <label>Tipo de cubierta</label>
-      <select id="techo-tipo">
-        <option value="1.0|2.0">Hormigón / Losa plana</option>
-        <option value="0.95|2.2">Teja / Cubierta inclinada</option>
-        <option value="0.98|2.0">Metaldeck / Zinc</option>
-        <option value="0.92|2.2">Fibrocemento</option>
-        <option value="1.02|2.5">Suelo (montaje a tierra)</option>
+      <label>Ciudad</label>
+      <select id="ciudad-sel" onchange="onCiudadChange()">
+        <option value="Arica">Arica</option><option value="Iquique">Iquique</option>
+        <option value="Antofagasta">Antofagasta</option><option value="Calama">Calama</option>
+        <option value="Copiapó">Copiapó</option><option value="La Serena">La Serena</option>
+        <option value="Valparaíso">Valparaíso</option><option value="Santiago" selected>Santiago</option>
+        <option value="Rancagua">Rancagua</option><option value="Talca">Talca</option>
+        <option value="Concepción">Concepción</option><option value="Temuco">Temuco</option>
+        <option value="Valdivia">Valdivia</option><option value="Puerto Montt">Puerto Montt</option>
+        <option value="Punta Arenas">Punta Arenas</option>
+        <option value="Barranquilla">Barranquilla (Colombia)</option>
+        <option value="Bogotá">Bogotá (Colombia)</option>
+        <option value="Medellín">Medellín (Colombia)</option>
+        <option value="Ciudad de México">Ciudad de México</option>
+        <option value="Lima">Lima (Perú)</option>
       </select>
-      <span class="hint">Afecta factor de rendimiento y espacio por panel</span>
+      <span class="hint" id="ciudad-hint">HSP: 5.8 h/día · Región Metropolitana</span>
+    </div>
+    <div class="card">
+      <label>Área disponible (m²)</label>
+      <input type="number" id="area-m2" value="40" min="5" max="5000" oninput="updateMaxPanels()"/>
+      <span class="hint" id="area-hint">Máx. ~20 paneles en este espacio</span>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:1rem;">
+    <div class="card">
+      <label>Potencia panel seleccionado</label>
+      <select id="panel-wp-sel" onchange="updateMaxPanels()">
+        <option value="400">400 Wp — Estándar residencial</option>
+        <option value="450">450 Wp — Eficiencia media</option>
+        <option value="550" selected>550 Wp — Alta eficiencia</option>
+        <option value="600">600 Wp — Premium</option>
+        <option value="670">670 Wp — Bifacial premium</option>
+      </select>
+      <span class="hint" id="panel-dim-hint">Dimensiones: ~2.0 m²/panel</span>
     </div>
     <div class="card">
       <label>Modo de cálculo</label>
       <div style="display:flex;gap:0.5rem;margin-bottom:0.5rem;">
-        <button class="btn-small btn-outline" id="modo-btn-paneles" onclick="setModo('paneles')" style="flex:1;background:rgba(255,179,0,0.15);border-color:rgba(255,179,0,0.4);color:var(--sun);">N° Paneles</button>
-        <button class="btn-small btn-outline" id="modo-btn-presupuesto" onclick="setModo('presupuesto')" style="flex:1;">Presupuesto</button>
+        <button class="tipo-btn active" id="modo-p" onclick="setModo('paneles')" style="font-size:0.75rem;">N° Paneles</button>
+        <button class="tipo-btn" id="modo-b" onclick="setModo('presupuesto')" style="font-size:0.75rem;">Presupuesto</button>
+        <button class="tipo-btn" id="modo-c" onclick="setModo('consumo')" style="font-size:0.75rem;">Consumo</button>
       </div>
-      <div id="input-paneles">
-        <input type="number" id="num-paneles" min="1" max="1000" value="10" />
-        <span class="hint">Paneles de 550 Wp cada uno</span>
-      </div>
-      <div id="input-presupuesto" style="display:none;">
-        <input type="number" id="presupuesto-usd" min="500" max="500000" step="500" value="5000" />
-        <span class="hint">Presupuesto en USD (equipos + instalación)</span>
-      </div>
+      <div id="inp-paneles"><input type="number" id="num-paneles" value="10" min="1" max="500"/><span class="hint">Paneles cotizados</span></div>
+      <div id="inp-presupuesto" style="display:none"><input type="number" id="presupuesto-usd" value="5000" step="500"/><span class="hint">Presupuesto en USD</span></div>
+      <div id="inp-consumo" style="display:none"><input type="number" id="consumo-kwh" value="300" step="10"/><span class="hint">Consumo mensual en kWh</span></div>
     </div>
   </div>
 
-  <button class="btn-primary" onclick="calcular()">Calcular Prefactibilidad →</button>
-
-  <!-- Resultados -->
-  <div id="resultado-section" style="display:none;margin-top:2.5rem;">
-    <h2 style="font-family:'DM Serif Display',serif;font-weight:normal;color:var(--sun);margin-bottom:1.2rem;font-size:1.1rem;">◈ Resultados del Estudio</h2>
-
-    <div class="grid3" style="margin-bottom:1rem;">
-      <div class="metric-card">
-        <div class="metric-label">Sistema</div>
-        <div class="metric-val" style="color:var(--sun);" id="r-kwp">—</div>
-        <div class="metric-sub" id="r-paneles-desc">—</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">Generación Mensual</div>
-        <div class="metric-val" style="color:var(--blue);" id="r-gen-mes">—</div>
-        <div class="metric-sub" id="r-gen-anual">—</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">Ahorro Mensual</div>
-        <div class="metric-val" style="color:var(--green);" id="r-ahorro-mes">—</div>
-        <div class="metric-sub" id="r-ahorro-anual">—</div>
+  <div class="card" style="margin-bottom:1rem;">
+    <label>Ángulo de inclinación del techo</label>
+    <div style="display:flex;align-items:center;gap:1rem;">
+      <input type="range" id="angulo-range" min="0" max="60" value="15" oninput="updateAngle()" style="flex:1;accent-color:var(--sun);">
+      <div style="text-align:center;min-width:60px;">
+        <div style="font-family:'Syne',sans-serif;font-size:1.5rem;color:var(--sun);" id="angulo-val">15°</div>
+        <div style="font-size:0.6rem;color:var(--muted);" id="angulo-desc">Inclinado</div>
       </div>
     </div>
+    <span class="hint" id="angulo-hint">Ángulo óptimo para Santiago: ~23°</span>
+  </div>
 
-    <div class="grid3" style="margin-bottom:1rem;">
-      <div class="metric-card">
-        <div class="metric-label">Retorno de Inversión</div>
-        <div class="metric-val" style="color:var(--purple);" id="r-roi">—</div>
-        <div class="metric-sub" id="r-costo">—</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">CO₂ Evitado 25 años</div>
-        <div class="metric-val" style="color:#80cbc4;" id="r-co2">—</div>
-        <div class="metric-sub" id="r-arboles">—</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-label">Beneficio Neto 25 años</div>
-        <div class="metric-val" style="color:#ffcc80;" id="r-beneficio">—</div>
-        <div class="metric-sub">vs. costo de inversión</div>
-      </div>
-    </div>
+  <button class="btn-primary" onclick="calcular()" style="margin-bottom:1.5rem;">Calcular Prefactibilidad →</button>
 
-    <!-- ROI bar -->
+  <div id="calc-results" style="display:none;">
+    <div class="sec-title">◈ Resultados</div>
+    <div class="grid4" style="margin-bottom:1rem;" id="metrics-row1"></div>
+    <div class="grid4" style="margin-bottom:1rem;" id="metrics-row2"></div>
     <div class="card" style="margin-bottom:1rem;">
-      <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;font-size:0.75rem;">
-        <span style="color:var(--muted);">Recuperación de inversión</span>
-        <span style="color:var(--sun);" id="r-roi-label">—</span>
-      </div>
-      <div class="roi-bar"><div class="roi-fill" id="roi-fill" style="width:0%;"></div></div>
-      <div style="display:flex;justify-content:space-between;margin-top:0.3rem;font-size:0.68rem;color:#2a3d50;">
-        <span>Año 0</span><span>Año 25 (vida útil)</span>
-      </div>
+      <div style="font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.7rem;">Recuperación de inversión</div>
+      <div class="roi-track"><div class="roi-fill" id="roi-fill" style="width:0%"></div></div>
+      <div style="display:flex;justify-content:space-between;font-size:0.6rem;color:#2a3d50;margin-top:0.2rem;"><span>Año 0</span><span id="roi-mid"></span><span>Año 25</span></div>
     </div>
-
-    <!-- Inclinación info -->
-    <div class="card" style="margin-bottom:1rem;border-color:rgba(255,179,0,0.12);">
-      <div style="font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.7rem;">Parámetros de Irradiación</div>
-      <div class="grid3">
-        <div style="text-align:center;">
-          <div style="font-size:1.3rem;color:var(--sun);" id="r-angulo">—°</div>
-          <div style="font-size:0.68rem;color:var(--muted);">Ángulo techo</div>
-        </div>
-        <div style="text-align:center;">
-          <div style="font-size:1.3rem;color:var(--blue);" id="r-hsp">—</div>
-          <div style="font-size:0.68rem;color:var(--muted);">HSP (h/día)</div>
-        </div>
-        <div style="text-align:center;">
-          <div style="font-size:1.3rem;color:var(--green);" id="r-factor-ang">—</div>
-          <div style="font-size:0.68rem;color:var(--muted);">Factor por ángulo</div>
-        </div>
-      </div>
+    <div class="grid2" style="margin-bottom:1rem;">
+      <div id="detalle-col1"></div>
+      <div id="detalle-col2"></div>
     </div>
-
-    <!-- Desglose -->
-    <div class="card" style="margin-bottom:1rem;">
-      <div style="font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.8rem;">Desglose Técnico y Financiero</div>
-      <div class="grid2">
-        <div id="detalle-col1"></div>
-        <div id="detalle-col2"></div>
-      </div>
-    </div>
-
-    <div class="warning-box">
-      ⚠️ <strong style="color:var(--sun);">Estudio referencial.</strong> Los valores son estimaciones basadas en promedios históricos de radiación solar, tarifas vigentes y precios de mercado. Para un proyecto real solicite ingeniería con medición in situ, análisis de sombras 3D y cotización formal.
-    </div>
+    <div class="warn-box">⚠ <strong style="color:var(--sun);">Estudio referencial.</strong> Valores estimados con promedios históricos. Para un proyecto real solicite ingeniería in situ, análisis de sombras y cotización formal.</div>
   </div>
 </div>
 
-<!-- ===== GLOSARIO ===== -->
+<!-- ═══════════════ PANELES ÓPTIMOS ═══════════════ -->
+<div id="tab-paneles" style="display:none;">
+  <div class="sec-title">Comparativa de Paneles por Potencia</div>
+  <div class="grid2" style="margin-bottom:1rem;">
+    <div class="card">
+      <label>Área del techo (m²)</label>
+      <input type="number" id="opt-area" value="40" min="5" oninput="renderPanelOptions()"/>
+    </div>
+    <div class="card">
+      <label>Ciudad (para HSP)</label>
+      <select id="opt-ciudad" onchange="renderPanelOptions()">
+        <option value="Arica">Arica (7.5)</option><option value="Iquique">Iquique (7.2)</option>
+        <option value="Antofagasta">Antofagasta (7.0)</option><option value="Santiago" selected>Santiago (5.8)</option>
+        <option value="Concepción">Concepción (4.5)</option><option value="Punta Arenas">Punta Arenas (3.0)</option>
+        <option value="Barranquilla">Barranquilla (5.5)</option><option value="Bogotá">Bogotá (4.5)</option>
+        <option value="Lima">Lima (5.2)</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="panel-options-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.5rem;"></div>
+
+  <div class="sec-title">Distribución Visual en el Techo</div>
+  <div class="grid2" style="margin-bottom:1rem;">
+    <div class="card">
+      <label>Ancho del techo (m)</label>
+      <input type="number" id="roof-w" value="8" min="2" max="100" oninput="drawLayout()"/>
+    </div>
+    <div class="card">
+      <label>Largo del techo (m)</label>
+      <input type="number" id="roof-l" value="5" min="2" max="100" oninput="drawLayout()"/>
+    </div>
+  </div>
+  <div class="card" style="margin-bottom:1rem;">
+    <label>Potencia del panel para layout</label>
+    <select id="layout-wp" onchange="drawLayout()">
+      <option value="400|1.7|1.0">400 Wp (1.7×1.0m)</option>
+      <option value="450|1.75|1.04">450 Wp (1.75×1.04m)</option>
+      <option value="550|2.1|1.05" selected>550 Wp (2.1×1.05m)</option>
+      <option value="600|2.2|1.09">600 Wp (2.2×1.09m)</option>
+      <option value="670|2.38|1.13">670 Wp (2.38×1.13m)</option>
+    </select>
+  </div>
+  <canvas id="layout-canvas" height="300"></canvas>
+  <div id="layout-info" style="margin-top:0.6rem;font-size:0.75rem;color:var(--muted);"></div>
+</div>
+
+<!-- ═══════════════ CLIMA SOLAR ═══════════════ -->
+<div id="tab-clima" style="display:none;">
+  <div class="grid2" style="margin-bottom:1.2rem;">
+    <div class="card">
+      <label>Ciudad</label>
+      <select id="clima-ciudad" onchange="renderClima()">
+        <option value="Arica">Arica</option><option value="Iquique">Iquique</option>
+        <option value="Antofagasta">Antofagasta</option><option value="Santiago" selected>Santiago</option>
+        <option value="Concepción">Concepción</option><option value="Punta Arenas">Punta Arenas</option>
+        <option value="Barranquilla">Barranquilla</option><option value="Bogotá">Bogotá</option>
+        <option value="Lima">Lima</option>
+      </select>
+    </div>
+    <div class="card">
+      <label>Consumo mensual (kWh) — para comparar</label>
+      <input type="number" id="clima-consumo" value="300" oninput="renderClima()"/>
+    </div>
+  </div>
+
+  <div class="sec-title">Irradiación Mensual</div>
+  <div class="card" style="margin-bottom:1rem;">
+    <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
+      <span style="font-size:0.7rem;color:var(--muted);">kWh/m²/día por mes</span>
+      <span style="font-size:0.7rem;color:var(--sun);" id="irrad-avg"></span>
+    </div>
+    <div id="irrad-chart" class="bar-chart"></div>
+    <div id="irrad-months" style="display:flex;gap:4px;margin-top:3px;"></div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:1rem;">
+    <div class="card">
+      <div class="sec-title" style="margin-bottom:0.6rem;">Temperatura y Efecto en Paneles</div>
+      <div id="temp-info"></div>
+    </div>
+    <div class="card">
+      <div class="sec-title" style="margin-bottom:0.6rem;">Dirección Solar Óptima</div>
+      <div id="solar-direction"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sec-title" style="margin-bottom:0.6rem;">Generación vs Consumo</div>
+    <div id="gen-vs-consumo"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ ANALIZADOR IA ═══════════════ -->
+<div id="tab-analizador" style="display:none;">
+  <div style="margin-bottom:1.2rem;padding:0.9rem 1.1rem;background:rgba(245,197,24,0.03);border:1px solid rgba(245,197,24,0.1);border-radius:10px;font-size:0.75rem;color:#6a7d94;line-height:1.6;">
+    Sube una o dos propuestas en PDF. Claude leerá los documentos, extraerá datos técnicos y financieros, y entregará una recomendación fundamentada.
+  </div>
+  <div class="grid2" style="margin-bottom:1rem;">
+    <div class="upload-zone" id="uz1" ondragover="dov(event,1)" ondragleave="dlv(1)" ondrop="ddr(event,1)">
+      <input type="file" accept=".pdf" onchange="fsel(event,1)"/>
+      <div style="font-size:1.8rem;margin-bottom:0.4rem;">📄</div>
+      <div style="font-family:'Syne',sans-serif;font-size:0.78rem;font-weight:700;color:var(--sun);">Propuesta 1</div>
+      <div style="font-size:0.65rem;color:var(--muted);">Arrastra PDF o haz clic</div>
+      <div style="font-size:0.65rem;color:var(--green);margin-top:0.4rem;" id="fn1"></div>
+    </div>
+    <div class="upload-zone" id="uz2" ondragover="dov(event,2)" ondragleave="dlv(2)" ondrop="ddr(event,2)">
+      <input type="file" accept=".pdf" onchange="fsel(event,2)"/>
+      <div style="font-size:1.8rem;margin-bottom:0.4rem;">📄</div>
+      <div style="font-family:'Syne',sans-serif;font-size:0.78rem;font-weight:700;color:var(--sun);">Propuesta 2 <span style="color:var(--muted);font-weight:400;">(opcional)</span></div>
+      <div style="font-size:0.65rem;color:var(--muted);">Arrastra PDF o haz clic</div>
+      <div style="font-size:0.65rem;color:var(--green);margin-top:0.4rem;" id="fn2"></div>
+    </div>
+  </div>
+  <div id="ai-error" style="display:none;background:rgba(255,77,109,0.07);border:1px solid rgba(255,77,109,0.18);border-radius:8px;padding:0.8rem;font-size:0.75rem;color:#ff8fa3;margin-bottom:1rem;"></div>
+  <button class="btn-primary" id="btn-ai" onclick="analyzeAI()" disabled style="margin-bottom:1rem;">◈ Analizar con IA</button>
+  <div class="loading-bar" id="ai-loading"></div>
+  <div style="text-align:center;font-size:0.75rem;color:var(--muted);padding:1rem;display:none;" id="ai-loading-msg">Analizando<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span> <span style="font-size:0.6rem;color:#2a3d50;">15–30 seg</span></div>
+  <div id="ai-results" style="display:none;"></div>
+</div>
+
+<!-- ═══════════════ GLOSARIO ═══════════════ -->
 <div id="tab-glosario" style="display:none;">
-  <p style="color:var(--muted);font-size:0.83rem;margin-bottom:1.3rem;line-height:1.6;">Conceptos fundamentales para interpretar el estudio de prefactibilidad y comprender el comportamiento de un sistema fotovoltaico.</p>
-  <div class="glosario-grid" id="glosario-grid"></div>
+  <p style="color:var(--muted);font-size:0.8rem;margin-bottom:1.2rem;line-height:1.6;">Conceptos fundamentales para interpretar el estudio de prefactibilidad.</p>
+  <div class="glos-grid" id="glos-grid"></div>
 </div>
 
-<!-- ===== SESIONES ===== -->
+<!-- ═══════════════ SESIONES ═══════════════ -->
 <div id="tab-sesiones" style="display:none;">
-  <p style="color:var(--muted);font-size:0.83rem;margin-bottom:1.3rem;line-height:1.6;">Resumen de los conceptos clave abordados en cada sesión del curso.</p>
-  <div style="display:flex;flex-direction:column;gap:0.8rem;" id="sesiones-list"></div>
+  <div style="display:flex;flex-direction:column;gap:0.7rem;" id="ses-list"></div>
 </div>
 
 </main>
 
-<footer>Herramienta educativa · Curso Sistemas Fotovoltaicos · Valores referenciales · No constituye ingeniería de proyecto</footer>
-
-<!-- Google Maps -->
 <script>
-const GOOGLE_API_KEY = 'AIzaSyDRPM-dWslynLx1EuUGE4UIIYAJ_bTOmtQ';
-
-// ─── DATA ───────────────────────────────────────────────────
+// ─── DATA ────────────────────────────────────────────────────────────────────
 const CIUDADES = {
-  "Arica":       { hsp:7.5, lat:-18.48, lng:-70.33, region:"Arica y Parinacota" },
-  "Iquique":     { hsp:7.2, lat:-20.21, lng:-70.15, region:"Tarapacá" },
-  "Antofagasta": { hsp:7.0, lat:-23.65, lng:-70.40, region:"Antofagasta" },
-  "Calama":      { hsp:7.4, lat:-22.46, lng:-68.93, region:"Antofagasta" },
-  "Copiapó":     { hsp:6.8, lat:-27.37, lng:-70.33, region:"Atacama" },
-  "La Serena":   { hsp:6.2, lat:-29.91, lng:-71.25, region:"Coquimbo" },
-  "Valparaíso":  { hsp:5.4, lat:-33.05, lng:-71.62, region:"Valparaíso" },
-  "Santiago":    { hsp:5.8, lat:-33.45, lng:-70.67, region:"Metropolitana" },
-  "Rancagua":    { hsp:5.5, lat:-34.17, lng:-70.74, region:"O'Higgins" },
-  "Talca":       { hsp:5.2, lat:-35.43, lng:-71.65, region:"Maule" },
-  "Concepción":  { hsp:4.5, lat:-36.82, lng:-73.05, region:"Biobío" },
-  "Temuco":      { hsp:4.2, lat:-38.74, lng:-72.59, region:"La Araucanía" },
-  "Valdivia":    { hsp:3.9, lat:-39.81, lng:-73.24, region:"Los Ríos" },
-  "Puerto Montt":{ hsp:3.6, lat:-41.47, lng:-72.94, region:"Los Lagos" },
-  "Punta Arenas":{ hsp:3.0, lat:-53.16, lng:-70.91, region:"Magallanes" },
+  "Arica":        {hsp:7.5,lat:-18.5,temp:[27,27,26,25,22,20,19,20,21,23,25,26],irrad:[8.2,7.8,7.0,6.2,5.5,5.0,5.2,5.8,6.5,7.5,8.0,8.3],region:"Arica y Parinacota"},
+  "Iquique":      {hsp:7.2,lat:-20.2,temp:[26,26,25,23,21,19,18,19,20,22,24,25],irrad:[7.9,7.5,6.8,5.9,5.2,4.8,5.0,5.5,6.2,7.1,7.7,8.0],region:"Tarapacá"},
+  "Antofagasta":  {hsp:7.0,lat:-23.7,temp:[24,24,23,21,18,16,15,16,17,20,22,23],irrad:[7.6,7.2,6.5,5.7,5.0,4.6,4.8,5.3,5.9,6.8,7.4,7.7],region:"Antofagasta"},
+  "Calama":       {hsp:7.4,lat:-22.5,temp:[26,25,24,21,17,14,14,15,17,21,24,25],irrad:[8.0,7.6,6.9,6.1,5.4,4.9,5.1,5.7,6.3,7.2,7.8,8.1],region:"Antofagasta"},
+  "Copiapó":      {hsp:6.8,lat:-27.4,temp:[29,29,27,24,20,17,16,17,19,23,26,28],irrad:[7.4,7.0,6.2,5.3,4.6,4.2,4.4,5.0,5.6,6.5,7.1,7.5],region:"Atacama"},
+  "La Serena":    {hsp:6.2,lat:-29.9,temp:[22,22,21,19,16,14,13,14,15,17,20,21],irrad:[6.8,6.4,5.7,4.8,4.1,3.8,4.0,4.6,5.2,6.0,6.6,7.0],region:"Coquimbo"},
+  "Valparaíso":   {hsp:5.4,lat:-33.0,temp:[20,20,19,17,14,12,11,12,13,15,17,19],irrad:[6.1,5.7,5.0,4.1,3.5,3.2,3.4,4.0,4.6,5.4,5.9,6.3],region:"Valparaíso"},
+  "Santiago":     {hsp:5.8,lat:-33.5,temp:[29,29,27,22,17,13,12,14,16,20,24,27],irrad:[6.5,6.1,5.4,4.4,3.8,3.4,3.6,4.2,4.9,5.7,6.2,6.6],region:"Metropolitana"},
+  "Rancagua":     {hsp:5.5,lat:-34.2,temp:[28,28,26,21,16,12,11,13,15,19,23,26],irrad:[6.2,5.8,5.1,4.1,3.5,3.1,3.3,3.9,4.6,5.4,5.9,6.3],region:"O'Higgins"},
+  "Talca":        {hsp:5.2,lat:-35.4,temp:[27,27,24,20,15,11,10,12,14,18,22,25],irrad:[5.9,5.5,4.8,3.8,3.2,2.9,3.0,3.7,4.3,5.1,5.6,6.0],region:"Maule"},
+  "Concepción":   {hsp:4.5,lat:-36.8,temp:[22,22,20,17,13,10,9,10,12,15,18,20],irrad:[5.2,4.8,4.1,3.2,2.6,2.3,2.5,3.1,3.7,4.5,5.0,5.4],region:"Biobío"},
+  "Temuco":       {hsp:4.2,lat:-38.7,temp:[20,20,18,15,11,8,7,8,10,13,16,18],irrad:[4.9,4.5,3.8,2.9,2.3,2.0,2.2,2.8,3.4,4.2,4.7,5.1],region:"La Araucanía"},
+  "Valdivia":     {hsp:3.9,lat:-39.8,temp:[18,18,16,13,10,8,7,8,9,11,14,16],irrad:[4.5,4.2,3.5,2.6,2.1,1.8,1.9,2.5,3.1,3.8,4.3,4.7],region:"Los Ríos"},
+  "Puerto Montt": {hsp:3.6,lat:-41.5,temp:[16,16,15,12,9,7,6,7,8,10,12,14],irrad:[4.2,3.9,3.2,2.3,1.8,1.5,1.7,2.2,2.8,3.5,4.0,4.4],region:"Los Lagos"},
+  "Punta Arenas": {hsp:3.0,lat:-53.2,temp:[11,11,9,6,3,1,1,2,4,6,8,10],irrad:[3.5,3.2,2.5,1.7,1.2,0.9,1.1,1.6,2.2,2.9,3.4,3.7],region:"Magallanes"},
+  "Barranquilla": {hsp:5.5,lat:10.96,temp:[29,30,30,30,30,29,29,30,30,30,29,29],irrad:[5.8,5.9,5.7,5.2,5.0,5.3,5.6,5.8,5.5,5.2,5.0,5.5],region:"Atlántico, Colombia"},
+  "Bogotá":       {hsp:4.5,lat:4.7,temp:[14,15,15,15,15,14,13,14,14,14,14,14],irrad:[4.8,4.9,4.7,4.3,4.0,4.2,4.5,4.7,4.4,4.1,4.0,4.6],region:"Cundinamarca, Colombia"},
+  "Medellín":     {hsp:4.8,lat:6.2,temp:[22,22,22,22,22,21,21,21,21,21,21,22],irrad:[5.1,5.2,5.0,4.6,4.3,4.5,4.8,5.0,4.7,4.4,4.2,4.9],region:"Antioquia, Colombia"},
+  "Ciudad de México":{hsp:5.3,lat:19.4,temp:[18,20,23,24,24,23,22,22,21,20,18,17],irrad:[5.6,5.8,5.6,5.3,5.0,4.9,5.1,5.3,5.0,4.9,5.1,5.4],region:"México"},
+  "Lima":         {hsp:5.2,lat:-12.1,temp:[27,28,27,25,22,19,18,18,19,20,23,25],irrad:[5.5,5.2,4.8,4.3,3.9,3.7,4.0,4.5,4.9,5.3,5.5,5.6],region:"Lima, Perú"},
 };
 
-const TARIFA = 145; // CLP/kWh
-const PANEL_WP = 550;
-const USD_CLP = 950;
-const PR = 0.78;
-const DEGRADACION = 0.005;
-const CO2_FACTOR = 0.29;
-const PRECIO_WP_USD = 0.25;
-const FACTOR_INST = 1.45; // equipos × 1.45 = total instalado
-
-// ─── STATE ──────────────────────────────────────────────────
-let map, drawingManager, polygon = null;
-let polygonArea = 0, polygonAngle = 0, roofConfirmed = false;
-let modoCalc = 'paneles';
-let tipoInstalacion = 'residencial';
-let autocompleteService, geocoder, placesService;
-
-// ─── TABS ───────────────────────────────────────────────────
-function showTab(id) {
-  ['calculadora','glosario','sesiones'].forEach(t => {
-    document.getElementById('tab-'+t).style.display = t===id ? '' : 'none';
-    document.querySelectorAll('.tab-btn')[['calculadora','glosario','sesiones'].indexOf(t)]
-      .classList.toggle('active', t===id);
-  });
-}
-
-// ─── TIPO / MODO ─────────────────────────────────────────────
-function setTipo(t, btn) {
-  tipoInstalacion = t;
-  document.querySelectorAll('.tipo-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-}
-
-function setModo(m) {
-  modoCalc = m;
-  document.getElementById('input-paneles').style.display = m==='paneles' ? '' : 'none';
-  document.getElementById('input-presupuesto').style.display = m==='presupuesto' ? '' : 'none';
-  const a = 'background:rgba(255,179,0,0.15);border-color:rgba(255,179,0,0.4);color:var(--sun);';
-  const i = '';
-  document.getElementById('modo-btn-paneles').style.cssText = m==='paneles' ? a : i;
-  document.getElementById('modo-btn-presupuesto').style.cssText = m==='presupuesto' ? a : i;
-}
-
-// ─── GOOGLE MAPS INIT ────────────────────────────────────────
-function initMap() {
-  const c = CIUDADES['Santiago'];
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: { lat: c.lat, lng: c.lng },
-    zoom: 18,
-    mapTypeId: 'satellite',
-    tilt: 0,
-    disableDefaultUI: false,
-    mapTypeControl: true,
-    mapTypeControlOptions: {
-      style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
-      mapTypeIds: ['satellite','roadmap','hybrid'],
-    },
-    styles: [],
-  });
-
-  drawingManager = new google.maps.drawing.DrawingManager({
-    drawingMode: null,
-    drawingControl: false,
-    polygonOptions: {
-      fillColor: '#ffb300', fillOpacity: 0.25,
-      strokeColor: '#ffb300', strokeWeight: 2,
-      editable: true, draggable: true,
-    },
-  });
-  drawingManager.setMap(map);
-
-  google.maps.event.addListener(drawingManager, 'polygoncomplete', function(p) {
-    if (polygon) polygon.setMap(null);
-    polygon = p;
-    drawingManager.setDrawingMode(null);
-    updatePolygonData();
-    google.maps.event.addListener(p.getPath(), 'set_at', updatePolygonData);
-    google.maps.event.addListener(p.getPath(), 'insert_at', updatePolygonData);
-    document.getElementById('btn-clear').style.display = '';
-    document.getElementById('btn-confirm').style.display = '';
-    document.getElementById('badge-mode').textContent = 'Polígono dibujado';
-    document.getElementById('badge-mode').classList.add('active');
-  });
-
-  autocompleteService = new google.maps.places.AutocompleteService();
-  geocoder = new google.maps.Geocoder();
-  placesService = new google.maps.places.PlacesService(map);
-}
-
-// ─── ADDRESS SEARCH ─────────────────────────────────────────
-let autocompleteTimeout;
-function onAddressInput() {
-  clearTimeout(autocompleteTimeout);
-  const val = document.getElementById('address-input').value;
-  if (val.length < 3) { document.getElementById('autocomplete-list').style.display='none'; return; }
-  autocompleteTimeout = setTimeout(() => {
-    autocompleteService.getPlacePredictions({
-      input: val + ', Chile',
-      componentRestrictions: { country: 'cl' },
-    }, (preds, status) => {
-      const list = document.getElementById('autocomplete-list');
-      if (status !== google.maps.places.PlacesServiceStatus.OK || !preds) {
-        list.style.display = 'none'; return;
-      }
-      list.innerHTML = '';
-      preds.slice(0,5).forEach(p => {
-        const div = document.createElement('div');
-        div.className = 'autocomplete-item';
-        div.textContent = p.description;
-        div.onclick = () => { selectPlace(p.place_id, p.description); list.style.display='none'; };
-        list.appendChild(div);
-      });
-      list.style.display = '';
-    });
-  }, 300);
-}
-
-function searchAddress() {
-  const q = document.getElementById('address-input').value;
-  if (!q) return;
-  document.getElementById('autocomplete-list').style.display='none';
-  geocoder.geocode({ address: q+', Chile' }, (res, status) => {
-    if (status==='OK' && res[0]) {
-      map.setCenter(res[0].geometry.location);
-      map.setZoom(19);
-      map.setMapTypeId('satellite');
-      detectCityFromLatLng(res[0].geometry.location.lat(), res[0].geometry.location.lng());
-    }
-  });
-}
-
-function selectPlace(placeId, desc) {
-  document.getElementById('address-input').value = desc;
-  geocoder.geocode({ placeId }, (res, status) => {
-    if (status==='OK' && res[0]) {
-      map.setCenter(res[0].geometry.location);
-      map.setZoom(19);
-      map.setMapTypeId('satellite');
-      detectCityFromLatLng(res[0].geometry.location.lat(), res[0].geometry.location.lng());
-    }
-  });
-}
-
-function detectCityFromLatLng(lat, lng) {
-  // Find nearest city
-  let nearest = 'Santiago', minD = Infinity;
-  Object.entries(CIUDADES).forEach(([name, d]) => {
-    const dist = Math.hypot(lat - d.lat, lng - d.lng);
-    if (dist < minD) { minD = dist; nearest = name; }
-  });
-  document.getElementById('ciudad-sel').value = nearest;
-  onCiudadChange();
-}
-
-// ─── DRAWING ─────────────────────────────────────────────────
-function startDrawing() {
-  map.setMapTypeId('satellite');
-  drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
-  document.getElementById('badge-mode').textContent = 'Dibujando... clic para añadir puntos, doble clic para cerrar';
-  document.getElementById('badge-mode').classList.add('active');
-}
-
-function clearPolygon() {
-  if (polygon) { polygon.setMap(null); polygon = null; }
-  polygonArea = 0; polygonAngle = 0; roofConfirmed = false;
-  document.getElementById('btn-clear').style.display='none';
-  document.getElementById('btn-confirm').style.display='none';
-  document.getElementById('badge-area').style.display='none';
-  document.getElementById('badge-orient').style.display='none';
-  document.getElementById('angle-display').style.display='none';
-  document.getElementById('area-input').value='';
-  document.getElementById('badge-mode').textContent='Vista normal';
-  document.getElementById('badge-mode').classList.remove('active');
-}
-
-function confirmPolygon() {
-  roofConfirmed = true;
-  document.getElementById('btn-confirm').style.display='none';
-  document.getElementById('badge-mode').textContent='✓ Techo confirmado';
-}
-
-function updatePolygonData() {
-  if (!polygon) return;
-  const path = polygon.getPath();
-  const coords = [];
-  for (let i=0; i<path.getLength(); i++) coords.push(path.getAt(i));
-
-  // Area using Google Maps geometry
-  const area = google.maps.geometry.spherical.computeArea(path);
-  polygonArea = Math.round(area);
-
-  // Estimate orientation/angle from bounding box
-  const lats = coords.map(c=>c.lat()), lngs = coords.map(c=>c.lng());
-  const dLat = Math.max(...lats) - Math.min(...lats);
-  const dLng = Math.max(...lngs) - Math.min(...lngs);
-
-  // Estimate angle from elongation ratio
-  const ratio = Math.min(dLat,dLng) / Math.max(dLat,dLng);
-  const lat = coords.reduce((s,c)=>s+c.lat(),0)/coords.length;
-  // Optimal angle ≈ latitude - 10° (Chile faces north)
-  const optimalAngle = Math.max(10, Math.abs(lat) - 10);
-  // If polygon is roughly square (flat roof) → smaller angle
-  // If elongated (pitched roof) → closer to optimal
-  const elongFactor = 1 - ratio; // 0=square, 1=very elongated
-  polygonAngle = Math.round(optimalAngle * 0.4 + optimalAngle * elongFactor * 0.6);
-  polygonAngle = Math.min(45, Math.max(5, polygonAngle));
-
-  document.getElementById('area-input').value = polygonArea;
-  document.getElementById('badge-area').textContent = `Área: ${polygonArea} m²`;
-  document.getElementById('badge-area').style.display='';
-
-  // Orientation
-  const mainAngleDeg = Math.atan2(dLng, dLat) * 180 / Math.PI;
-  const dirs = ['N','NE','E','SE','S','SO','O','NO'];
-  const idx = Math.round(((mainAngleDeg + 360) % 360) / 45) % 8;
-  const orientLabel = dirs[idx];
-  document.getElementById('badge-orient').textContent = `Orientación: ${orientLabel}`;
-  document.getElementById('badge-orient').style.display='';
-
-  // Show angle
-  document.getElementById('angle-display').style.display='';
-  document.getElementById('angle-val').textContent = polygonAngle+'°';
-  document.getElementById('angle-manual').value = polygonAngle;
-  document.getElementById('angle-info').innerHTML = 
-    `Estimado por forma del polígono y latitud (${Math.abs(lat).toFixed(1)}°S).<br>
-     Ángulo óptimo para esta latitud: ~${Math.round(Math.abs(lat)-10)}°. Editable.`;
-}
-
-function onAngleManual() {
-  const v = parseInt(document.getElementById('angle-manual').value);
-  if (!isNaN(v)) { polygonAngle = v; document.getElementById('angle-val').textContent = v+'°'; }
-}
-
-function onCiudadChange() {
-  const c = document.getElementById('ciudad-sel').value;
-  const d = CIUDADES[c];
-  document.getElementById('ciudad-hsp-hint').textContent = `HSP: ${d.hsp} h/día · Región ${d.region}`;
-}
-
-// ─── ANGLE FACTOR ────────────────────────────────────────────
-function angleFactor(angle, lat) {
-  // Simple model: max at optimal angle (lat-10), falloff
-  const opt = Math.max(10, Math.abs(lat) - 10);
-  const diff = Math.abs(angle - opt);
-  // Gaussian-ish falloff: ~5% loss per 15° from optimal
-  return Math.max(0.85, 1 - (diff / 15) * 0.05);
-}
-
-// ─── CALCULAR ────────────────────────────────────────────────
-function calcular() {
-  const ciudadName = document.getElementById('ciudad-sel').value;
-  const ciudad = CIUDADES[ciudadName];
-  const area = parseFloat(document.getElementById('area-input').value) || 30;
-  const techoVal = document.getElementById('techo-tipo').value.split('|');
-  const factorTecho = parseFloat(techoVal[0]);
-  const m2PorPanel = parseFloat(techoVal[1]);
-  const angle = polygonAngle || parseInt(document.getElementById('angle-manual').value) || Math.round(Math.abs(ciudad.lat)-10);
-  const afactor = angleFactor(angle, ciudad.lat);
-  const maxPaneles = Math.floor(area / m2PorPanel);
-
-  let numPaneles;
-  if (modoCalc === 'paneles') {
-    numPaneles = Math.min(parseInt(document.getElementById('num-paneles').value)||10, maxPaneles);
-  } else {
-    const presupuesto = parseFloat(document.getElementById('presupuesto-usd').value)||5000;
-    const costoPorPanel = PANEL_WP * PRECIO_WP_USD * FACTOR_INST;
-    numPaneles = Math.min(Math.floor(presupuesto / costoPorPanel), maxPaneles);
-  }
-  numPaneles = Math.max(1, numPaneles);
-
-  const kwp = (numPaneles * PANEL_WP) / 1000;
-  const hspEfectivo = ciudad.hsp * afactor;
-  const genMes = kwp * hspEfectivo * 30 * PR * factorTecho;
-  const genAnual = genMes * 12;
-
-  const costoUSD = numPaneles * PANEL_WP * PRECIO_WP_USD * FACTOR_INST;
-  const costoCLP = costoUSD * USD_CLP;
-  const ahorroMes = genMes * TARIFA;
-  const ahorroAnual = ahorroMes * 12;
-  const roi = costoCLP / ahorroAnual;
-
-  let gen25=0, ahorro25=0;
-  for(let y=0;y<25;y++){
-    gen25 += genAnual * Math.pow(1-DEGRADACION,y);
-    ahorro25 += ahorroAnual * Math.pow(1.03,y);
-  }
-  const co2 = gen25 * CO2_FACTOR / 1000;
-  const arboles = Math.round(co2*1000/21.7);
-  const beneficio = ahorro25 - costoCLP;
-  const lcoe = (costoCLP/gen25).toFixed(1);
-
-  // Update UI
-  const fCLP = v => `$${Math.round(v).toLocaleString('es-CL')}`;
-  document.getElementById('r-kwp').textContent = kwp.toFixed(2)+' kWp';
-  document.getElementById('r-paneles-desc').textContent = `${numPaneles} paneles de ${PANEL_WP}Wp`;
-  document.getElementById('r-gen-mes').textContent = Math.round(genMes).toLocaleString('es-CL')+' kWh/mes';
-  document.getElementById('r-gen-anual').textContent = Math.round(genAnual).toLocaleString('es-CL')+' kWh/año';
-  document.getElementById('r-ahorro-mes').textContent = fCLP(ahorroMes);
-  document.getElementById('r-ahorro-anual').textContent = fCLP(ahorroAnual)+'/año';
-  document.getElementById('r-roi').textContent = roi.toFixed(1)+' años';
-  document.getElementById('r-costo').textContent = `Inversión: US$ ${Math.round(costoUSD).toLocaleString('es-CL')}`;
-  document.getElementById('r-co2').textContent = co2.toFixed(1)+' ton';
-  document.getElementById('r-arboles').textContent = `≈ ${arboles.toLocaleString()} árboles equiv.`;
-  document.getElementById('r-beneficio').textContent = fCLP(beneficio);
-  document.getElementById('r-roi-label').textContent = `${roi.toFixed(1)} años de 25 proyectados`;
-  document.getElementById('roi-fill').style.width = Math.min((roi/25)*100,100)+'%';
-
-  document.getElementById('r-angulo').textContent = angle+'°';
-  document.getElementById('r-hsp').textContent = ciudad.hsp+' h';
-  document.getElementById('r-factor-ang').textContent = (afactor*100).toFixed(1)+'%';
-
-  const d1 = [
-    ['Ciudad / HSP', `${ciudadName} · ${ciudad.hsp} h/día`],
-    ['Ángulo techo', `${angle}° (factor ${(afactor*100).toFixed(0)}%)`],
-    ['HSP efectivo', `${hspEfectivo.toFixed(2)} h/día`],
-    ['Paneles', `${numPaneles} × ${PANEL_WP}Wp`],
-    ['Potencia pico', `${kwp.toFixed(2)} kWp`],
-  ];
-  const d2 = [
-    ['PR (eficiencia)', `${(PR*100).toFixed(0)}%`],
-    ['Costo sistema', `US$ ${Math.round(costoUSD).toLocaleString('es-CL')}`],
-    ['LCOE', `$${lcoe}/kWh`],
-    ['Tarifa red', `$${TARIFA}/kWh`],
-    ['Gen. 25 años', `${Math.round(gen25/1000).toLocaleString('es-CL')} MWh`],
-  ];
-  document.getElementById('detalle-col1').innerHTML = d1.map(([k,v])=>`<div class="detail-row"><span>${k}</span><span>${v}</span></div>`).join('');
-  document.getElementById('detalle-col2').innerHTML = d2.map(([k,v])=>`<div class="detail-row"><span>${k}</span><span>${v}</span></div>`).join('');
-
-  document.getElementById('resultado-section').style.display='';
-  setTimeout(()=>document.getElementById('resultado-section').scrollIntoView({behavior:'smooth'}),100);
-}
-
-// ─── GLOSARIO ────────────────────────────────────────────────
-const GLOSARIO = [
-  {term:'HSP',full:'Horas Sol Pico',def:'Número de horas equivalentes en que la irradiancia solar sería de 1.000 W/m². Determina cuánta energía genera un panel en un día promedio.',icon:'☀️'},
-  {term:'kWp',full:'Kilovatios Pico',def:'Potencia máxima de un sistema FV bajo condiciones estándar (STC). Es la unidad de tamaño del sistema.',icon:'⚡'},
-  {term:'STC',full:'Standard Test Conditions',def:'Condiciones de laboratorio: irradiancia 1.000 W/m², temperatura celda 25°C, masa de aire AM 1.5.',icon:'🔬'},
-  {term:'NOCT',full:'Nominal Operating Cell Temp',def:'Temperatura real de operación de la celda en campo (~45°C). Afecta la potencia entregada vs. STC.',icon:'🌡️'},
-  {term:'Inversor',full:'Inversor Solar',def:'Convierte corriente continua (DC) de los paneles en corriente alterna (AC) compatible con la red.',icon:'🔄'},
-  {term:'PR',full:'Performance Ratio',def:'Eficiencia global del sistema considerando pérdidas por temperatura, cableado, inversor y suciedad. Buen sistema: 0.75–0.85.',icon:'📊'},
-  {term:'Net Metering',full:'Medición Neta',def:'Ley 20.936 en Chile: permite inyectar excedentes a la red y descontarlos de la boleta eléctrica.',icon:'⚖️'},
-  {term:'LCOE',full:'Costo Nivelado de Energía',def:'Costo total del sistema dividido por la energía generada en su vida útil. Permite comparar tecnologías.',icon:'💰'},
-  {term:'Irradiancia',full:'Irradiancia Solar',def:'Potencia de radiación solar por unidad de área (W/m²). Es instantánea; la irradiación es la energía acumulada (Wh/m²).',icon:'🌤️'},
-  {term:'PID',full:'Potential Induced Degradation',def:'Degradación acelerada por diferencias de potencial entre la celda y el marco. Reducible con inversores anti-PID.',icon:'⚠️'},
-  {term:'MPPT',full:'Max Power Point Tracking',def:'Algoritmo del inversor que busca continuamente el punto de máxima potencia del panel.',icon:'🎯'},
-  {term:'Azimut',full:'Azimut Solar',def:'Ángulo horizontal de orientación del panel. En Chile (hemisferio sur), lo óptimo es orientar los paneles hacia el norte (azimut 0°).',icon:'🧭'},
+const PANELS = [
+  {wp:400,w:1.72,h:1.02,label:"400 Wp",desc:"Estándar residencial",color:"#38bdf8"},
+  {wp:450,w:1.76,h:1.04,label:"450 Wp",desc:"Eficiencia media",color:"#34d399"},
+  {wp:550,w:2.10,h:1.05,label:"550 Wp",desc:"Alta eficiencia ★",color:"#f5c518",recommended:true},
+  {wp:600,w:2.20,h:1.09,label:"600 Wp",desc:"Premium",color:"#c084fc"},
+  {wp:670,w:2.38,h:1.13,label:"670 Wp",desc:"Bifacial premium",color:"#fb923c"},
 ];
 
-function renderGlosario() {
-  let openIdx = null;
-  const grid = document.getElementById('glosario-grid');
-  function render() {
-    grid.innerHTML = GLOSARIO.map((g,i) => `
-      <div class="glosario-card ${openIdx===i?'open':''}" onclick="toggleGlosario(${i})">
-        <div class="glosario-header">
-          <span style="font-size:1.3rem;">${g.icon}</span>
-          <div>
-            <div class="glosario-term">${g.term}</div>
-            <div class="glosario-full">${g.full}</div>
-          </div>
-          <span style="margin-left:auto;color:var(--muted);font-size:0.8rem;">${openIdx===i?'▲':'▼'}</span>
-        </div>
-        ${openIdx===i?`<div class="glosario-def">${g.def}</div>`:''}
-      </div>
-    `).join('');
-  }
-  window.toggleGlosario = (i) => { openIdx = openIdx===i?null:i; render(); };
-  render();
+const TARIFA_CLP=145,USD_CLP=950,PR=0.78,DEGRADACION=0.005,CO2=0.29,PRECIO_WP=0.25,FACTOR_INST=1.45;
+const MESES=["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
+
+let tipoInst='residencial',modoCalc='paneles';
+let aiFiles={1:null,2:null},aiB64={1:null,2:null};
+
+// ─── TABS ─────────────────────────────────────────────────────────────────────
+function showTab(id){
+  ['calc','paneles','clima','analizador','glosario','sesiones'].forEach(t=>{
+    document.getElementById('tab-'+t).style.display=t===id?'':'none';
+  });
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>{
+    b.classList.toggle('active',['calc','paneles','clima','analizador','glosario','sesiones'][i]===id);
+  });
+  if(id==='paneles'){renderPanelOptions();drawLayout();}
+  if(id==='clima'){renderClima();}
 }
 
-// ─── SESIONES ────────────────────────────────────────────────
-const SESIONES = [
-  {num:1,tema:'Fundamentos de la Energía Solar',color:'#ff8f00',puntos:['Radiación solar: global, directa y difusa','Irradiancia vs. irradiación','Movimiento solar: azimut, elevación, declinación','Ángulo óptimo para Chile']},
-  {num:2,tema:'Tecnologías de Paneles Fotovoltaicos',color:'#f57c00',puntos:['Efecto fotoeléctrico y funcionamiento de la celda','Mono, policristalino y capa delgada','Curva I-V y punto de máxima potencia','STC vs. NOCT']},
-  {num:3,tema:'Componentes del Sistema FV',color:'#e65100',puntos:['Inversores: string, micro, DC optimizers','Baterías LFP y NMC','Estructuras de soporte y seguimiento','Cableado, fusibles y protecciones']},
-  {num:4,tema:'Dimensionamiento Básico',color:'#ffb300',puntos:['Cálculo de consumo eléctrico','Uso de HSP para estimar generación','Número de paneles y tamaño del inversor','Relación DC/AC']},
-  {num:5,tema:'Ingeniería de Detalle',color:'#fdd835',puntos:['Diseño de strings','Análisis de sombras y pérdidas','Performance Ratio y factores de pérdida','PVsyst, SAM, Helioscope']},
-  {num:6,tema:'Marco Regulatorio en Chile',color:'#a5d6a7',puntos:['Ley 20.936 Net Billing / Net Metering','Conexión con distribuidora','NSEG 10 y normas eléctricas','SEC: equipos certificados y permisos']},
-  {num:7,tema:'Evaluación Económica',color:'#80cbc4',puntos:['CAPEX y OPEX','VAN, TIR, Payback, LCOE','Incentivos tributarios (Art. 33 bis)','Análisis de sensibilidad']},
-  {num:8,tema:'Interpretación del Estudio de Prefactibilidad',color:'#81d4fa',puntos:['Uso de esta herramienta','Limitaciones del estudio referencial','Pasos hacia un proyecto real','Lectura crítica de cotizaciones']},
-];
+// ─── CALCULADORA ──────────────────────────────────────────────────────────────
+function setTipo(t,btn){tipoInst=t;document.querySelectorAll('.tipo-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+function setModo(m){
+  modoCalc=m;
+  ['paneles','presupuesto','consumo'].forEach(k=>{document.getElementById('inp-'+k).style.display=k===m?'':'none';});
+  ['p','b','c'].forEach((k,i)=>{
+    const id='modo-'+k;
+    const active=['paneles','presupuesto','consumo'][i]===m;
+    document.getElementById(id).style.background=active?'rgba(245,197,24,0.1)':'rgba(255,255,255,0.02)';
+    document.getElementById(id).style.borderColor=active?'rgba(245,197,24,0.35)':'rgba(255,255,255,0.07)';
+    document.getElementById(id).style.color=active?'var(--sun)':'var(--muted)';
+  });
+}
+function onCiudadChange(){
+  const c=document.getElementById('ciudad-sel').value;
+  const d=CIUDADES[c];
+  if(d) document.getElementById('ciudad-hint').textContent=`HSP: ${d.hsp} h/día · ${d.region}`;
+  updateAngle();
+}
+function updateAngle(){
+  const v=parseInt(document.getElementById('angulo-range').value);
+  document.getElementById('angulo-val').textContent=v+'°';
+  const c=CIUDADES[document.getElementById('ciudad-sel').value];
+  const opt=c?Math.round(Math.abs(c.lat)-10):15;
+  document.getElementById('angulo-hint').textContent=`Ángulo óptimo para ${document.getElementById('ciudad-sel').value}: ~${opt}°`;
+  document.getElementById('angulo-desc').textContent=v<5?'Plano':v<15?'Leve':v<30?'Inclinado':v<45?'Pronunciado':'Muy inclinado';
+}
+function updateMaxPanels(){
+  const area=parseFloat(document.getElementById('area-m2').value)||40;
+  const wp=parseInt(document.getElementById('panel-wp-sel').value)||550;
+  const p=PANELS.find(x=>x.wp===wp)||PANELS[2];
+  const m2=p.w*p.h*1.1;
+  const max=Math.floor(area/m2);
+  document.getElementById('area-hint').textContent=`Máx. ~${max} paneles (${p.w}×${p.h}m c/u)`;
+  document.getElementById('panel-dim-hint').textContent=`Dimensiones: ${p.w}×${p.h}m · ~${(p.w*p.h).toFixed(1)} m²/panel`;
+}
+function angleFactor(angle,lat){
+  const opt=Math.max(10,Math.abs(lat)-10);
+  const diff=Math.abs(angle-opt);
+  return Math.max(0.82,1-(diff/15)*0.05);
+}
+function calcular(){
+  const ciudad=CIUDADES[document.getElementById('ciudad-sel').value];
+  const area=parseFloat(document.getElementById('area-m2').value)||40;
+  const wp=parseInt(document.getElementById('panel-wp-sel').value)||550;
+  const p=PANELS.find(x=>x.wp===wp)||PANELS[2];
+  const m2=p.w*p.h*1.1;
+  const maxP=Math.floor(area/m2);
+  const angle=parseInt(document.getElementById('angulo-range').value)||15;
+  const af=angleFactor(angle,ciudad.lat);
 
-function renderSesiones() {
-  document.getElementById('sesiones-list').innerHTML = SESIONES.map(s => `
-    <div class="sesion-card" style="border-left-color:${s.color};">
-      <div style="display:flex;align-items:center;gap:0.7rem;margin-bottom:0.6rem;">
-        <div class="sesion-num" style="background:${s.color}18;border:1px solid ${s.color}44;color:${s.color};">${s.num}</div>
-        <div style="color:${s.color};font-size:0.88rem;">Sesión ${s.num}: ${s.tema}</div>
+  let numP;
+  if(modoCalc==='paneles') numP=Math.min(parseInt(document.getElementById('num-paneles').value)||10,maxP);
+  else if(modoCalc==='presupuesto'){const b=parseFloat(document.getElementById('presupuesto-usd').value)||5000;numP=Math.min(Math.floor(b/(wp*PRECIO_WP*FACTOR_INST)),maxP);}
+  else{const kwh=parseFloat(document.getElementById('consumo-kwh').value)||300;const hsp=ciudad.hsp*af;numP=Math.min(Math.ceil((kwh/30)/(hsp*PR*0.001*wp)),maxP);}
+  numP=Math.max(1,numP);
+
+  const kwp=numP*wp/1000;
+  const hspEf=ciudad.hsp*af;
+  const genMes=kwp*hspEf*30*PR;
+  const genAnual=genMes*12;
+  const costoUSD=numP*wp*PRECIO_WP*FACTOR_INST;
+  const costoCLP=costoUSD*USD_CLP;
+  const ahorroMes=genMes*TARIFA_CLP;
+  const ahorroAnual=ahorroMes*12;
+  const roi=costoCLP/ahorroAnual;
+  let gen25=0,ahorro25=0;
+  for(let y=0;y<25;y++){gen25+=genAnual*Math.pow(1-DEGRADACION,y);ahorro25+=ahorroAnual*Math.pow(1.03,y);}
+  const co2t=gen25*CO2/1000,arb=Math.round(co2t*1000/21.7),ben=ahorro25-costoCLP,lcoe=(costoCLP/gen25).toFixed(1);
+
+  const fCLP=v=>'$'+Math.round(v).toLocaleString('es-CL');
+  const m1=[
+    {l:'Sistema',v:kwp.toFixed(2)+' kWp',s:numP+' paneles de '+wp+'Wp',c:'var(--sun)'},
+    {l:'Generación/mes',v:Math.round(genMes).toLocaleString()+' kWh',s:Math.round(genAnual).toLocaleString()+' kWh/año',c:'var(--blue)'},
+    {l:'Ahorro mensual',v:fCLP(ahorroMes),s:fCLP(ahorroAnual)+'/año',c:'var(--green)'},
+    {l:'Factor ángulo',v:(af*100).toFixed(1)+'%',s:'Ángulo: '+angle+'°',c:'var(--purple)'},
+  ];
+  const m2r=[
+    {l:'Payback',v:roi.toFixed(1)+' años',s:'Inversión: US$'+Math.round(costoUSD).toLocaleString(),c:'var(--purple)'},
+    {l:'CO₂ evitado',v:co2t.toFixed(1)+' ton',s:'≈'+arb.toLocaleString()+' árboles',c:'#80cbc4'},
+    {l:'Beneficio neto 25a',v:fCLP(ben),s:'vs inversión inicial',c:'#ffcc80'},
+    {l:'LCOE',v:'$'+lcoe+'/kWh',s:'Tarifa red: $'+TARIFA_CLP,c:'#f9a8d4'},
+  ];
+  document.getElementById('metrics-row1').innerHTML=m1.map(m=>`<div class="metric"><div class="lbl">${m.l}</div><div class="val" style="color:${m.c}">${m.v}</div><div class="sub">${m.s}</div></div>`).join('');
+  document.getElementById('metrics-row2').innerHTML=m2r.map(m=>`<div class="metric"><div class="lbl">${m.l}</div><div class="val" style="color:${m.c}">${m.v}</div><div class="sub">${m.s}</div></div>`).join('');
+  document.getElementById('roi-fill').style.width=Math.min((roi/25)*100,100)+'%';
+  document.getElementById('roi-mid').textContent='Retorno: año '+roi.toFixed(1);
+  const d1=[['Ciudad/HSP',`${document.getElementById('ciudad-sel').value} · ${ciudad.hsp} h/día`],['Ángulo',`${angle}° (factor ${(af*100).toFixed(0)}%)`],['HSP efectivo',`${hspEf.toFixed(2)} h/día`],['Paneles',`${numP} × ${wp}Wp`],['Potencia pico',`${kwp.toFixed(2)} kWp`]];
+  const d2=[['PR sistema',`${(PR*100).toFixed(0)}%`],['Costo USD',`US$ ${Math.round(costoUSD).toLocaleString()}`],['LCOE',`$${lcoe}/kWh`],['Gen 25 años',`${Math.round(gen25/1000).toLocaleString()} MWh`],['Área usada',`~${(numP*p.w*p.h).toFixed(0)} m²`]];
+  const rowHtml=rows=>rows.map(([k,v])=>`<div style="display:flex;justify-content:space-between;padding:0.3rem 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:0.75rem;"><span style="color:var(--muted)">${k}</span><span style="color:#c8bda8;font-weight:500">${v}</span></div>`).join('');
+  document.getElementById('detalle-col1').innerHTML='<div class="card">'+rowHtml(d1)+'</div>';
+  document.getElementById('detalle-col2').innerHTML='<div class="card">'+rowHtml(d2)+'</div>';
+  document.getElementById('calc-results').style.display='';
+  setTimeout(()=>document.getElementById('calc-results').scrollIntoView({behavior:'smooth'}),100);
+}
+
+// ─── PANEL OPTIONS ────────────────────────────────────────────────────────────
+function renderPanelOptions(){
+  const area=parseFloat(document.getElementById('opt-area').value)||40;
+  const ciudad=CIUDADES[document.getElementById('opt-ciudad').value]||CIUDADES['Santiago'];
+  const threeOptions=[PANELS[0],PANELS[2],PANELS[4]]; // 400,550,670
+  document.getElementById('panel-options-grid').innerHTML=threeOptions.map(p=>{
+    const m2=p.w*p.h*1.1;
+    const maxP=Math.floor(area/m2);
+    const kwp=maxP*p.wp/1000;
+    const genMes=kwp*ciudad.hsp*30*PR;
+    const costoUSD=maxP*p.wp*PRECIO_WP*FACTOR_INST;
+    return `<div class="panel-opt ${p.recommended?'recommended':''}">
+      ${p.recommended?'<div class="rec-tag">⭐ RECOMENDADO</div>':''}
+      <div style="text-align:center;margin-bottom:0.8rem;">
+        <div style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:${p.color}">${p.label}</div>
+        <div style="font-size:0.65rem;color:var(--muted)">${p.desc}</div>
       </div>
-      <div style="display:flex;flex-wrap:wrap;gap:0.35rem;">
-        ${s.puntos.map(p=>`<span class="tag">· ${p}</span>`).join('')}
-      </div>
+      <div style="font-size:0.68rem;color:var(--muted);margin-bottom:0.3rem;">Dimensiones</div>
+      <div style="font-size:0.8rem;margin-bottom:0.7rem;color:var(--text)">${p.w}×${p.h}m · ${(p.w*p.h).toFixed(2)} m²</div>
+      ${[['Paneles en '+area+'m²',maxP+' und'],['Potencia total',kwp.toFixed(2)+' kWp'],['Gen. mensual',Math.round(genMes).toLocaleString()+' kWh'],['Costo aprox.','US$'+Math.round(costoUSD).toLocaleString()]].map(([k,v])=>`
+        <div style="display:flex;justify-content:space-between;padding:0.25rem 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:0.73rem;">
+          <span style="color:var(--muted)">${k}</span><span style="color:${p.color};font-weight:600">${v}</span>
+        </div>`).join('')}
+    </div>`;
+  }).join('');
+}
+
+// ─── LAYOUT CANVAS ───────────────────────────────────────────────────────────
+function drawLayout(){
+  const canvas=document.getElementById('layout-canvas');
+  const ctx=canvas.getContext('2d');
+  const rw=parseFloat(document.getElementById('roof-w').value)||8;
+  const rl=parseFloat(document.getElementById('roof-l').value)||5;
+  const sel=document.getElementById('layout-wp').value.split('|');
+  const pw=parseFloat(sel[1]),ph=parseFloat(sel[2]),wpVal=parseInt(sel[0]);
+  const GAP=0.1,MARGIN=0.3;
+  const cw=canvas.offsetWidth||600,ch=300;
+  canvas.width=cw;canvas.height=ch;
+  const scale=Math.min((cw-40)/(rw),(ch-40)/(rl));
+  const offX=(cw-rw*scale)/2,offY=(ch-rl*scale)/2;
+  ctx.clearRect(0,0,cw,ch);
+  // roof
+  ctx.fillStyle='rgba(255,255,255,0.04)';ctx.strokeStyle='rgba(245,197,24,0.3)';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.rect(offX,offY,rw*scale,rl*scale);ctx.fill();ctx.stroke();
+  // label
+  ctx.fillStyle='rgba(74,95,114,0.8)';ctx.font='11px DM Sans';ctx.textAlign='center';
+  ctx.fillText(`${rw}m × ${rl}m = ${(rw*rl).toFixed(0)} m²`,cw/2,offY-6);
+  // panels
+  let count=0;
+  const cols=Math.floor((rw-MARGIN*2)/(pw+GAP));
+  const rows2=Math.floor((rl-MARGIN*2)/(ph+GAP));
+  for(let r=0;r<rows2;r++){
+    for(let c=0;c<cols;c++){
+      const x=offX+(MARGIN+c*(pw+GAP))*scale;
+      const y=offY+(MARGIN+r*(ph+GAP))*scale;
+      ctx.fillStyle='rgba(56,189,248,0.15)';
+      ctx.strokeStyle='rgba(56,189,248,0.6)';ctx.lineWidth=0.8;
+      ctx.beginPath();ctx.rect(x,y,pw*scale,ph*scale);ctx.fill();ctx.stroke();
+      // grid lines on panel
+      ctx.strokeStyle='rgba(56,189,248,0.2)';ctx.lineWidth=0.3;
+      for(let g=1;g<6;g++){ctx.beginPath();ctx.moveTo(x+pw*scale*g/6,y);ctx.lineTo(x+pw*scale*g/6,y+ph*scale);ctx.stroke();}
+      for(let g=1;g<4;g++){ctx.beginPath();ctx.moveTo(x,y+ph*scale*g/4);ctx.lineTo(x+pw*scale,y+ph*scale*g/4);ctx.stroke();}
+      count++;
+    }
+  }
+  const kwp=count*wpVal/1000;
+  document.getElementById('layout-info').innerHTML=
+    `<strong style="color:var(--green)">${count} paneles</strong> de ${wpVal}Wp · 
+     <strong style="color:var(--sun)">${kwp.toFixed(2)} kWp</strong> · 
+     Distribución: ${cols} columnas × ${rows2} filas · 
+     Área ocupada: ${(count*pw*ph).toFixed(1)} m² de ${(rw*rl).toFixed(0)} m² disponibles`;
+}
+
+// ─── CLIMA ───────────────────────────────────────────────────────────────────
+function renderClima(){
+  const nombre=document.getElementById('clima-ciudad').value;
+  const c=CIUDADES[nombre];
+  const consumo=parseFloat(document.getElementById('clima-consumo').value)||300;
+  if(!c)return;
+  // Irradiación bar chart
+  const maxI=Math.max(...c.irrad);
+  const avg=(c.irrad.reduce((a,b)=>a+b,0)/12).toFixed(2);
+  document.getElementById('irrad-avg').textContent='Promedio: '+avg+' kWh/m²/día';
+  const chart=document.getElementById('irrad-chart');
+  chart.innerHTML=c.irrad.map((v,i)=>{
+    const h=Math.round((v/maxI)*72);
+    const col=v>=avg?'var(--sun)':'var(--blue)';
+    return `<div class="bar-col">
+      <div class="bar-val">${v}</div>
+      <div class="bar-fill" style="height:${h}px;background:${col};"></div>
+    </div>`;
+  }).join('');
+  document.getElementById('irrad-months').innerHTML=MESES.map(m=>`<div style="flex:1;text-align:center;font-size:0.48rem;color:var(--muted)">${m}</div>`).join('');
+
+  // Temperatura
+  const maxT=Math.max(...c.temp),minT=Math.min(...c.temp);
+  const tempLoss=((maxT-25)*0.004*100).toFixed(1);
+  document.getElementById('temp-info').innerHTML=`
+    <div style="margin-bottom:0.6rem;">
+      ${MESES.map((m,i)=>`<span title="${m}: ${c.temp[i]}°C" style="display:inline-block;width:7.5%;height:20px;background:hsl(${Math.round(240-(c.temp[i]-minT)/(maxT-minT)*240)},70%,50%);border-radius:2px;margin:1px;"></span>`).join('')}
     </div>
-  `).join('');
+    <div style="font-size:0.72rem;color:var(--muted);line-height:1.7;">
+      Máx: <span style="color:var(--red)">${maxT}°C</span> · Mín: <span style="color:var(--blue)">${minT}°C</span><br>
+      Pérdida por temperatura pico: <span style="color:var(--sun)">~${tempLoss}%</span><br>
+      <span style="color:#3a4d60;font-size:0.65rem;">Los paneles pierden ~0.4%/°C sobre 25°C (NOCT). En meses calurosos la generación efectiva se reduce.</span>
+    </div>`;
+
+  // Solar direction
+  const lat=c.lat;
+  const isNorth=lat<0;
+  document.getElementById('solar-direction').innerHTML=`
+    <div style="text-align:center;margin-bottom:0.6rem;">
+      <svg width="100" height="100" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        <circle cx="50" cy="50" r="30" fill="none" stroke="rgba(245,197,24,0.15)" stroke-width="0.5"/>
+        ${['N','E','S','O'].map((d,i)=>{const a=i*90*Math.PI/180;return `<text x="${50+46*Math.sin(a)}" y="${50-46*Math.cos(a)+4}" text-anchor="middle" fill="rgba(74,95,114,0.8)" font-size="8">${d}</text>`}).join('')}
+        <line x1="50" y1="50" x2="${50+35*Math.sin(0)}" y2="${50-35*Math.cos(0)}" stroke="${isNorth?'rgba(245,197,24,0.3)':'var(--sun)'}" stroke-width="${isNorth?1:2.5}"/>
+        <line x1="50" y1="50" x2="${50+35*Math.sin(Math.PI)}" y2="${50-35*Math.cos(Math.PI)}" stroke="${!isNorth?'rgba(245,197,24,0.3)':'var(--sun)'}" stroke-width="${!isNorth?1:2.5}"/>
+        <circle cx="50" cy="50" r="3" fill="var(--sun)"/>
+        <text x="50" y="85" text-anchor="middle" fill="var(--sun)" font-size="9" font-weight="bold">Óptimo: ${isNorth?'NORTE':'SUR'}</text>
+      </svg>
+    </div>
+    <div style="font-size:0.7rem;color:var(--muted);line-height:1.6;text-align:center;">
+      Lat: ${Math.abs(lat).toFixed(1)}°${lat<0?'S':'N'}<br>
+      Ángulo óptimo: ~${Math.max(10,Math.round(Math.abs(lat)-10))}°<br>
+      Azimut: ${isNorth?'0° (Norte)':'180° (Sur)'}
+    </div>`;
+
+  // Gen vs consumo
+  const kwpRef=5;
+  document.getElementById('gen-vs-consumo').innerHTML=`
+    <div style="font-size:0.7rem;color:var(--muted);margin-bottom:0.6rem;">Sistema de referencia: 5 kWp · Tu consumo: ${consumo} kWh/mes</div>
+    <div style="display:flex;gap:3px;align-items:flex-end;height:70px;margin-bottom:4px;">
+      ${MESES.map((m,i)=>{
+        const gen=Math.round(kwpRef*c.irrad[i]*30*PR);
+        const maxV=Math.max(consumo,...c.irrad.map(v=>kwpRef*v*30*PR));
+        const hg=Math.round((gen/maxV)*65),hc=Math.round((consumo/maxV)*65);
+        const surplus=gen>=consumo;
+        return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;">
+          <div style="width:50%;height:${hg}px;background:${surplus?'var(--green)':'var(--blue)'};border-radius:2px 2px 0 0;"></div>
+          <div style="width:80%;height:1px;background:rgba(255,77,109,0.5);"></div>
+        </div>`;
+      }).join('')}
+    </div>
+    <div style="display:flex;gap:3px;">${MESES.map(m=>`<div style="flex:1;text-align:center;font-size:0.45rem;color:var(--muted)">${m}</div>`).join('')}</div>
+    <div style="display:flex;gap:1rem;margin-top:0.5rem;font-size:0.65rem;">
+      <span style="color:var(--green)">■ Excedente</span>
+      <span style="color:var(--blue)">■ Déficit</span>
+      <span style="color:rgba(255,77,109,0.6)">— Consumo</span>
+    </div>`;
 }
 
-// ─── INIT ────────────────────────────────────────────────────
+// ─── AI ANALYZER ─────────────────────────────────────────────────────────────
+function dov(e,n){e.preventDefault();document.getElementById('uz'+n).classList.add('drag-over');}
+function dlv(n){document.getElementById('uz'+n).classList.remove('drag-over');}
+function ddr(e,n){e.preventDefault();dlv(n);const f=e.dataTransfer.files[0];if(f)procFile(f,n);}
+function fsel(e,n){const f=e.target.files[0];if(f)procFile(f,n);}
+function procFile(f,n){
+  aiFiles[n]=f;
+  document.getElementById('fn'+n).textContent='✓ '+f.name;
+  document.getElementById('uz'+n).classList.add('loaded');
+  const r=new FileReader();
+  r.onload=e=>{aiB64[n]=e.target.result.split(',')[1];checkAI();};
+  r.readAsDataURL(f);
+}
+function checkAI(){document.getElementById('btn-ai').disabled=!aiB64[1];}
+
+async function analyzeAI(){
+  document.getElementById('ai-error').style.display='none';
+  document.getElementById('btn-ai').disabled=true;
+  document.getElementById('ai-loading').classList.add('active');
+  document.getElementById('ai-loading-msg').style.display='block';
+  document.getElementById('ai-results').style.display='none';
+  const two=!!aiB64[2];
+  try{
+    const content=[{type:'text',text:buildAIPrompt(two)}];
+    content.push({type:'document',source:{type:'base64',media_type:'application/pdf',data:aiB64[1]}});
+    if(two) content.push({type:'document',source:{type:'base64',media_type:'application/pdf',data:aiB64[2]}});
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:3000,messages:[{role:'user',content}]})
+    });
+    const data=await res.json();
+    if(data.error) throw new Error(data.error.message);
+    const txt=data.content.map(c=>c.text||'').join('');
+    const clean=txt.replace(/```json|```/g,'').trim();
+    let result;
+    try{result=JSON.parse(clean);}catch(e){const m=clean.match(/\{[\s\S]*\}/);if(m)result=JSON.parse(m[0]);else throw new Error('No se pudo parsear JSON');}
+    renderAI(result,two);
+  }catch(e){
+    document.getElementById('ai-error').textContent='⚠ '+e.message;
+    document.getElementById('ai-error').style.display='block';
+  }finally{
+    document.getElementById('ai-loading').classList.remove('active');
+    document.getElementById('ai-loading-msg').style.display='none';
+    document.getElementById('btn-ai').disabled=false;
+  }
+}
+
+function buildAIPrompt(two){
+  return `Eres experto en sistemas fotovoltaicos y evaluación financiera en Latinoamérica. Analiza ${two?'estas DOS propuestas':'esta propuesta'} y devuelve SOLO JSON válido sin texto adicional:
+{"propuesta1":{"empresa":"","tipo_contrato":"EPC|PPA","descripcion_tipo":"","potencia_kwp":0,"num_paneles":0,"potencia_panel_wp":0,"area_m2":0,"generacion_anual_kwh":0,"costo_total_usd":0,"moneda":"","tarifa_kwh":0,"ahorro_anual":0,"payback_anos":0,"tir_pct":0,"duracion_contrato_anos":0,"incluye_mantenimiento":true,"fortalezas":[],"debilidades":[],"score_tecnico":0,"score_financiero":0,"score_condiciones":0}${two?',"propuesta2":{}':''},"escenario_optimo":{"num_paneles_recomendado":0,"potencia_kwp_recomendada":0,"razon":"","consideraciones":[]},"comparacion":{"ganador":"propuesta1|propuesta2|empate","criterio_principal":"","tabla":[{"parametro":"","p1":"","p2":"","mejor":"p1|p2|igual"}]},"recomendacion":{"titulo":"","propuesta_recomendada":"","razon_principal":"","argumentos":[],"advertencias":[],"proximos_pasos":[]},"diferencias_ppa_epc":{"mostrar":true,"explicacion_epc":"","explicacion_ppa":"","cuando_conviene_epc":"","cuando_conviene_ppa":""}}`;
+}
+
+function renderAI(data,two){
+  const el=document.getElementById('ai-results');
+  const p1=data.propuesta1,p2=data.propuesta2,rec=data.recomendacion,opt=data.escenario_optimo,comp=data.comparacion;
+  const fN=v=>v!=null&&v!==undefined?v:'—';
+  const tipoC=t=>t==='EPC'?'color:var(--blue);background:rgba(56,189,248,0.1);border-color:rgba(56,189,248,0.3)':'color:var(--sun);background:rgba(245,197,24,0.1);border-color:rgba(245,197,24,0.3)';
+  
+  let html=`<div class="sec-title">① Tipo de Contrato</div>
+  <div class="grid2" style="margin-bottom:1.2rem;">
+    <div class="card"><div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.6rem;"><span style="padding:0.2rem 0.6rem;border-radius:12px;font-size:0.65rem;font-weight:700;border:1px solid;${tipoC(p1.tipo_contrato)}">${p1.tipo_contrato||'—'}</span><strong style="font-size:0.85rem;">${p1.empresa||'Propuesta 1'}</strong></div><div style="font-size:0.75rem;color:var(--muted);line-height:1.6;">${p1.descripcion_tipo||''}</div></div>
+    ${two&&p2?`<div class="card"><div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.6rem;"><span style="padding:0.2rem 0.6rem;border-radius:12px;font-size:0.65rem;font-weight:700;border:1px solid;${tipoC(p2.tipo_contrato)}">${p2.tipo_contrato||'—'}</span><strong style="font-size:0.85rem;">${p2.empresa||'Propuesta 2'}</strong></div><div style="font-size:0.75rem;color:var(--muted);line-height:1.6;">${p2.descripcion_tipo||''}</div></div>`:'<div></div>'}
+  </div>`;
+
+  if(data.diferencias_ppa_epc?.mostrar){
+    const d=data.diferencias_ppa_epc;
+    html+=`<div class="card" style="margin-bottom:1.2rem;background:rgba(245,197,24,0.02);border-color:rgba(245,197,24,0.1);">
+      <div style="font-family:'Syne',sans-serif;font-size:0.65rem;font-weight:700;color:var(--sun);letter-spacing:0.15em;margin-bottom:0.7rem;">EPC vs PPA — ¿Cuál es la diferencia?</div>
+      <div class="grid2"><div><div style="font-size:0.65rem;color:var(--blue);font-weight:700;margin-bottom:0.35rem;">📋 EPC</div><div style="font-size:0.72rem;color:var(--muted);line-height:1.6;">${d.explicacion_epc}</div><div style="font-size:0.65rem;color:#3a4d60;margin-top:0.3rem;">✓ ${d.cuando_conviene_epc}</div></div>
+      <div><div style="font-size:0.65rem;color:var(--sun);font-weight:700;margin-bottom:0.35rem;">📑 PPA</div><div style="font-size:0.72rem;color:var(--muted);line-height:1.6;">${d.explicacion_ppa}</div><div style="font-size:0.65rem;color:#3a4d60;margin-top:0.3rem;">✓ ${d.cuando_conviene_ppa}</div></div></div>
+    </div>`;
+  }
+
+  if(two&&p2&&comp?.tabla){
+    html+=`<div class="sec-title">② Comparación</div>
+    <div class="compare-grid-table" style="margin-bottom:1.2rem;">
+      <div class="cg-hdr">Parámetro</div><div class="cg-hdr">${p1.empresa||'Propuesta 1'}</div><div class="cg-hdr">${p2.empresa||'Propuesta 2'}</div>
+      ${comp.tabla.map(r=>`<div class="cg-cell lbl">${r.parametro}</div><div class="cg-cell ${r.mejor==='p1'?'win':''}">${r.p1}${r.mejor==='p1'?'<span class="win-tag">✓</span>':''}</div><div class="cg-cell ${r.mejor==='p2'?'win':''}">${r.p2}${r.mejor==='p2'?'<span class="win-tag">✓</span>':''}</div>`).join('')}
+    </div>`;
+  }
+
+  html+=`<div class="sec-title">③ Métricas Clave</div>
+  <div class="grid4" style="margin-bottom:1.2rem;">
+    ${[{l:'Potencia',v:fN(p1.potencia_kwp)+' kWp',c:'var(--sun)'},{l:'Paneles',v:fN(p1.num_paneles),c:'var(--blue)'},{l:'Payback',v:p1.payback_anos?p1.payback_anos.toFixed(1)+' años':'—',c:'var(--green)'},{l:'TIR',v:p1.tir_pct?p1.tir_pct.toFixed(1)+'%':'—',c:'var(--purple)'}].map(m=>`<div class="metric"><div class="lbl">${m.l}</div><div class="val" style="color:${m.c}">${m.v}</div></div>`).join('')}
+  </div>`;
+
+  if(opt){
+    html+=`<div class="sec-title">④ Escenario Óptimo</div>
+    <div class="card" style="margin-bottom:1.2rem;background:rgba(56,189,248,0.03);border-color:rgba(56,189,248,0.12);">
+      <div style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;">
+        <div style="text-align:center;"><div style="font-family:'Syne',sans-serif;font-size:2rem;color:var(--blue);">${fN(opt.num_paneles_recomendado)}</div><div style="font-size:0.62rem;color:var(--muted);">paneles recomendados</div><div style="font-size:0.75rem;color:var(--sun)">${fN(opt.potencia_kwp_recomendada)} kWp</div></div>
+        <div style="flex:1;min-width:180px;"><div style="font-size:0.75rem;color:var(--text);line-height:1.7;margin-bottom:0.4rem;">${opt.razon||''}</div>${(opt.consideraciones||[]).map(c=>`<div style="font-size:0.68rem;color:#3a4d60;margin-bottom:0.2rem;">· ${c}</div>`).join('')}</div>
+      </div>
+    </div>`;
+  }
+
+  if(rec){
+    html+=`<div class="sec-title">⑤ Recomendación Final</div>
+    <div class="rec-box" style="margin-bottom:1.2rem;">
+      <div style="font-family:'Syne',sans-serif;font-size:0.6rem;font-weight:700;color:var(--green);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:0.5rem;">Análisis IA</div>
+      <div style="font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:#fff;margin-bottom:0.5rem;">${rec.titulo||''}</div>
+      <div style="font-size:0.78rem;color:var(--text);line-height:1.7;margin-bottom:0.6rem;">${rec.razon_principal||''}</div>
+      ${(rec.argumentos||[]).map(a=>`<div style="font-size:0.73rem;color:#8a9bb5;padding:0.2rem 0 0.2rem 0.7rem;border-left:2px solid rgba(0,229,160,0.25);margin-bottom:0.25rem;">${a}</div>`).join('')}
+      ${rec.advertencias?.length?`<div style="margin-top:0.7rem;padding:0.6rem;background:rgba(255,77,109,0.07);border-radius:6px;">${rec.advertencias.map(a=>`<div style="font-size:0.7rem;color:#ff8fa3;">⚠ ${a}</div>`).join('')}</div>`:''}
+      ${rec.proximos_pasos?.length?`<div style="margin-top:0.6rem;"><div style="font-size:0.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.3rem;">Próximos pasos</div>${rec.proximos_pasos.map((s,i)=>`<div style="font-size:0.7rem;color:#8a9bb5;margin-bottom:0.2rem;"><span style="color:var(--sun)">${i+1}.</span> ${s}</div>`).join('')}</div>`:''}
+    </div>`;
+  }
+
+  el.innerHTML=html;
+  el.style.display='block';
+  setTimeout(()=>el.scrollIntoView({behavior:'smooth'}),100);
+}
+
+// ─── GLOSARIO ─────────────────────────────────────────────────────────────────
+const GLOSARIO=[
+  {t:'HSP',f:'Horas Sol Pico',d:'Horas equivalentes con irradiancia de 1.000 W/m². Define la energía generada por día.',i:'☀️'},
+  {t:'kWp',f:'Kilovatios Pico',d:'Potencia máxima del sistema bajo condiciones STC (1000 W/m², 25°C).',i:'⚡'},
+  {t:'STC',f:'Standard Test Conditions',d:'Condiciones de laboratorio: 1.000 W/m², 25°C, AM 1.5. Base para comparar paneles.',i:'🔬'},
+  {t:'NOCT',f:'Nominal Operating Cell Temp',d:'Temperatura real de operación en campo (~45°C). A mayor T° menor potencia.',i:'🌡️'},
+  {t:'Inversor',f:'Inversor Solar',d:'Convierte DC de paneles en AC compatible con la red eléctrica.',i:'🔄'},
+  {t:'PR',f:'Performance Ratio',d:'Eficiencia global del sistema incluyendo pérdidas por T°, cables e inversor (0.75–0.85).',i:'📊'},
+  {t:'Net Metering',f:'Medición Neta',d:'Marco legal que permite inyectar excedentes a la red y descontarlos de la boleta.',i:'⚖️'},
+  {t:'LCOE',f:'Costo Nivelado de Energía',d:'Costo total dividido entre energía generada en vida útil. Permite comparar tecnologías.',i:'💰'},
+  {t:'Irradiancia',f:'Irradiancia Solar',d:'Potencia solar instantánea por m² (W/m²). Irradiación = energía acumulada (Wh/m²).',i:'🌤️'},
+  {t:'MPPT',f:'Max Power Point Tracking',d:'Algoritmo del inversor que maximiza la potencia extraída del panel en tiempo real.',i:'🎯'},
+  {t:'PPA',f:'Power Purchase Agreement',d:'Acuerdo donde el cliente compra la energía generada (no el sistema). Sin inversión inicial.',i:'📑'},
+  {t:'EPC',f:'Engineering Procurement Construction',d:'Modalidad de compra directa del sistema. El cliente es dueño desde el inicio.',i:'🏗️'},
+];
+let glosOpen=null;
+function renderGlosario(){
+  document.getElementById('glos-grid').innerHTML=GLOSARIO.map((g,i)=>`
+    <div class="glos-card ${glosOpen===i?'open':''}" onclick="toggleGlos(${i})">
+      <div style="display:flex;align-items:center;gap:0.6rem;">
+        <span style="font-size:1.2rem;">${g.i}</span>
+        <div><div style="color:var(--sun);font-weight:600;font-size:0.88rem;">${g.t}</div><div style="font-size:0.62rem;color:var(--muted);">${g.f}</div></div>
+        <span style="margin-left:auto;color:var(--muted);font-size:0.72rem;">${glosOpen===i?'▲':'▼'}</span>
+      </div>
+      ${glosOpen===i?`<div style="margin-top:0.6rem;padding-top:0.6rem;border-top:1px solid var(--border);font-size:0.75rem;color:#8a9bb5;line-height:1.65;">${g.d}</div>`:''}
+    </div>`).join('');
+}
+function toggleGlos(i){glosOpen=glosOpen===i?null:i;renderGlosario();}
+
+// ─── SESIONES ─────────────────────────────────────────────────────────────────
+const SESIONES=[
+  {n:1,t:'Fundamentos de la Energía Solar',c:'#ff8f00',p:['Radiación solar: global, directa y difusa','Irradiancia vs. irradiación','Movimiento solar: azimut, elevación','Ángulo óptimo para cada latitud']},
+  {n:2,t:'Tecnologías de Paneles FV',c:'#f57c00',p:['Efecto fotoeléctrico y celda solar','Mono, policristalino, bifacial','Curva I-V y punto MPP','STC vs. NOCT']},
+  {n:3,t:'Componentes del Sistema',c:'#e65100',p:['Inversores: string, micro, optimizadores','Baterías LFP y NMC','Estructuras y seguimiento solar','Cableado, fusibles y protecciones']},
+  {n:4,t:'Dimensionamiento Básico',c:'#ffb300',p:['Cálculo de consumo (kWh/mes)','HSP y estimación de generación','N° paneles y tamaño inversor','Relación DC/AC']},
+  {n:5,t:'Ingeniería de Detalle',c:'#fdd835',p:['Diseño de strings','Análisis de sombras y pérdidas','Performance Ratio (PR)','PVsyst, SAM, Helioscope']},
+  {n:6,t:'Marco Regulatorio',c:'#a5d6a7',p:['Ley 20.936 Chile / Ley 1715 Colombia','Net Billing y Net Metering','Conexión con distribuidora','Normas técnicas SEC / RETIE']},
+  {n:7,t:'Evaluación Económica',c:'#80cbc4',p:['CAPEX y OPEX','VAN, TIR, Payback, LCOE','Incentivos tributarios','Análisis de sensibilidad']},
+  {n:8,t:'Interpretación del Estudio',c:'#81d4fa',p:['Uso de esta herramienta','Limitaciones del estudio','Pasos hacia proyecto real','Lectura crítica de cotizaciones']},
+];
+function renderSesiones(){
+  document.getElementById('ses-list').innerHTML=SESIONES.map(s=>`
+    <div class="ses-card" style="border-left-color:${s.c}">
+      <div style="display:flex;align-items:center;gap:0.7rem;margin-bottom:0.5rem;">
+        <div style="width:24px;height:24px;border-radius:50%;background:${s.c}18;border:1px solid ${s.c}44;color:${s.c};display:flex;align-items:center;justify-content:center;font-size:0.68rem;flex-shrink:0;">${s.n}</div>
+        <div style="color:${s.c};font-size:0.82rem;font-weight:500;">Sesión ${s.n}: ${s.t}</div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.3rem;">${s.p.map(p=>`<span class="tag">· ${p}</span>`).join('')}</div>
+    </div>`).join('');
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+onCiudadChange();
+updateMaxPanels();
 renderGlosario();
 renderSesiones();
-onCiudadChange();
+window.addEventListener('resize',()=>{if(document.getElementById('tab-paneles').style.display!=='none')drawLayout();});
 </script>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRPM-dWslynLx1EuUGE4UIIYAJ_bTOmtQ&libraries=drawing,geometry,places&callback=initMap" async defer></script>
-
 </body>
 </html>
