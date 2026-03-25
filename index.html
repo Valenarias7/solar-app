@@ -231,6 +231,7 @@ input:focus,select:focus{border-color:rgba(245,197,24,0.32);}
       <div>
         <label>Potencia de panel</label>
         <select id="map-panel-wp" onchange="onPanelChange()">
+          
           <option value="400|1.72|1.02">400 Wp — Estándar (1.72×1.02m)</option>
           <option value="450|1.76|1.04">450 Wp — Media (1.76×1.04m)</option>
           <option value="550|2.10|1.05" selected>550 Wp — Alta eficiencia ★ (2.10×1.05m)</option>
@@ -240,6 +241,31 @@ input:focus,select:focus{border-color:rgba(245,197,24,0.32);}
         <span class="hint" id="panel-dim-hint">2.10×1.05m · 2.2 m²/panel</span>
       </div>
     </div>
+       <div class="grid2" style="margin-top:0.75rem;">
+  <div>
+    <label>Orientación del panel</label>
+    <div style="display:flex;gap:0.4rem;">
+      <button class="btn-sm btn-active" id="pm-por" onclick="setPanelMount('portrait')"
+              style="flex:1;font-size:0.7rem;">Portrait</button>
+      <button class="btn-sm btn-outline" id="pm-lan" onclick="setPanelMount('landscape')"
+              style="flex:1;font-size:0.7rem;">Landscape</button>
+    </div>
+    <span class="hint">Cambia el acomodo para mejorar el “fit” en el techo</span>
+  </div>
+
+  <div>
+    <label>Rotación (azimut) <span id="rot-val" style="color:var(--sun)">Auto</span></label>
+    <input type="range" id="panel-rot" min="0" max="179" value="0"
+           oninput="onPanelRotInput(this.value)"
+           style="accent-color:var(--sun);width:100%;margin-top:0.3rem;">
+    <div style="display:flex;gap:0.4rem;margin-top:0.35rem;">
+      <button class="btn-sm btn-outline" onclick="setRotAuto()" style="flex:1;font-size:0.7rem;">Auto</button>
+      <button class="btn-sm btn-outline" onclick="setRotSnap(0)" style="flex:1;font-size:0.7rem;">0° (N)</button>
+      <button class="btn-sm btn-outline" onclick="setRotSnap(90)" style="flex:1;font-size:0.7rem;">90° (E)</button>
+    </div>
+    <span class="hint">Auto = alineado al eje principal del techo</span>
+  </div>
+</div>
   </div>
 
   <!-- PANEL OPTIONS (3 potencias) -->
@@ -446,6 +472,7 @@ input:focus,select:focus{border-color:rgba(245,197,24,0.32);}
      SCRIPTS
 ══════════════════════════════════════════════════════ -->
 <script>
+<script>
 // ─── CONSTANTS ───────────────────────────────────────────────────────────────
 const CIUDADES={
   "Arica":       {hsp:7.5,lat:-18.5,lng:-70.3,temp:[27,27,26,25,22,20,19,20,21,23,25,26],irrad:[8.2,7.8,7.0,6.2,5.5,5.0,5.2,5.8,6.5,7.5,8.0,8.3],region:"Arica y Parinacota"},
@@ -465,6 +492,7 @@ const CIUDADES={
   "Bogotá":      {hsp:4.5,lat:4.7,lng:-74.1,temp:[14,15,15,15,15,14,13,14,14,14,14,14],irrad:[4.8,4.9,4.7,4.3,4.0,4.2,4.5,4.7,4.4,4.1,4.0,4.6],region:"Cundinamarca, Colombia"},
   "Lima":        {hsp:5.2,lat:-12.1,lng:-77.0,temp:[27,28,27,25,22,19,18,18,19,20,23,25],irrad:[5.5,5.2,4.8,4.3,3.9,3.7,4.0,4.5,4.9,5.3,5.5,5.6],region:"Lima, Perú"},
 };
+
 const PANELS_DATA=[
   {wp:400,w:1.72,h:1.02,label:"400 Wp",desc:"Estándar residencial",col:"#38bdf8"},
   {wp:450,w:1.76,h:1.04,label:"450 Wp",desc:"Eficiencia media",col:"#34d399"},
@@ -472,6 +500,7 @@ const PANELS_DATA=[
   {wp:600,w:2.20,h:1.09,label:"600 Wp",desc:"Premium",col:"#c084fc"},
   {wp:670,w:2.38,h:1.13,label:"670 Wp",desc:"Bifacial premium",col:"#fb923c"},
 ];
+
 const MESES=["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
 const TARIFA=145,USD_CLP=950,PR=0.78,DEG=0.005,CO2F=0.29,PWP=0.25,FINST=1.45;
 
@@ -484,15 +513,1071 @@ let aiB64={1:null,2:null};
 let calcModo='p';
 let selectedPanelWp=550;
 
+// Layout/orientación (sin UI: todo auto)
+let roofAxisDeg = 0;        // eje principal del techo (0..180) desde Norte
+let panelRotDeg = 0;        // rotación usada (0..180) desde Norte (auto = roofAxisDeg)
+let panelMountResolved = 'portrait'; // portrait|landscape (auto por mejor fit)
+
+let lastLayout = null;           // cache layout
+let lastMonthlyShadePct = null;  // cache sombreado mensual (12)
+
+// ─── UTILS ───────────────────────────────────────────────────────────────────
+function setChip(id,txt,active){
+  const el=document.getElementById(id);
+  if(!el) return;
+  el.textContent=txt;
+  el.classList.toggle('active',active);
+}
+function metersPerLngAtLat(lat){ return 111320 * Math.cos(lat*Math.PI/180); }
+function toLocalXY(latlng, center){
+  // x: Este (m), y: Norte (m)
+  const mx = metersPerLngAtLat(center.lat);
+  const my = 111320;
+  return { x: (latlng.lng() - center.lng) * mx, y: (latlng.lat() - center.lat) * my };
+}
+function toLatLngFromLocal(x, y, center){
+  const mx = metersPerLngAtLat(center.lat);
+  const my = 111320;
+  return new google.maps.LatLng(center.lat + (y/my), center.lng + (x/mx));
+}
+// azimut (0=N,90=E) -> rotación en plano local respecto a x=Este
+function azToLocalRotRad(azDeg){ return (90 - azDeg) * Math.PI/180; }
+
+function computeRoofAxisDegFromPolygon(path){
+  // PCA simple en coords locales para eje principal (0..180 azimut desde Norte)
+  if(!polyCenter || path.getLength() < 3) return 0;
+  const pts=[];
+  for(let i=0;i<path.getLength();i++) pts.push(toLocalXY(path.getAt(i), polyCenter));
+  const n=pts.length;
+  const mx=pts.reduce((s,p)=>s+p.x,0)/n;
+  const my=pts.reduce((s,p)=>s+p.y,0)/n;
+
+  let sxx=0, syy=0, sxy=0;
+  for(const p of pts){
+    const dx=p.x-mx, dy=p.y-my;
+    sxx+=dx*dx; syy+=dy*dy; sxy+=dx*dy;
+  }
+  const theta = 0.5*Math.atan2(2*sxy, (sxx - syy)); // respecto a x (Este)
+  const vx=Math.cos(theta), vy=Math.sin(theta); // vector principal
+  let az = Math.atan2(vx, vy)*180/Math.PI; // 0=N,90=E
+  az = (az+360)%360;
+  if(az>180) az-=180;
+  return az;
+}
+
+function angleFactor(angle,lat){
+  const opt=Math.max(10,Math.abs(lat)-10);
+  return Math.max(0.82,1-(Math.abs(angle-opt)/15)*0.05);
+}
+
 // ─── TABS ─────────────────────────────────────────────────────────────────────
 function showTab(id){
   const tabs=['mapa','calc','clima','analizador','glosario','sesiones'];
-  tabs.forEach(t=>{document.getElementById('tab-'+t).style.display=t===id?'':'none';});
+  tabs.forEach(t=>{
+    const el=document.getElementById('tab-'+t);
+    if(el) el.style.display = (t===id?'':'none');
+  });
   document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',tabs[i]===id));
   if(id==='clima')renderClima();
-  if(id==='mapa'&&polygon)setTimeout(drawLayout,100);
+  if(id==='mapa' && polygon && polyConfirmed){
+    // si ya hay layout visible, lo redibuja en resize/refresh de tab
+    setTimeout(()=>{
+      if(document.getElementById('layout-section')?.style.display !== 'none') drawLayoutCanvas();
+      if(document.getElementById('shadow-section')?.style.display !== 'none') updateShadow();
+    },120);
+  }
 }
 
+// ─── GOOGLE MAPS INIT ─────────────────────────────────────────────────────────
+function initMap(){
+  const c=CIUDADES['Santiago'];
+  map=new google.maps.Map(document.getElementById('map'),{
+    center:{lat:c.lat,lng:c.lng},zoom:18,
+    mapTypeId:'satellite',tilt:0,
+    mapTypeControl:true,
+    mapTypeControlOptions:{style:google.maps.MapTypeControlStyle.DROPDOWN_MENU,mapTypeIds:['satellite','hybrid','roadmap']},
+  });
+
+  drawMgr=new google.maps.drawing.DrawingManager({
+    drawingMode:null,drawingControl:false,
+    polygonOptions:{fillColor:'#f5c518',fillOpacity:0.22,strokeColor:'#f5c518',strokeWeight:2,editable:true,draggable:true},
+  });
+  drawMgr.setMap(map);
+
+  google.maps.event.addListener(drawMgr,'polygoncomplete',p=>{
+    if(polygon)polygon.setMap(null);
+    polygon=p;drawMgr.setDrawingMode(null);
+    updatePolyData();
+
+    google.maps.event.addListener(p.getPath(),'set_at',updatePolyData);
+    google.maps.event.addListener(p.getPath(),'insert_at',updatePolyData);
+
+    const bc=document.getElementById('btn-clear');
+    const bcf=document.getElementById('btn-confirm');
+    if(bc) bc.style.display='';
+    if(bcf) bcf.style.display='';
+    setChip('chip-mode','✓ Polígono dibujado',true);
+  });
+
+  acService=new google.maps.places.AutocompleteService();
+  geocoder=new google.maps.Geocoder();
+}
+
+// ─── ADDRESS ──────────────────────────────────────────────────────────────────
+let acTimer;
+function onAddrInput(){
+  clearTimeout(acTimer);
+  const v=document.getElementById('addr-input')?.value || '';
+  const dd=document.getElementById('autocomplete-dropdown');
+  if(!dd) return;
+
+  if(v.length<3){dd.style.display='none';return;}
+  acTimer=setTimeout(()=>{
+    acService.getPlacePredictions(
+      {input:v+', Chile',componentRestrictions:{country:'cl'}},
+      (preds,st)=>{
+        if(st!==google.maps.places.PlacesServiceStatus.OK||!preds){dd.style.display='none';return;}
+        dd.innerHTML = preds.slice(0,5).map(p=>{
+          const safeDesc = (p.description||'').replace(/'/g,"\\'");
+          return `<div class="ac-item" onclick="selectPlace('${p.place_id}','${safeDesc}')">${p.description}</div>`;
+        }).join('');
+        dd.style.display='';
+      }
+    );
+  },280);
+}
+
+function searchAddr(){
+  const q=document.getElementById('addr-input')?.value || '';
+  if(!q)return;
+  const dd=document.getElementById('autocomplete-dropdown');
+  if(dd) dd.style.display='none';
+  geocoder.geocode({address:q},(res,st)=>{
+    if(st==='OK'&&res[0]){goToLocation(res[0].geometry.location);}
+  });
+}
+function selectPlace(pid,desc){
+  const ai=document.getElementById('addr-input');
+  if(ai) ai.value=desc;
+  const dd=document.getElementById('autocomplete-dropdown');
+  if(dd) dd.style.display='none';
+  geocoder.geocode({placeId:pid},(res,st)=>{
+    if(st==='OK'&&res[0])goToLocation(res[0].geometry.location);
+  });
+}
+function goToLocation(loc){
+  map.setCenter(loc);map.setZoom(19);map.setMapTypeId('satellite');
+  detectCity(loc.lat(),loc.lng());
+}
+function detectCity(lat,lng){
+  let near='Santiago',minD=Infinity;
+  Object.entries(CIUDADES).forEach(([n,d])=>{
+    const dist=Math.hypot(lat-d.lat,lng-d.lng);
+    if(dist<minD){minD=dist;near=n;}
+  });
+  const sel=document.getElementById('map-ciudad');
+  if(sel && [...sel.options].some(o=>o.value===near)) sel.value=near;
+  onMapCiudadChange();
+}
+
+// ─── POLYGON ──────────────────────────────────────────────────────────────────
+function startDraw(){
+  map.setMapTypeId('satellite');
+  drawMgr.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
+  setChip('chip-mode','Dibujando… doble clic para cerrar',true);
+}
+
+function clearPoly(){
+  if(polygon){polygon.setMap(null);polygon=null;}
+  polyArea=0;polyAngle=0;polyConfirmed=false;polyBounds=null;polyCenter=null;
+  roofAxisDeg=0; panelRotDeg=0; panelMountResolved='portrait';
+  lastLayout=null; lastMonthlyShadePct=null;
+
+  ['btn-clear','btn-confirm','btn-layout','btn-shadows'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.style.display='none';
+  });
+  ['chip-area','chip-orient','chip-panels'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.style.display='none';
+  });
+
+  setChip('chip-mode','Vista satelital',false);
+
+  const angleBox=document.getElementById('angle-box');
+  if(angleBox) angleBox.style.display='none';
+
+  const pos=document.getElementById('panel-options-section');
+  if(pos) pos.style.display='none';
+
+  const ls=document.getElementById('layout-section');
+  if(ls) ls.style.display='none';
+
+  const ss=document.getElementById('shadow-section');
+  if(ss) ss.style.display='none';
+
+  const mr=document.getElementById('map-results');
+  if(mr) mr.style.display='none';
+
+  // limpia overlays de paneles
+  panelOverlays.forEach(o=>o.setMap(null));
+  panelOverlays=[];
+}
+
+function confirmPoly(){
+  polyConfirmed=true;
+  const bc=document.getElementById('btn-confirm');
+  const bl=document.getElementById('btn-layout');
+  const bs=document.getElementById('btn-shadows');
+  if(bc) bc.style.display='none';
+  if(bl) bl.style.display='';
+  if(bs) bs.style.display='';
+  setChip('chip-mode','✓ Techo confirmado',true);
+
+  renderPanelOptions3();
+  const pos=document.getElementById('panel-options-section');
+  if(pos) pos.style.display='';
+
+  // Pre-cache sombras mensuales (para cálculo de generación)
+  const ciudad=CIUDADES[document.getElementById('map-ciudad').value];
+  const lat = (polyCenter?.lat ?? ciudad.lat);
+  lastMonthlyShadePct = computeMonthlyFreeAreaPct(lat);
+
+  // Pre-cache layout
+  lastLayout = computePanelLayoutAuto();
+
+  runMapCalc();
+}
+
+function updatePolyData(){
+  if(!polygon)return;
+  const path=polygon.getPath();
+  const coords=[];
+  for(let i=0;i<path.getLength();i++) coords.push(path.getAt(i));
+
+  polyArea=Math.round(google.maps.geometry.spherical.computeArea(path));
+  polyCenter={
+    lat:coords.reduce((s,c)=>s+c.lat(),0)/coords.length,
+    lng:coords.reduce((s,c)=>s+c.lng(),0)/coords.length
+  };
+  polyBounds=new google.maps.LatLngBounds();
+  coords.forEach(c=>polyBounds.extend(c));
+
+  // inclinación estimada (tu heurística original)
+  const lats=coords.map(c=>c.lat()), lngs=coords.map(c=>c.lng());
+  const dLat=Math.max(...lats)-Math.min(...lats);
+  const dLng=Math.max(...lngs)-Math.min(...lngs);
+  const ratio=Math.min(dLat,dLng)/Math.max(dLat,dLng+0.0001);
+  const lat=polyCenter.lat;
+  const optA=Math.max(10,Math.abs(lat)-10);
+  const elong=1-ratio;
+  polyAngle=Math.round(Math.min(45,Math.max(5,optA*0.4+optA*elong*0.6)));
+
+  const angleBox=document.getElementById('angle-box');
+  if(angleBox) angleBox.style.display='';
+
+  const ab=document.getElementById('angle-big');
+  if(ab) ab.textContent=polyAngle+'°';
+
+  const am=document.getElementById('angle-manual');
+  if(am) am.value=polyAngle;
+
+  // orientación cardinal (tu versión) + eje principal real (PCA)
+  const mainAngle=Math.atan2(dLng,dLat)*180/Math.PI;
+  const dirs=['N','NE','E','SE','S','SO','O','NO'];
+  const orient=dirs[Math.round(((mainAngle+360)%360)/45)%8];
+
+  roofAxisDeg = computeRoofAxisDegFromPolygon(path);
+  panelRotDeg = roofAxisDeg; // AUTO (sin UI)
+
+  const ai=document.getElementById('angle-info');
+  if(ai){
+    ai.innerHTML=
+      `Lat: ${Math.abs(lat).toFixed(1)}°${lat<0?'S':'N'} · Orientación: <strong style="color:var(--sun)">${orient}</strong> · Eje techo: <strong style="color:var(--sun)">${roofAxisDeg.toFixed(0)}°</strong><br>
+       Ángulo óptimo: ~${optA}° · Área polígono: <strong style="color:var(--green)">${polyArea} m²</strong>`;
+  }
+
+  setChip('chip-area','Área: '+polyArea+' m²',false);
+  const ca=document.getElementById('chip-area'); if(ca) ca.style.display='';
+  setChip('chip-orient','Orient: '+orient,false);
+  const co=document.getElementById('chip-orient'); if(co) co.style.display='';
+
+  detectCity(lat,polyCenter.lng);
+
+  // invalida caches
+  lastLayout=null;
+  lastMonthlyShadePct=null;
+}
+
+function onManualAngle(){
+  const am=document.getElementById('angle-manual');
+  const v=parseInt(am?.value);
+  if(!isNaN(v)){
+    polyAngle=v;
+    const ab=document.getElementById('angle-big');
+    if(ab) ab.textContent=v+'°';
+    if(polyConfirmed) runMapCalc();
+  }
+}
+
+function onMapCiudadChange(){
+  const sel=document.getElementById('map-ciudad');
+  const c=CIUDADES[sel?.value];
+  const hint=document.getElementById('map-ciudad-hint');
+  if(c && hint) hint.textContent=`HSP: ${c.hsp} h/día · ${c.region}`;
+  lastMonthlyShadePct=null;
+  if(polyConfirmed) runMapCalc();
+}
+
+function onPanelChange(){
+  const v=(document.getElementById('map-panel-wp')?.value || '').split('|');
+  const hint=document.getElementById('panel-dim-hint');
+  if(v.length>=3 && hint){
+    hint.textContent=`${v[1]}×${v[2]}m · ${(parseFloat(v[1])*parseFloat(v[2])).toFixed(1)} m²/panel`;
+  }
+  lastLayout=null;
+  if(polyConfirmed){
+    renderPanelOptions3();
+    lastLayout = computePanelLayoutAuto();
+    generateLayout();
+    runMapCalc();
+  }
+}
+
+// ─── PANEL OPTIONS 3 ──────────────────────────────────────────────────────────
+function renderPanelOptions3(){
+  if(!polyArea)return;
+  const ciudad=CIUDADES[document.getElementById('map-ciudad').value];
+  const three=[PANELS_DATA[0],PANELS_DATA[2],PANELS_DATA[4]];
+  const grid=document.getElementById('panel-options-grid');
+  if(!grid) return;
+
+  grid.innerHTML=three.map(p=>{
+    const m2=p.w*p.h*1.1;
+    const maxP=Math.floor(polyArea/m2);
+    const kwp=maxP*p.wp/1000;
+    const genMes=kwp*ciudad.hsp*30*PR;
+    const costoUSD=maxP*p.wp*PWP*FINST;
+    return `<div class="panel-card ${p.rec?'selected':''}" onclick="selectPanelOpt(${p.wp},this)">
+      ${p.rec?'<div class="rec-badge">⭐ RECOMENDADO</div>':''}
+      <div style="text-align:center;margin-bottom:0.6rem;">
+        <div style="font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:${p.col}">${p.label}</div>
+        <div style="font-size:0.6rem;color:var(--muted)">${p.desc}</div>
+      </div>
+      <div class="pr"><span>Paneles en ${polyArea}m²</span><span style="color:${p.col};font-weight:600">${maxP}</span></div>
+      <div class="pr"><span>Potencia total</span><span style="color:${p.col};font-weight:600">${kwp.toFixed(1)} kWp</span></div>
+      <div class="pr"><span>Gen. mensual</span><span style="color:${p.col};font-weight:600">${Math.round(genMes).toLocaleString()} kWh</span></div>
+      <div class="pr" style="border:none"><span>Costo aprox.</span><span style="color:${p.col};font-weight:600">US$${Math.round(costoUSD).toLocaleString()}</span></div>
+    </div>`;
+  }).join('');
+}
+
+function selectPanelOpt(wp,card){
+  document.querySelectorAll('.panel-card').forEach(c=>c.classList.remove('selected'));
+  card.classList.add('selected');
+  selectedPanelWp=wp;
+  const sel=document.getElementById('map-panel-wp');
+  const opt=[...sel.options].find(o=>o.value.startsWith(wp+'|'));
+  if(opt) sel.value=opt.value;
+
+  lastLayout=null;
+  if(polyConfirmed){
+    lastLayout = computePanelLayoutAuto();
+    generateLayout();
+    runMapCalc();
+  }
+}
+
+// ─── SHADING MONTHLY (used in calc) ───────────────────────────────────────────
+function computeMonthlyFreeAreaPct(lat){
+  // devuelve 12 valores 0..100 (área libre de sombras)
+  return MESES.map((m,i)=>{
+    let totalPct=0, hours=0;
+    for(let h=7;h<=18;h++){
+      const sol=solarPosition(lat,i+1,h);
+      if(sol.altitude>5){
+        totalPct += (1-(Math.max(0,1-sol.altitude/60)*0.35)); // tu modelo actual
+        hours++;
+      }
+    }
+    return hours>0 ? Math.round(totalPct/hours*100) : 0;
+  });
+}
+
+// ─── MAP CALC (layout real + sombras mensuales + irrad mensual) ───────────────
+function runMapCalc(){
+  if(!polyArea) return;
+
+  const ciudad=CIUDADES[document.getElementById('map-ciudad').value];
+  const pv=document.getElementById('map-panel-wp').value.split('|');
+  const pw=parseInt(pv[0]);
+
+  // layout real
+  if(!lastLayout) lastLayout = computePanelLayoutAuto();
+  const panelCount = lastLayout.count || 0;
+
+  const angle = polyAngle || 15;
+  const af = angleFactor(angle,ciudad.lat);
+
+  const kwp = panelCount*pw/1000;
+  const lat = (polyCenter?.lat ?? ciudad.lat);
+
+  // sombras mensuales (cache)
+  if(!lastMonthlyShadePct) lastMonthlyShadePct = computeMonthlyFreeAreaPct(lat);
+
+  // generación mensual usando irradiación mensual (ciudad.irrad ≈ kWh/m²/día)
+  const monthlyKwh = ciudad.irrad.map((hspMonth,i)=>{
+    const shade = (lastMonthlyShadePct[i] ?? 100)/100;
+    return kwp*hspMonth*30*PR*af*shade;
+  });
+  const genAnual = monthlyKwh.reduce((a,b)=>a+b,0);
+  const genMes = genAnual/12;
+
+  const costoUSD = panelCount*pw*PWP*FINST;
+  const costoCLP = costoUSD*USD_CLP;
+  const ahorroMes = genMes*TARIFA;
+  const ahorroAnual = ahorroMes*12;
+  const roi = (ahorroAnual>0) ? (costoCLP/ahorroAnual) : 99;
+
+  let gen25=0,aho25=0;
+  for(let y=0;y<25;y++){
+    gen25 += genAnual*Math.pow(1-DEG,y);
+    aho25 += ahorroAnual*Math.pow(1.03,y);
+  }
+  const co2=gen25*CO2F/1000, arb=Math.round(co2*1000/21.7), ben=aho25-costoCLP;
+
+  const fCLP=v=>'$'+Math.round(v).toLocaleString('es-CL');
+
+  const metrics=document.getElementById('map-metrics');
+  if(metrics){
+    metrics.innerHTML=[
+      {l:'Sistema',v:kwp.toFixed(2)+' kWp',s:panelCount+' paneles de '+pw+'Wp',c:'var(--sun)'},
+      {l:'Gen. mensual',v:Math.round(genMes).toLocaleString()+' kWh',s:Math.round(genAnual).toLocaleString()+'/año',c:'var(--blue)'},
+      {l:'Ahorro mensual',v:fCLP(ahorroMes),s:fCLP(ahorroAnual)+'/año',c:'var(--green)'},
+      {l:'Payback',v:roi.toFixed(1)+' años',s:'Inv: US$'+Math.round(costoUSD).toLocaleString(),c:'var(--purple)'},
+    ].map(m=>`<div class="metric"><div class="lbl">${m.l}</div><div class="val" style="color:${m.c}">${m.v}</div><div class="sub">${m.s}</div></div>`).join('');
+  }
+
+  const roiFill=document.getElementById('map-roi-fill');
+  if(roiFill) roiFill.style.width=Math.min((roi/25)*100,100)+'%';
+  const roiMid=document.getElementById('map-roi-mid');
+  if(roiMid) roiMid.textContent='Retorno: año '+roi.toFixed(1);
+
+  const r=rows=>rows.map(([k,v])=>`<div style="display:flex;justify-content:space-between;padding:0.28rem 0;border-bottom:1px solid rgba(255,255,255,0.035);font-size:0.72rem;"><span style="color:var(--muted)">${k}</span><span style="color:#c8bda8;font-weight:500">${v}</span></div>`).join('');
+
+  const avgIrr=(ciudad.irrad.reduce((a,b)=>a+b,0)/12).toFixed(2);
+  const det1=document.getElementById('map-det1');
+  const det2=document.getElementById('map-det2');
+  if(det1){
+    det1.innerHTML='<div class="card">'+r([
+      ['Ciudad/Irrad',document.getElementById('map-ciudad').value+' · avg '+avgIrr+' kWh/m²/d'],
+      ['Ángulo',angle+'° (×'+(af*100).toFixed(0)+'%)'],
+      ['Área techo',polyArea+' m²'],
+      ['Paneles (layout)',panelCount+' (bloq: '+(lastLayout.blocked||0)+')'],
+      ['Rotación panel',panelRotDeg.toFixed(0)+'° · '+panelMountResolved],
+    ])+'</div>';
+  }
+  if(det2){
+    det2.innerHTML='<div class="card">'+r([
+      ['CO₂ evitado',co2.toFixed(1)+' ton (≈'+arb.toLocaleString()+' árboles)'],
+      ['Gen 25 años',Math.round(gen25/1000).toLocaleString()+' MWh'],
+      ['Beneficio neto',fCLP(ben)],
+      ['LCOE','$'+(costoCLP/Math.max(gen25,1)).toFixed(1)+'/kWh'],
+      ['Tarifa red','$'+TARIFA+'/kWh'],
+    ])+'</div>';
+  }
+
+  setChip('chip-panels',panelCount+' paneles · '+kwp.toFixed(1)+' kWp',true);
+  const cp=document.getElementById('chip-panels'); if(cp) cp.style.display='';
+
+  const mr=document.getElementById('map-results');
+  if(mr) mr.style.display='';
+}
+
+// ─── LAYOUT (ROTADO + DENTRO POLÍGONO) ───────────────────────────────────────
+function getPanelDimsByMount(mount){
+  const pv=document.getElementById('map-panel-wp').value.split('|');
+  const longSide=parseFloat(pv[1]); // ej 2.10
+  const shortSide=parseFloat(pv[2]); // ej 1.05
+  // w: eje horizontal del rect en frame del panel, h: eje vertical
+  if(mount==='portrait') return {w:shortSide, h:longSide};
+  return {w:longSide, h:shortSide};
+}
+
+function computePanelLayout(mount){
+  if(!polygon || !polyCenter) return {panels:[], count:0, blocked:0, mount};
+
+  const dims=getPanelDimsByMount(mount);
+  const GAP=0.15, MARGIN=0.30;
+
+  const rotRad = azToLocalRotRad(panelRotDeg);
+
+  // Frame uv: rota local por -rotRad => panel queda axis-aligned en uv
+  const cos=Math.cos(-rotRad), sin=Math.sin(-rotRad);
+  const toUV = (x,y)=>({ u: x*cos - y*sin, v: x*sin + y*cos });
+  const fromUV = (u,v)=>{
+    // inv: rot +rotRad
+    const c2=Math.cos(rotRad), s2=Math.sin(rotRad);
+    return { x: u*c2 - v*s2, y: u*s2 + v*c2 };
+  };
+
+  const path=polygon.getPath();
+
+  // bbox en uv del polígono
+  let minU=Infinity,maxU=-Infinity,minV=Infinity,maxV=-Infinity;
+  const ptsLocal=[];
+  for(let i=0;i<path.getLength();i++){
+    const pLocal = toLocalXY(path.getAt(i), polyCenter);
+    ptsLocal.push(pLocal);
+    const uv = toUV(pLocal.x, pLocal.y);
+    minU=Math.min(minU,uv.u); maxU=Math.max(maxU,uv.u);
+    minV=Math.min(minV,uv.v); maxV=Math.max(maxV,uv.v);
+  }
+
+  const roofW = maxU-minU;
+  const roofH = maxV-minV;
+
+  const stepU = dims.w + GAP;
+  const stepV = dims.h + GAP;
+
+  const cols = Math.floor((roofW - MARGIN*2)/stepU);
+  const rows = Math.floor((roofH - MARGIN*2)/stepV);
+  if(cols<=0 || rows<=0) return {panels:[], count:0, blocked:0, mount};
+
+  // bloqueo por sombra (simple, coherente con tu heatmap):
+  // usa coordenada "y Norte" local, normalizada (más cerca del borde “malo” => más sombra)
+  const lat = polyCenter.lat;
+  const criticalMonth = (lat<0)?6:12; // invierno aprox
+  const criticalHours = [9,15];
+  const shadeThreshold = 0.55;
+
+  // bbox local y para normalizar
+  let minY=Infinity,maxY=-Infinity;
+  for(const p of ptsLocal){ minY=Math.min(minY,p.y); maxY=Math.max(maxY,p.y); }
+
+  function shadeAtPoint01(yNorm01, altitude){
+    const altFactor=Math.max(0,1-altitude/60);
+    const distFromShadeEdge=(lat>0)?yNorm01:(1-yNorm01);
+    let shadow=altFactor*distFromShadeEdge*0.7;
+    shadow=Math.min(0.9,shadow);
+    return shadow;
+  }
+
+  const panels=[];
+  let blocked=0;
+
+  for(let r=0;r<rows;r++){
+    for(let c=0;c<cols;c++){
+      const centerU = minU + MARGIN + c*stepU + dims.w/2;
+      const centerV = minV + MARGIN + r*stepV + dims.h/2;
+
+      // 4 esquinas en uv
+      const hw=dims.w/2, hh=dims.h/2;
+      const cornersUV=[
+        {u:centerU-hw, v:centerV-hh},
+        {u:centerU+hw, v:centerV-hh},
+        {u:centerU+hw, v:centerV+hh},
+        {u:centerU-hw, v:centerV+hh},
+      ];
+
+      // convertir esquinas a local -> latlng y check inside polygon real
+      let inside=true;
+      let cornerLocalForY=null;
+
+      for(const q of cornersUV){
+        const loc = fromUV(q.u,q.v);
+        cornerLocalForY ??= loc;
+        const ll = toLatLngFromLocal(loc.x, loc.y, polyCenter);
+        if(!google.maps.geometry.poly.containsLocation(ll, polygon)){
+          inside=false; break;
+        }
+      }
+      if(!inside) continue;
+
+      // bloqueo sombra (usa y local del centro)
+      const centerLocal = fromUV(centerU, centerV);
+      const yNorm = (centerLocal.y - minY)/(maxY-minY+1e-9);
+      let worst=0;
+      for(const h of criticalHours){
+        const sol=solarPosition(lat,criticalMonth,h);
+        worst = Math.max(worst, sol.altitude>5 ? shadeAtPoint01(yNorm, sol.altitude) : 0.95);
+      }
+      if(worst>=shadeThreshold){ blocked++; continue; }
+
+      panels.push({centerU, centerV, mount, rotRad, dims});
+    }
+  }
+
+  return {panels, count:panels.length, blocked, mount, cols, rows, minU,maxU,minV,maxV, roofW, roofH};
+}
+
+function computePanelLayoutAuto(){
+  // elige portrait vs landscape para maximizar paneles
+  const a=computePanelLayout('portrait');
+  const b=computePanelLayout('landscape');
+  const best = (b.count > a.count) ? b : a;
+  panelMountResolved = best.mount;
+  return best;
+}
+
+let panelOverlays=[];
+function generateLayout(){
+  if(!polygon||!polyArea)return;
+
+  lastLayout = computePanelLayoutAuto();
+  drawPanelsOnMap();
+  drawLayoutCanvas();
+
+  const ls=document.getElementById('layout-section');
+  if(ls) ls.style.display='';
+  setTimeout(()=>ls?.scrollIntoView({behavior:'smooth'}),100);
+}
+
+function drawPanelsOnMap(){
+  panelOverlays.forEach(o=>o.setMap(null));
+  panelOverlays=[];
+
+  if(!lastLayout) lastLayout = computePanelLayoutAuto();
+  if(!polyCenter) return;
+
+  const rotRad = lastLayout.rotRad;
+  const dims = lastLayout.panels[0]?.dims || getPanelDimsByMount(panelMountResolved);
+  const GAP=0; // ya incorporado en centros
+
+  // funciones uv->local para pintar polígonos rotados
+  const cos=Math.cos(-rotRad), sin=Math.sin(-rotRad);
+  const fromUV=(u,v)=>{
+    const c2=Math.cos(rotRad), s2=Math.sin(rotRad);
+    return { x: u*c2 - v*s2, y: u*s2 + v*c2 };
+  };
+
+  for(const p of lastLayout.panels){
+    const {centerU:centerU, centerV:centerV} = p;
+    const hw=p.dims.w/2, hh=p.dims.h/2;
+    const cornersUV=[
+      {u:centerU-hw, v:centerV-hh},
+      {u:centerU+hw, v:centerV-hh},
+      {u:centerU+hw, v:centerV+hh},
+      {u:centerU-hw, v:centerV+hh},
+    ].map(q=>{
+      const loc=fromUV(q.u,q.v);
+      return toLatLngFromLocal(loc.x,loc.y,polyCenter);
+    });
+
+    const ov=new google.maps.Polygon({
+      paths: cornersUV,
+      fillColor:'#38bdf8',fillOpacity:0.30,
+      strokeColor:'#38bdf8',strokeOpacity:0.75,
+      strokeWeight:0.7,
+      clickable:false,
+      map
+    });
+    panelOverlays.push(ov);
+  }
+}
+
+function drawLayoutCanvas(){
+  const canvas=document.getElementById('layout-canvas');
+  if(!canvas || !polygon || !polyCenter) return;
+  const ctx=canvas.getContext('2d');
+
+  if(!lastLayout) lastLayout = computePanelLayoutAuto();
+
+  const cw=canvas.offsetWidth||900, ch=340;
+  canvas.width=cw; canvas.height=ch;
+  ctx.clearRect(0,0,cw,ch);
+
+  // bbox local del polígono (para escalar)
+  const pathPoly=polygon.getPath();
+  let minX=Infinity,maxX=-Infinity,minY=Infinity,maxY=-Infinity;
+  for(let i=0;i<pathPoly.getLength();i++){
+    const p=toLocalXY(pathPoly.getAt(i),polyCenter);
+    minX=Math.min(minX,p.x); maxX=Math.max(maxX,p.x);
+    minY=Math.min(minY,p.y); maxY=Math.max(maxY,p.y);
+  }
+  const roofW=maxX-minX, roofH=maxY-minY;
+  const scale=Math.min((cw-40)/roofW,(ch-40)/roofH)*0.9;
+  const offX=(cw-roofW*scale)/2, offY=(ch-roofH*scale)/2;
+
+  // techo real
+  ctx.fillStyle='rgba(255,255,255,0.04)';
+  ctx.strokeStyle='rgba(245,197,24,0.45)';
+  ctx.lineWidth=1.6;
+  ctx.beginPath();
+  for(let i=0;i<pathPoly.getLength();i++){
+    const p=toLocalXY(pathPoly.getAt(i),polyCenter);
+    const x=offX+(p.x-minX)*scale;
+    const y=offY+((maxY-p.y))*scale;
+    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  }
+  ctx.closePath(); ctx.fill(); ctx.stroke();
+
+  // texto
+  ctx.fillStyle='rgba(74,95,114,0.9)';
+  ctx.font='11px DM Sans';
+  ctx.textAlign='center';
+  ctx.fillText(`Área: ${polyArea} m² · Rot: ${panelRotDeg.toFixed(0)}° · ${panelMountResolved} · Bloq sombra: ${lastLayout.blocked||0}`, cw/2, offY-7);
+
+  // dibujar paneles (rotados) usando uv->local -> canvas
+  const rotRad = lastLayout.rotRad;
+
+  const fromUV=(u,v)=>{
+    const c2=Math.cos(rotRad), s2=Math.sin(rotRad);
+    return { x: u*c2 - v*s2, y: u*s2 + v*c2 };
+  };
+
+  let count=0;
+  for(const pp of lastLayout.panels){
+    const {centerU,centerV,dims}=pp;
+    const loc=fromUV(centerU,centerV);
+
+    const cx=offX+(loc.x-minX)*scale;
+    const cy=offY+((maxY-loc.y))*scale;
+
+    const w=dims.w*scale, h=dims.h*scale;
+    const ang = -(rotRad); // por inversión Y
+
+    ctx.save();
+    ctx.translate(cx,cy);
+    ctx.rotate(ang);
+
+    ctx.fillStyle='rgba(15,40,70,0.85)';
+    ctx.fillRect(-w/2,-h/2,w,h);
+
+    const grad=ctx.createLinearGradient(-w/2,-h/2,w/2,h/2);
+    grad.addColorStop(0,'rgba(56,189,248,0.25)');
+    grad.addColorStop(1,'rgba(56,189,248,0.08)');
+    ctx.fillStyle=grad;
+    ctx.fillRect(-w/2,-h/2,w,h);
+
+    ctx.strokeStyle='rgba(56,189,248,0.7)'; ctx.lineWidth=0.7;
+    ctx.strokeRect(-w/2,-h/2,w,h);
+
+    ctx.strokeStyle='rgba(56,189,248,0.18)'; ctx.lineWidth=0.3;
+    for(let g=1;g<6;g++){ctx.beginPath();ctx.moveTo(-w/2+w*g/6,-h/2);ctx.lineTo(-w/2+w*g/6,h/2);ctx.stroke();}
+    for(let g=1;g<4;g++){ctx.beginPath();ctx.moveTo(-w/2,-h/2+h*g/4);ctx.lineTo(w/2,-h/2+h*g/4);ctx.stroke();}
+
+    ctx.restore();
+    count++;
+  }
+
+  // north arrow
+  ctx.fillStyle='rgba(245,197,24,0.8)';
+  ctx.font='bold 11px DM Sans';
+  ctx.textAlign='center';
+  ctx.fillText('▲ N', offX+roofW*scale-15, offY+15);
+
+  const pv=document.getElementById('map-panel-wp').value.split('|');
+  const info=document.getElementById('layout-info');
+  if(info){
+    info.innerHTML=
+      `<strong style="color:var(--green)">${count} paneles</strong> · <strong style="color:var(--sun)">${(count*parseInt(pv[0])/1000).toFixed(2)} kWp</strong> ·
+       Distribución (grid): ${lastLayout.cols||0}×${lastLayout.rows||0} · Rotación: ${panelRotDeg.toFixed(0)}° · Montaje: ${panelMountResolved}`;
+  }
+}
+
+// ─── SHADOW HEATMAP ───────────────────────────────────────────────────────────
+function generateShadows(){
+  const ss=document.getElementById('shadow-section');
+  if(ss) ss.style.display='';
+  updateShadow();
+  renderMonthlyShading();
+  setTimeout(()=>ss?.scrollIntoView({behavior:'smooth'}),100);
+}
+
+function solarPosition(lat,month,hour){
+  const declin=23.45*Math.sin((360/365*(month*30-80))*Math.PI/180)*Math.PI/180;
+  const latR=lat*Math.PI/180;
+  const hourAngle=(hour-12)*15*Math.PI/180;
+  const sinAlt=Math.sin(latR)*Math.sin(declin)+Math.cos(latR)*Math.cos(declin)*Math.cos(hourAngle);
+  const altitude=Math.asin(Math.max(-0.1,sinAlt))*180/Math.PI;
+  const cosAz=(Math.sin(declin)-Math.sin(latR)*sinAlt)/(Math.cos(latR)*Math.cos(Math.asin(sinAlt))+0.0001);
+  let azimuth=Math.acos(Math.max(-1,Math.min(1,cosAz)))*180/Math.PI;
+  if(hour>12)azimuth=360-azimuth;
+  return{altitude,azimuth};
+}
+
+function updateShadow(){
+  const hs=document.getElementById('hour-slider');
+  const ms=document.getElementById('month-slider');
+  if(!hs || !ms) return;
+
+  const hour=parseInt(hs.value);
+  const month=parseInt(ms.value);
+  const hl=document.getElementById('hour-label');
+  const ml=document.getElementById('month-label');
+  if(hl) hl.textContent=hour+':00';
+  if(ml) ml.textContent=MESES[month-1];
+
+  const ciudad=CIUDADES[document.getElementById('map-ciudad').value];
+  const lat=polyCenter?polyCenter.lat:ciudad.lat;
+  const sol=solarPosition(lat,month,hour);
+  drawShadowHeatmap(sol.altitude,sol.azimuth,hour,month);
+}
+
+function drawShadowHeatmap(altitude,azimuth,hour,month){
+  const canvas=document.getElementById('shadow-canvas');
+  if(!canvas) return;
+  const ctx=canvas.getContext('2d');
+  const cw=canvas.offsetWidth||900, ch=320;
+  canvas.width=cw; canvas.height=ch;
+  ctx.clearRect(0,0,cw,ch);
+
+  if(!polyBounds || !polyCenter){
+    ctx.fillStyle='rgba(74,95,114,0.5)';
+    ctx.font='14px DM Sans';
+    ctx.textAlign='center';
+    ctx.fillText('Dibuja y confirma el polígono del techo primero',cw/2,ch/2);
+    return;
+  }
+
+  // Usamos bbox local (más consistente) y además CLIP a polígono real
+  const pathPoly=polygon.getPath();
+  let minX=Infinity,maxX=-Infinity,minY=Infinity,maxY=-Infinity;
+  for(let i=0;i<pathPoly.getLength();i++){
+    const p=toLocalXY(pathPoly.getAt(i),polyCenter);
+    minX=Math.min(minX,p.x); maxX=Math.max(maxX,p.x);
+    minY=Math.min(minY,p.y); maxY=Math.max(maxY,p.y);
+  }
+  const roofW=maxX-minX, roofH=maxY-minY;
+  const scale=Math.min((cw-40)/roofW,(ch-40)/roofH)*0.9;
+  const offX=(cw-roofW*scale)/2, offY=(ch-roofH*scale)/2;
+
+  const CELL=8;
+  const cols2=Math.ceil(roofW*scale/CELL), rows2=Math.ceil(roofH*scale/CELL);
+
+  const sunAbove=altitude>5;
+  const lat=polyCenter.lat;
+
+  // heatmap solo dentro del polígono (center point)
+  for(let r=0;r<rows2;r++){
+    for(let c=0;c<cols2;c++){
+      const x=offX+c*CELL, y=offY+r*CELL;
+
+      // punto centro del cell -> local -> latlng -> contains?
+      const localX = minX + ((c+0.5)*CELL)/scale;
+      const localY = maxY - ((r+0.5)*CELL)/scale;
+      const ll = toLatLngFromLocal(localX, localY, polyCenter);
+      if(!google.maps.geometry.poly.containsLocation(ll, polygon)) continue;
+
+      let shadow=0;
+      if(!sunAbove){shadow=0.95;}
+      else{
+        const yNorm = (localY - minY)/(maxY-minY+1e-9);
+        const altFactor=Math.max(0,1-altitude/60);
+        const distFromShadeEdge=(lat>0)?yNorm:(1-yNorm);
+        shadow=altFactor*distFromShadeEdge*0.7;
+        shadow=Math.min(0.9,shadow);
+      }
+
+      const r2=Math.round(shadow*255), g2=Math.round((1-shadow)*229), b2=Math.round((1-shadow)*160);
+      ctx.fillStyle=`rgba(${r2},${g2},${b2},0.75)`;
+      ctx.fillRect(x,y,CELL,CELL);
+    }
+  }
+
+  // contorno techo real
+  ctx.strokeStyle='rgba(245,197,24,0.55)';
+  ctx.lineWidth=1.5;
+  ctx.beginPath();
+  for(let i=0;i<pathPoly.getLength();i++){
+    const p=toLocalXY(pathPoly.getAt(i),polyCenter);
+    const x=offX+(p.x-minX)*scale;
+    const y=offY+((maxY-p.y))*scale;
+    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  }
+  ctx.closePath();
+  ctx.stroke();
+
+  // sol
+  const sunX=offX+roofW*scale*(0.5+Math.sin(azimuth*Math.PI/180)*0.35);
+  const sunY=offY+roofH*scale*(0.5-Math.cos(azimuth*Math.PI/180)*0.35);
+  if(sunAbove){
+    ctx.beginPath();
+    ctx.arc(Math.min(cw-20,Math.max(20,sunX)),Math.min(ch-20,Math.max(20,sunY)),10,0,Math.PI*2);
+    ctx.fillStyle='rgba(245,197,24,0.9)';ctx.fill();
+    ctx.font='bold 10px DM Sans';ctx.fillStyle='#060c14';ctx.textAlign='center';
+    ctx.fillText('☀',Math.min(cw-20,Math.max(20,sunX)),Math.min(ch-20,Math.max(20,sunY))+4);
+  }
+
+  const avgShadow=sunAbove?Math.round(Math.max(0,1-altitude/60)*35):95;
+  const pct=100-avgShadow;
+  const sp=document.getElementById('shadow-pct');
+  if(sp) sp.textContent=`Área útil estimada: ${pct}% · Altitud solar: ${altitude.toFixed(1)}° · Azimut: ${azimuth.toFixed(0)}°`;
+
+  ctx.fillStyle='rgba(6,12,20,0.75)';
+  ctx.fillRect(offX,offY+roofH*scale+2,roofW*scale,22);
+  ctx.fillStyle='rgba(245,197,24,0.8)';
+  ctx.font='10px DM Sans';
+  ctx.textAlign='center';
+  ctx.fillText(`${MESES[month-1]} ${hour}:00 · Alt: ${altitude.toFixed(1)}° · Az: ${azimuth.toFixed(0)}° · ${sunAbove?'Sol sobre el horizonte':'Noche / sin sol'}`,offX+roofW*scale/2,offY+roofH*scale+15);
+}
+
+function renderMonthlyShading(){
+  const ciudad=CIUDADES[document.getElementById('map-ciudad').value];
+  const lat=polyCenter?polyCenter.lat:ciudad.lat;
+
+  lastMonthlyShadePct = computeMonthlyFreeAreaPct(lat);
+  const months = MESES.map((m,i)=>({m,pct:lastMonthlyShadePct[i]}));
+
+  const maxP=Math.max(...months.map(m=>m.pct));
+  const el=document.getElementById('shadow-monthly');
+  if(!el) return;
+
+  el.innerHTML=`
+    <div class="sec-title" style="margin-bottom:0.5rem;">Área Libre de Sombras por Mes (%)</div>
+    <div class="card">
+      <div style="display:flex;align-items:flex-end;gap:3px;height:65px;margin-bottom:3px;">
+        ${months.map(({m,pct})=>{
+          const h=Math.round((pct/maxP)*60);
+          const col=pct>85?'var(--green)':pct>70?'var(--sun)':'var(--red)';
+          return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;">
+            <div style="font-size:0.5rem;color:${col}">${pct}</div>
+            <div style="width:100%;height:${h}px;background:${col};border-radius:2px 2px 0 0;"></div>
+          </div>`;
+        }).join('')}
+      </div>
+      <div style="display:flex;gap:3px;">${MESES.map(m=>`<div style="flex:1;text-align:center;font-size:0.46rem;color:var(--muted)">${m}</div>`).join('')}</div>
+    </div>`;
+
+  // si ya está confirmado, al recalcular sombreado mensual puedes recalcular prefactibilidad
+  if(polyConfirmed) runMapCalc();
+}
+
+let animStep=6;
+function toggleAnimation(){
+  const btn=document.getElementById('btn-anim');
+  if(animRunning){
+    clearInterval(animTimer);animRunning=false;
+    if(btn) btn.textContent='▶ Animar día';
+  }else{
+    animRunning=true;
+    if(btn) btn.textContent='⏹ Detener';
+    animStep=6;
+    animTimer=setInterval(()=>{
+      const hs=document.getElementById('hour-slider');
+      const month=parseInt(document.getElementById('month-slider').value);
+      if(!hs){clearInterval(animTimer);animRunning=false;return;}
+      hs.value=animStep;
+      const hl=document.getElementById('hour-label');
+      if(hl) hl.textContent=animStep+':00';
+      const ciudad=CIUDADES[document.getElementById('map-ciudad').value];
+      const lat=polyCenter?polyCenter.lat:ciudad.lat;
+      const sol=solarPosition(lat,month,animStep);
+      drawShadowHeatmap(sol.altitude,sol.azimuth,animStep,month);
+      animStep++;
+      if(animStep>20){
+        clearInterval(animTimer);animRunning=false;
+        if(btn) btn.textContent='▶ Animar día';
+      }
+    },400);
+  }
+}
+
+// ─── CALCULADORA ──────────────────────────────────────────────────────────────
+function setCalcModo(m){
+  calcModo=m;
+  ['p','b','c'].forEach(k=>{
+    const ci=document.getElementById('ci-'+k);
+    if(ci) ci.style.display=k===m?'':'none';
+    const btn=document.getElementById('cm-'+k);
+    if(btn) btn.className='btn-sm '+(k===m?'btn-active':'btn-outline');
+  });
+}
+function onCalcCiudad(){
+  const c=CIUDADES[document.getElementById('calc-ciudad').value];
+  const hint=document.getElementById('calc-ciudad-hint');
+  if(c && hint) hint.textContent=`HSP: ${c.hsp} h/día`;
+  const opt=Math.round(Math.abs(c.lat)-10);
+  const ah=document.getElementById('calc-ang-hint');
+  if(ah) ah.textContent=`Ángulo óptimo: ~${opt}°`;
+}
+function updateCalcMax(){
+  const area=parseFloat(document.getElementById('calc-area').value)||40;
+  const pv=document.getElementById('calc-panel').value.split('|');
+  const h=document.getElementById('calc-area-hint');
+  if(h) h.textContent=`Máx. ~${Math.floor(area/parseFloat(pv[1]))} paneles`;
+}
+function runCalc(){
+  const ciudad=CIUDADES[document.getElementById('calc-ciudad').value];
+  const area=parseFloat(document.getElementById('calc-area').value)||40;
+  const pv=document.getElementById('calc-panel').value.split('|');
+  const pw=parseInt(pv[0]),m2pp=parseFloat(pv[1]);
+  const maxP=Math.floor(area/m2pp);
+  const angle=parseInt(document.getElementById('calc-ang').value)||15;
+  const af=angleFactor(angle,ciudad.lat);
+
+  let numP;
+  if(calcModo==='p') numP=Math.min(parseInt(document.getElementById('calc-npan').value)||10,maxP);
+  else if(calcModo==='b'){
+    const b=parseFloat(document.getElementById('calc-budget').value)||5000;
+    numP=Math.min(Math.floor(b/(pw*PWP*FINST)),maxP);
+  }else{
+    const kwh=parseFloat(document.getElementById('calc-consumo').value)||300;
+    numP=Math.min(Math.ceil((kwh/30)/(ciudad.hsp*af*PR*0.001*pw)),maxP);
+  }
+  numP=Math.max(1,numP);
+
+  const kwp=numP*pw/1000;
+  const monthly=ciudad.irrad.map(v=>kwp*v*30*PR*af);
+  const genAnual=monthly.reduce((a,b)=>a+b,0);
+  const genMes=genAnual/12;
+
+  const costoUSD=numP*pw*PWP*FINST;
+  const costoCLP=costoUSD*USD_CLP;
+  const ahorroMes=genMes*TARIFA;
+  const ahorroAnual=ahorroMes*12;
+  const roi=costoCLP/ahorroAnual;
+
+  let gen25=0,aho25=0;
+  for(let y=0;y<25;y++){gen25+=genAnual*Math.pow(1-DEG,y);aho25+=ahorroAnual*Math.pow(1.03,y);}
+  const co2=(gen25*CO2F/1000).toFixed(1),ben=aho25-costoCLP;
+  const fCLP=v=>'$'+Math.round(v).toLocaleString('es-CL');
+  const M=(l,v,s,c)=>`<div class="metric"><div class="lbl">${l}</div><div class="val" style="color:${c}">${v}</div><div class="sub">${s}</div></div>`;
+
+  document.getElementById('calc-m1').innerHTML=
+    M('Sistema',kwp.toFixed(2)+' kWp',numP+' × '+pw+'Wp','var(--sun)')+
+    M('Gen. mensual',Math.round(genMes).toLocaleString()+' kWh',Math.round(genAnual).toLocaleString()+'/año','var(--blue)')+
+    M('Ahorro mensual',fCLP(ahorroMes),fCLP(ahorroAnual)+'/año','var(--green)')+
+    M('Factor ángulo',(af*100).toFixed(1)+'%',angle+'°','var(--purple)');
+
+  document.getElementById('calc-m2').innerHTML=
+    M('Payback',roi.toFixed(1)+' años','Inv: US$'+Math.round(costoUSD).toLocaleString(),'var(--purple)')+
+    M('CO₂ evitado',co2+' ton','25 años','#80cbc4')+
+    M('Beneficio neto 25a',fCLP(ben),'vs inversión','#ffcc80')+
+    M('LCOE','$'+(costoCLP/gen25).toFixed(1)+'/kWh','Tarifa: $'+TARIFA,'#f9a8d4');
+
+  document.getElementById('calc-roi').style.width=Math.min((roi/25)*100,100)+'%';
+  document.getElementById('calc-roi-mid').textContent='Retorno: año '+roi.toFixed(1);
+
+  const r=rows=>rows.map(([k,v])=>`<div style="display:flex;justify-content:space-between;padding:0.25rem 0;border-bottom:1px solid rgba(255,255,255,0.03);font-size:0.7rem;"><span style="color:var(--muted)">${k}</span><span style="color:#c8bda8;font-weight:500">${v}</span></div>`).join('');
+
+  document.getElementById('calc-d1').innerHTML='<div class="card">'+r([
+    ['Ciudad',document.getElementById('calc-ciudad').value],
+    ['Irrad prom.',(ciudad.irrad.reduce((a,b)=>a+b,0)/12).toFixed(2)+' kWh/m²/d'],
+    ['Ángulo',angle+'° (×'+(af*100).toFixed(0)+'%)'],
+    ['Área usada','~'+(numP*m2pp).toFixed(0)+' m²']
+  ])+'</div>';
+
+  document.getElementById('calc-d2').innerHTML='<div class="card">'+r([
+    ['Costo USD','US$'+Math.round(costoUSD).toLocaleString()],
+    ['Gen 25 años',Math.round(gen25/1000).toLocaleString()+' MWh'],
+    ['Ahorro acum. 25a',fCLP(aho25)],
+    ['PR sistema',(PR*100).toFixed(0)+'%']
+  ])+'</div>';
+
+  document.getElementById('calc-results').style.display='';
+  setTimeout(()=>document.getElementById('calc-results').scrollIntoView({behavior:'smooth'}),100);
+}
+
+// ─── CLIMA ────────────────────────────────────────────────────────────────────
+function renderClima(){
+  const nombre=document.getElementById('clima-ciudad').value;
+  const c=CIUDADES[nombre];if(!c)return;
+  const consumo=parseFloat(document.getElementById('clima-consumo').value)||300;
+  const maxI=Math.max(...c.irrad);
+  const avg=(c.irrad.reduce((a,b)=>a+b,0)/12).toFixed(2);
+  document.getElementById('
 // ─── GOOGLE MAPS INIT ─────────────────────────────────────────────────────────
 function initMap(){
   const c=CIUDADES['Santiago'];
